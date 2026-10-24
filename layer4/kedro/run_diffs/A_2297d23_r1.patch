@@ -1,0 +1,151 @@
+diff --git a/.circleci/continue_config.yml b/.circleci/continue_config.yml
+index 5446be9..0a2a2fc 100644
+--- a/.circleci/continue_config.yml
++++ b/.circleci/continue_config.yml
+@@ -52,7 +52,7 @@ commands:
+           name: Install venv for some pre-commit hooks
+           command: conda install -y virtualenv
+       - run:
+-          # pytables does not work properly with python 3.9 to handle our HDFDataSet
++          # pytables does not work properly with python 3.9 to handle our HDFDataset
+           # if pip-installed, so we install this dependency via conda
+           name: Install pytables
+           command: conda install -c conda-forge pytables -y
+diff --git a/.gitpod.Dockerfile b/.gitpod.Dockerfile
+index e03635f..75a51e3 100644
+--- a/.gitpod.Dockerfile
++++ b/.gitpod.Dockerfile
+@@ -4,7 +4,7 @@ FROM gitpod/workspace-full:2023-05-08-21-16-55
+ RUN pyenv install 3.8.15\
+     && pyenv global 3.8.15
+ 
+-# VideoDataSet
++# VideoDataset
+ RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1
+ RUN sudo apt-get install make
+ RUN npm install -g @mermaid-js/mermaid-cli
+diff --git a/features/environment.py b/features/environment.py
+index 96316cf..adaa8dd 100644
+--- a/features/environment.py
++++ b/features/environment.py
+@@ -118,6 +118,6 @@ def _install_project_requirements(context):
+         .splitlines()
+     )
+     install_reqs = [req for req in install_reqs if "{" not in req and "#" not in req]
+-    install_reqs.append("kedro-datasets[pandas.CSVDataSet]")
++    install_reqs.append("kedro-datasets[pandas.CSVDataset]")
+     call([context.pip, "install", *install_reqs], env=context.env)
+     return context
+diff --git a/features/steps/e2e_test_catalog.yml b/features/steps/e2e_test_catalog.yml
+index 49cfe54..146714c 100644
+--- a/features/steps/e2e_test_catalog.yml
++++ b/features/steps/e2e_test_catalog.yml
+@@ -1,20 +1,20 @@
+ A:
+-  type: pandas.CSVDataSet
++  type: pandas.CSVDataset
+   filepath: data/01_raw/input_1.csv
+   save_args:
+     index: False
+ C:
+-  type: pandas.CSVDataSet
++  type: pandas.CSVDataset
+   filepath: data/01_raw/input_2.csv
+   save_args:
+     index: False
+ E:
+-  type: pandas.CSVDataSet
++  type: pandas.CSVDataset
+   filepath: data/02_intermediate/output_1.csv
+   save_args:
+     index: False
+ F:
+-  type: pandas.CSVDataSet
++  type: pandas.CSVDataset
+   filepath: data/02_intermediate/output_2.csv
+   save_args:
+     index: False
+diff --git a/features/steps/test_starter/{{ cookiecutter.repo_name }}/conf/base/catalog.yml b/features/steps/test_starter/{{ cookiecutter.repo_name }}/conf/base/catalog.yml
+index c0c61a3..d34d27b 100644
+--- a/features/steps/test_starter/{{ cookiecutter.repo_name }}/conf/base/catalog.yml	
++++ b/features/steps/test_starter/{{ cookiecutter.repo_name }}/conf/base/catalog.yml	
+@@ -8,11 +8,11 @@
+ # An example data set definition can look as follows:
+ #
+ #bikes:
+-#  type: pandas.CSVDataSet
++#  type: pandas.CSVDataset
+ #  filepath: "data/01_raw/bikes.csv"
+ #
+ #weather:
+-#  type: spark.SparkDataSet
++#  type: spark.SparkDataset
+ #  filepath: s3a://your_bucket/data/01_raw/weather*
+ #  file_format: csv
+ #  credentials: dev_s3
+@@ -24,7 +24,7 @@
+ #    header: True
+ #
+ #scooters:
+-#  type: pandas.SQLTableDataSet
++#  type: pandas.SQLTableDataset
+ #  credentials: scooters_credentials
+ #  table_name: scooters
+ #  load_args:
+@@ -35,7 +35,7 @@
+ #    # if_exists: 'fail'
+ #    # if_exists: 'append'
+ #
+-# The Data Catalog supports being able to reference the same file using two different DataSet implementations
++# The Data Catalog supports being able to reference the same file using two different Dataset implementations
+ # (transcoding), templating and a way to reuse arguments that are frequently repeated. See more here:
+ # https://kedro.readthedocs.io/en/stable/data/data_catalog.html
+ #
+@@ -43,5 +43,5 @@
+ # template. Please feel free to remove it once you remove the example pipeline.
+ 
+ example_iris_data:
+-  type: pandas.CSVDataSet
++  type: pandas.CSVDataset
+   filepath: data/01_raw/iris.csv
+diff --git a/features/steps/test_starter/{{ cookiecutter.repo_name }}/requirements.txt b/features/steps/test_starter/{{ cookiecutter.repo_name }}/requirements.txt
+index 39d93ec..4d3bf56 100644
+--- a/features/steps/test_starter/{{ cookiecutter.repo_name }}/requirements.txt	
++++ b/features/steps/test_starter/{{ cookiecutter.repo_name }}/requirements.txt	
+@@ -5,7 +5,7 @@ jupyter~=1.0
+ jupyterlab_server>=2.11.1, <2.16.0
+ jupyterlab~=3.0, <3.6.0
+ kedro~={{ cookiecutter.kedro_version}}
+-kedro-datasets[pandas.CSVDataSet]
++kedro-datasets[pandas.CSVDataset]
+ kedro-telemetry~=0.2.0
+ pytest-cov~=3.0
+ pytest-mock>=1.7.1, <2.0
+diff --git a/kedro/config/templated_config.py b/kedro/config/templated_config.py
+index 615b75f..8a4e383 100644
+--- a/kedro/config/templated_config.py
++++ b/kedro/config/templated_config.py
+@@ -63,8 +63,8 @@ class TemplatedConfigLoader(AbstractConfigLoader):
+         environment: "dev"
+ 
+         datasets:
+-            csv: "pandas.CSVDataSet"
+-            spark: "spark.SparkDataSet"
++            csv: "pandas.CSVDataset"
++            spark: "spark.SparkDataset"
+ 
+         folders:
+             raw: "01_raw"
+diff --git a/kedro/io/partitioned_dataset.py b/kedro/io/partitioned_dataset.py
+index 4b3e9ec..032f35b 100644
+--- a/kedro/io/partitioned_dataset.py
++++ b/kedro/io/partitioned_dataset.py
+@@ -379,7 +379,7 @@ class IncrementalDataset(PartitionedDataset):
+         >>> dataset.load()
+     """
+ 
+-    DEFAULT_CHECKPOINT_TYPE = "kedro_datasets.text.TextDataSet"  # TODO: PartitionedDataset should move to kedro-datasets
++    DEFAULT_CHECKPOINT_TYPE = "kedro_datasets.text.TextDataset"  # TODO: PartitionedDataset should move to kedro-datasets
+     DEFAULT_CHECKPOINT_FILENAME = "CHECKPOINT"
+ 
+     def __init__(  # noqa: too-many-arguments

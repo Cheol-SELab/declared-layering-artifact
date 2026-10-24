@@ -1,0 +1,12 @@
+diff --git a/kopf/_core/actions/execution.py b/kopf/_core/actions/execution.py
+index 2344324..b58094b 100644
+--- a/kopf/_core/actions/execution.py
++++ b/kopf/_core/actions/execution.py
+@@ -99,7 +99,6 @@ class HandlerState:
+     but not participating in the current handling cycle.
+     """
+     started: datetime.datetime | None = None  # None means this information was lost.
+-    stopped: datetime.datetime | None = None  # None means it is still running (e.g. delayed).
+     delayed: datetime.datetime | None = None  # None means it is finished (succeeded/failed).
+     retries: int = 0
+     success: bool = False

@@ -1,0 +1,37 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2025-10-01     218     9   2  0.12  0.00   0   0  YES 2025-10-28,2025-10-28,2025-11-21
+2026-01-01     303    13   2  0.46  0.84   0   5  YES 2026-01-19,2026-01-27
+2026-04-01     251    15   4  0.44  0.81   0   5  YES 2026-06-12
+2026-07-01     242    15   4  0.43  0.80   0   5  -
+2026-10-01     240    15   4  0.45  0.85   0  10  -
+
+== details ==
+
+2025-10-01 (bd479cd)  top changed: [('glm', 127), ('decoding', 70), ('decomposition', 42)]
+   hidden: connectome ~ decoding  sup=24 conf=0.59
+   hidden: connectome ~ glm  sup=22 conf=0.54
+
+2026-01-01 (ad97638)  top changed: [('maskers', 118), ('plotting', 111), ('glm', 84)]
+   hidden: connectome ~ maskers  sup=11 conf=0.5
+   hidden: reporting ~ utils  sup=3 conf=0.75
+
+2026-04-01 (f9740f6)  top changed: [('maskers', 97), ('plotting', 93), ('glm', 71)]
+   hidden: connectome ~ maskers  sup=10 conf=0.53
+   hidden: mass_univariate ~ plotting  sup=5 conf=0.71
+   hidden: glm ~ utils  sup=4 conf=0.67
+   hidden: reporting ~ utils  sup=4 conf=0.67
+
+2026-07-01 (dd21c04)  top changed: [('plotting', 93), ('maskers', 88), ('glm', 82)]
+   hidden: connectome ~ glm  sup=7 conf=0.5
+   hidden: connectome ~ maskers  sup=7 conf=0.5
+   hidden: mass_univariate ~ plotting  sup=5 conf=0.62
+   hidden: glm ~ utils  sup=5 conf=0.56
+
+2026-10-01 (f6a928b)  top changed: [('plotting', 95), ('glm', 82), ('maskers', 77)]
+   hidden: decoding ~ glm  sup=17 conf=0.52
+   hidden: mass_univariate ~ plotting  sup=5 conf=0.5
+   hidden: decoding ~ decomposition  sup=8 conf=0.5
+   hidden: decomposition ~ glm  sup=9 conf=0.56
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=3 FP=2 FN=0 TN=0  precision=0.60 recall=1.00  base rate=0.60

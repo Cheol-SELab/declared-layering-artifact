@@ -1,0 +1,33 @@
+Provenance of the prediction-check ratings (study/a4/) and of the AI tools used in the study
+=========================================================================================
+
+Recorded after peer review from the session log of the Claude Code session in which the study was run
+(2026-10-05/06; the log itself is not part of this archive). Times are UTC.
+
+Prediction check (registered amendment A4)
+------------------------------------------
+Both raters were Claude Code sub-agents launched from that session at 2026-10-05 23:30. Each received only this
+instruction, with its own output file name, and no other context:
+
+  Follow the instructions in `.../study/a4/rater_prompt.md`. Write your output file to `.../study/a4/rater<k>.json`
+  (create it; do not overwrite an existing file). Use only the Read and Write tools.
+
+  rater1.json   sub-agent model alias "sonnet" (Claude Sonnet 5.5, the model of the Layer-4 agent, deviation D2)
+  rater2.json   sub-agent model alias "haiku"  (Claude Haiku 4.5)
+
+rater_prompt.md gives the four categories and the commit file; it does not state the prediction. Neither rater was
+therefore told the prediction. Amendment A4 described rater 1 as "the author pipeline", and correction E5
+(PREREG_AMENDMENTS_2026-10-06k.md, item 4) repeated that description; the log shows that rater 1 was a separate
+sub-agent with the same prompt as rater 2. Each rater was run once, with default sampling settings.
+
+rater_prompt_pre.md and publishing_commits_pre.json were prepared at 23:32 as a comparison set: the six commits that
+changed publishing code in a window of the same length (193 days) before the 2026-03-26 extraction. They were never
+rated. They are archived unrated and are not used in the manuscript.
+
+AI tools
+--------
+- Study session (analysis scripts, harness, records, registration text): Claude Code, model Claude Opus 5.5.
+- Layer-4 agent (re-layerings and follow-up runs): Claude Code sub-agent, Claude Sonnet 5.5 (deviation D2).
+- Prediction-check raters: as above.
+- Manuscript preparation and the post hoc analyses in posthoc/: Claude Code, model Claude Opus 5.5.
+Every number in the manuscript is produced by the released scripts and recorded in their stored outputs.

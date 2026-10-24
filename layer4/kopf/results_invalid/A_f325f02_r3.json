@@ -1,0 +1,75 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "f325f02",
+ "rep": "r3",
+ "commit": "f325f02",
+ "spec_files": [
+  "tests/handling/daemons/test_daemon_spawning.py",
+  "tests/handling/daemons/test_timer_triggering.py"
+ ],
+ "new_failures_candidates": [],
+ "new_failures_persistent": [],
+ "changed_code_files": 3,
+ "code_files": [
+  "kopf/_core/engines/daemons.py",
+  "kopf/_core/intents/handlers.py",
+  "kopf/on.py"
+ ],
+ "lines_changed": 3123,
+ "other_test_files_edited": [],
+ "units_own": 3,
+ "units_own_list": [
+  "kopf._core.engines",
+  "kopf._core.intents",
+  "kopf.on"
+ ],
+ "units_Aframe": 3,
+ "units_Aframe_list": [
+  "kopf._core.engines",
+  "kopf._core.intents",
+  "kopf.on"
+ ],
+ "touches_bottom_own": true,
+ "touches_bottom_Aframe": true,
+ "spec_intact": true,
+ "spec_results": {
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_is_spawned_at_least_once[namespaced]": "passed",
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_is_spawned_at_least_once[cluster]": "passed",
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_initial_delay_obeyed[namespaced]": "passed",
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_initial_delay_obeyed[cluster]": "passed",
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_initial_delay_callable_obeyed[namespaced]": "passed",
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_initial_delay_callable_obeyed[cluster]": "passed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_is_spawned_at_least_once[namespaced]": "passed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_is_spawned_at_least_once[cluster]": "passed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_initial_delay_obeyed[namespaced]": "passed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_initial_delay_obeyed[cluster]": "passed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_initial_delay_callable_obeyed[namespaced]": "passed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_initial_delay_callable_obeyed[cluster]": "passed"
+ },
+ "pre_spec": {
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_is_spawned_at_least_once[namespaced]": "passed",
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_is_spawned_at_least_once[cluster]": "passed",
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_initial_delay_obeyed[namespaced]": "passed",
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_initial_delay_obeyed[cluster]": "passed",
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_initial_delay_callable_obeyed[namespaced]": "failed",
+  "tests.handling.daemons.test_daemon_spawning::test_daemon_initial_delay_callable_obeyed[cluster]": "failed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_is_spawned_at_least_once[namespaced]": "passed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_is_spawned_at_least_once[cluster]": "passed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_initial_delay_obeyed[namespaced]": "passed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_initial_delay_obeyed[cluster]": "passed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_initial_delay_callable_obeyed[namespaced]": "failed",
+  "tests.handling.daemons.test_timer_triggering::test_timer_initial_delay_callable_obeyed[cluster]": "failed"
+ },
+ "lint_rc": 0,
+ "lint_broken": 0,
+ "lint_tail": "----\n\nThe root framework modules must be layered KEPT\nThe internal core must be layered KEPT\nThe internal cogs must be layered KEPT\nProgress storages must be persistence settings KEPT\nDiffbase storages must be persistence settings KEPT\nStorage types must be unaware of each other KEPT\nMost asyncio kits must be unaware of each other KEPT\nThe internals must be unaware of user-facing toolkits KEPT\nThe user-facing toolkits must be unaware of each other KEPT\n3rd-party clients must be explicitly allowed KEPT\n3rd-party clients must be secured by conditional imports KEPT\n\nContracts: 11 kept, 0 broken.\n",
+ "full_counts": {
+  "passed": 0,
+  "failed": 0,
+  "skipped": 0
+ },
+ "full_failed": [],
+ "full_rc": 15,
+ "evaluated": "2026-10-06T00:27:57"
+}

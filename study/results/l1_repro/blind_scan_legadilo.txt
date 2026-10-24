@@ -1,0 +1,39 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2024-04-01      56     4   0  0.28  0.95   0   0  YES 2024-05-09,2024-05-10
+2024-07-01     254     6   0  0.14  0.52   0   0  YES 2024-08-03,2024-08-10
+2024-10-01     300     6   0  0.15  0.58   0   0  -
+2025-01-01     336     6   0  0.15  0.56   0   0  -
+2025-04-01     308     6   0  0.15  0.57   0   0  -
+2025-07-01     159     6   0  0.24  0.97   0   1  -
+2025-10-01     143     6   0  0.22  0.88   0   0  YES 2025-12-04
+2026-01-01     139     5   0  0.27  0.63   0   0  -
+2026-04-01     184     5   0  0.29  0.65   0   6  -
+2026-07-01     147     5   0  0.26  0.58   0   6  -
+2026-10-01     125     5   0  0.29  0.64   0   6  -
+
+== details ==
+
+2024-04-01 (7123956)  top changed: [('feeds', 42), ('utils', 16), ('users', 9)]
+
+2024-07-01 (7e70076)  top changed: [('reading', 162), ('feeds', 131), ('utils', 43)]
+
+2024-10-01 (4631273)  top changed: [('reading', 178), ('feeds', 152), ('utils', 51)]
+
+2025-01-01 (1eedeeb)  top changed: [('reading', 210), ('feeds', 162), ('utils', 53)]
+
+2025-04-01 (5970fe4)  top changed: [('reading', 192), ('feeds', 140), ('utils', 49)]
+
+2025-07-01 (6746516)  top changed: [('reading', 87), ('feeds', 59), ('utils', 37)]
+
+2025-10-01 (94be0f9)  top changed: [('reading', 86), ('feeds', 56), ('utils', 36)]
+
+2026-01-01 (e3d695f)  top changed: [('reading', 97), ('feeds', 50), ('core', 38)]
+
+2026-04-01 (413c712)  top changed: [('reading', 124), ('feeds', 56), ('core', 48)]
+
+2026-07-01 (1eb6fb3)  top changed: [('reading', 100), ('feeds', 42), ('core', 30)]
+
+2026-10-01 (1ce0622)  top changed: [('reading', 87), ('feeds', 29), ('core', 26)]
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=0 FP=0 FN=3 TN=8  precision=0.00 recall=0.00  base rate=0.27

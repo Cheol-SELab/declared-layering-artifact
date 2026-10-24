@@ -1,0 +1,25 @@
+Pooled mixed model (A6): y ~ condition, random intercept per repository, variance component per task
+  units_own     C-A = +0.146 (SE 0.050, 95% CI +0.049..+0.243, p = 0.0032); runs = 96, tasks = 16
+  units_Aframe  C-A = -0.021 (SE 0.021, 95% CI -0.062..+0.020, p = 0.3172); runs = 96, tasks = 16
+
+Per-repository d_av on task means (units_own)
+  kopf: mean diff -0.033; d_av -0.03; d_z -0.32; tasks with nonzero diff 1/10
+  kedro: mean diff +0.444; d_av +0.26; d_z +0.89; tasks with nonzero diff 3/6
+
+Human-change replays (units_own; apply rc 0 = PR applied)
+  kopf 017dbe0: apply A=0 C=0  units A=1 C=1  compared
+  kopf 20de08c: apply A=0 C=0  units A=7 C=7  compared
+  kopf 51c078d: apply A=0 C=0  units A=2 C=2  compared
+  kopf 624c6d2: apply A=0 C=0  units A=1 C=1  compared
+  kopf 91f7ae0: apply A=0 C=0  units A=1 C=1  compared
+  kopf 956cd65: apply A=0 C=0  units A=2 C=2  compared
+  kopf a6403c4: apply A=0 C=0  units A=1 C=1  compared
+  kopf bad8649: apply A=0 C=0  units A=1 C=1  compared
+  kopf e2c7056: apply A=0 C=0  units A=4 C=4  compared
+  kopf f325f02: apply A=0 C=0  units A=3 C=3  compared
+  kedro 2297d23: apply A=0 C=1  units A=3 C=0  NOT COMPARED (PR did not apply)
+  kedro 2f526b6: apply A=0 C=0  units A=1 C=1  compared
+  kedro 3f2a226: apply A=0 C=0  units A=5 C=6  compared
+  kedro 60f676e: apply A=0 C=1  units A=1 C=0  NOT COMPARED (PR did not apply)
+  kedro 69a6fe1: apply A=0 C=0  units A=1 C=1  compared
+  kedro ab576bc: apply A=0 C=0  units A=1 C=1  compared

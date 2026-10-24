@@ -1,0 +1,71 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "956cd65",
+ "rep": "r2",
+ "commit": "956cd65",
+ "spec_files": [
+  "tests/posting/test_loggers_setting.py"
+ ],
+ "new_failures_candidates": [],
+ "new_failures_persistent": [],
+ "changed_code_files": 2,
+ "code_files": [
+  "kopf/_cogs/configs/configuration.py",
+  "kopf/_core/engines/posting.py"
+ ],
+ "lines_changed": 10,
+ "other_test_files_edited": [],
+ "units_own": 2,
+ "units_own_list": [
+  "kopf._cogs.configs.configuration",
+  "kopf._core.engines"
+ ],
+ "units_Aframe": 2,
+ "units_Aframe_list": [
+  "kopf._cogs.configs.configuration",
+  "kopf._core.engines"
+ ],
+ "touches_bottom_own": false,
+ "touches_bottom_Aframe": false,
+ "spec_intact": true,
+ "spec_results": {
+  "tests.posting.test_loggers_setting::test_loggers_setting_default_is_true": "passed",
+  "tests.posting.test_loggers_setting::test_loggers_setting_true_posts_loggers": "passed",
+  "tests.posting.test_loggers_setting::test_loggers_setting_false_skips_loggers": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-routine0]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-info]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-warn]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-exception]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-routine0]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-info]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-warn]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-exception]": "passed"
+ },
+ "pre_spec": {
+  "tests.posting.test_loggers_setting::test_loggers_setting_default_is_true": "failed",
+  "tests.posting.test_loggers_setting::test_loggers_setting_true_posts_loggers": "passed",
+  "tests.posting.test_loggers_setting::test_loggers_setting_false_skips_loggers": "failed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-routine0]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-info]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-warn]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-exception]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-routine0]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-info]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-warn]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-exception]": "passed"
+ },
+ "lint_rc": 0,
+ "lint_broken": 0,
+ "lint_tail": "----\n\nThe root framework modules must be layered KEPT\nThe internal core must be layered KEPT\nThe internal cogs must be layered KEPT\nProgress storages must be persistence settings KEPT\nDiffbase storages must be persistence settings KEPT\nStorage types must be unaware of each other KEPT\nMost asyncio kits must be unaware of each other KEPT\nThe internals must be unaware of user-facing toolkits KEPT\nThe user-facing toolkits must be unaware of each other KEPT\n3rd-party clients must be explicitly allowed KEPT\n3rd-party clients must be secured by conditional imports KEPT\n\nContracts: 11 kept, 0 broken.\n",
+ "full_counts": {
+  "passed": 7009,
+  "failed": 1,
+  "skipped": 0
+ },
+ "full_failed": [
+  "tests.posting.test_threadsafety::test_nonthreadsafe_indeed_fails"
+ ],
+ "full_rc": 1,
+ "evaluated": "2026-10-06T02:25:32"
+}

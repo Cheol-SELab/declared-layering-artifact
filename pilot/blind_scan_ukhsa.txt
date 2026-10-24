@@ -1,0 +1,58 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2024-01-01     792     3   0  0.25  1.06   0   0  -
+2024-04-01     735     3   0  0.21  1.05   0   0  YES 2024-04-22,2024-04-22,2024-05-02
+2024-07-01     366    24   0  1.00  1.00   6   0  -
+2024-10-01     316    24   0  1.00  1.00   6   0  -
+2025-01-01     270    25   1  1.00  1.00   7   0  -
+2025-04-01     223    27   1  1.00  1.00   9   0  -
+2025-07-01     268    27   1  1.00  1.00   9   0  -
+2025-10-01     345    28   0  1.00  1.00  10   0  -
+2026-01-01     309    28   0  1.00  1.00  10   0  -
+2026-04-01     279    28   0  1.00  1.00  10   0  -
+2026-07-01     181    29   0  1.00  1.00   9   0  -
+2026-10-01      76    29   3  1.00  1.00   8   0  -
+
+== details ==
+
+2024-01-01 (746e480)  top changed: [('api', 386), ('domain', 283), ('data', 219)]
+
+2024-04-01 (c618f68)  top changed: [('api', 378), ('domain', 250), ('data', 166)]
+
+2024-07-01 (11d3df6)  top changed: [('data', 88), ('api', 55), ('settings', 44)]
+   uncovered: ['serializers', 'settings', 'views', 'common', 'exports', 'models']
+
+2024-10-01 (c817537)  top changed: [('data', 82), ('charts', 48), ('serializers', 36)]
+   uncovered: ['serializers', 'settings', 'views', 'common', 'exports', 'models']
+
+2025-01-01 (4bd381a)  top changed: [('data', 63), ('charts', 56), ('serializers', 31)]
+   hidden: serializers ~ exports  sup=5 conf=0.62
+   uncovered: ['serializers', 'settings', 'views', 'audit', 'common', 'exports', 'models']
+
+2025-04-01 (7111d7d)  top changed: [('data', 59), ('charts', 50), ('models', 26)]
+   hidden: serializers ~ exports  sup=5 conf=0.62
+   uncovered: ['decorators', 'packages', 'serializers', 'settings', 'views', 'audit', 'common', 'exports', 'models']
+
+2025-07-01 (f7e31f9)  top changed: [('data', 77), ('charts', 43), ('models', 39)]
+   hidden: serializers ~ exports  sup=5 conf=0.62
+   uncovered: ['decorators', 'permissions', 'serializers', 'settings', 'views', 'audit', 'common', 'exports', 'models']
+
+2025-10-01 (bea6c5d)  top changed: [('data', 93), ('charts', 55), ('models', 44)]
+   uncovered: ['decorators', 'permissions', 'serializers', 'settings', 'views', 'audit', 'maps', 'common', 'exports', 'models']
+
+2026-01-01 (80c2fe5)  top changed: [('data', 92), ('charts', 47), ('models', 39)]
+   uncovered: ['decorators', 'permissions', 'serializers', 'settings', 'views', 'audit', 'maps', 'common', 'exports', 'models']
+
+2026-04-01 (1f48bf2)  top changed: [('data', 82), ('charts', 43), ('models', 41)]
+   uncovered: ['decorators', 'permissions', 'serializers', 'settings', 'views', 'audit', 'maps', 'common', 'exports', 'models']
+
+2026-07-01 (df17f56)  top changed: [('charts', 37), ('data', 35), ('serializers', 32)]
+   uncovered: ['middleware', 'permissions', 'serializers', 'settings', 'views', 'maps', 'common', 'exports', 'models']
+
+2026-10-01 (41bbf3d)  top changed: [('settings', 25), ('data', 21), ('serializers', 15)]
+   hidden: api ~ settings  sup=5 conf=0.5
+   hidden: views ~ data  sup=3 conf=1.0
+   hidden: middleware ~ settings  sup=4 conf=0.57
+   uncovered: ['middleware', 'permissions', 'serializers', 'settings', 'views', 'common', 'exports', 'models']
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=0 FP=10 FN=1 TN=1  precision=0.00 recall=0.00  base rate=0.08

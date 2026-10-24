@@ -1,0 +1,35 @@
+1. Leave-one-repository-out pooled AUC (within-repository z-scored S2n)
+  label=y_a2   bk-user 0.736, ggshield 0.672, kedro 0.773, legadilo 0.681, openedx-learning 0.759  (range 0.67-0.77)
+  label=y_orig bk-user 0.654, ggshield 0.596, kedro 0.724, legadilo 0.647, openedx-learning 0.651  (range 0.60-0.72)
+
+2. AUC of S2n residualized on z(log commits) and z(new packages) within repository
+  label=y_a2   AUC=0.603 within p=0.1166 circular p=0.1184
+  label=y_orig AUC=0.561 within p=0.2261 circular p=0.2457
+
+3. Declaration regimes (regimes delimited by A2-positive quarters)
+  label=y_a2   positives=14; directly after an A2 revision (first quarter of a new declaration): 2
+  label=y_orig positives=16; directly after an A2 revision (first quarter of a new declaration): 4
+  regimes per repository: bk-user 3, ggshield 4, kedro 3, legadilo 3, openedx-learning 6
+  S2n z-scored within declaration regime, label=y_a2  : AUC=0.659 within p=0.0274 circular p=0.0369
+  S2n z-scored within declaration regime, label=y_orig: AUC=0.602 within p=0.1032 circular p=0.1389
+  conditional logit + post-revision indicator, label=y_a2  : beta S2n +0.763 (SE 0.347), beta post -0.645 (SE 0.449); LR 5.27, one-sided permutation p 0.0130 (N=2000)
+  conditional logit + post-revision indicator, label=y_orig: beta S2n +0.435 (SE 0.301), beta post +0.132 (SE 0.291); LR 2.09, one-sided permutation p 0.0760 (N=2000)
+  conditional logit + log(1 + quarters since last revision), label=y_a2  : beta S2n +0.766 (SE 0.355), beta since +0.397 (SE 0.395); LR 5.16, one-sided permutation p 0.0150 (N=2000)
+  conditional logit + log(1 + quarters since last revision), label=y_orig: beta S2n +0.441 (SE 0.300), beta since -0.208 (SE 0.311); LR 2.16, one-sided permutation p 0.0745 (N=2000)
+
+4. Unnormalized bottom-layer share S2 in place of S2n
+  label=y_a2   AUC(z S2)=0.606 within p=0.1042 circular p=0.0906; conditional logit beta S2 +0.509 (SE 0.521), permutation p 0.1715 (N=2000)
+  label=y_orig AUC(z S2)=0.574 within p=0.1936 circular p=0.1826; conditional logit beta S2 +0.088 (SE 0.457), permutation p 0.4285 (N=2000)
+
+5. Monte Carlo standard error sqrt(p(1-p)/N) of the reported permutation p-values
+  registered pooled AUC, A2 (L1_ANALYSIS_v2)           p=0.003   N=  5000 MC SE=0.0008
+  registered pooled AUC, original label (L1_ANALYSIS)  p=0.028   N=  5000 MC SE=0.0023
+  registered A3 LR test, A2                            p=0.0198  N=  5000 MC SE=0.0020
+  post hoc pooled AUC, A2 (posthoc_l1)                 p=0.0049  N= 20000 MC SE=0.0005
+  post hoc pooled AUC, original label (posthoc_l1)     p=0.0311  N= 20000 MC SE=0.0012
+  circular-shift p-values over the five test repositories are exact (all 468,468 rotations)
+
+6. bk-user: quarters where the round-3 scan differs from the canonical scan (canonical -> round 3)
+  2024-10-01 1.05->1.12, 2025-01-01 0.84->1.04, 2025-04-01 0.84->1.04, 2025-07-01 0.83->1.00; positives among them: 0
+  with round-3 values, label=y_a2  : AUC=0.719 within p=0.0056 circular p=0.0095
+  with round-3 values, label=y_orig: AUC=0.652 within p=0.0330 circular p=0.0609

@@ -1,0 +1,162 @@
+diff --git a/kopf/_cogs/aiokits/aioenums.py b/kopf/_cogs/aiokits/aioenums.py
+index 11747eb..6bcaf4e 100644
+--- a/kopf/_cogs/aiokits/aioenums.py
++++ b/kopf/_cogs/aiokits/aioenums.py
+@@ -1,7 +1,6 @@
+ import asyncio
+ import enum
+ import threading
+-import time
+ from collections.abc import Awaitable, Generator
+ from typing import Generic, TypeVar
+ 
+@@ -52,7 +51,7 @@ class FlagSetter(Generic[FlagReasonT]):
+ 
+     def set(self, reason: FlagReasonT | None = None) -> None:
+         reason = reason if reason is not None else self.reason  # to keep existing values
+-        self.when = self.when if self.when is not None else time.monotonic()
++        self.when = self.when if self.when is not None else asyncio.get_running_loop().time()
+         self.reason = reason if self.reason is None or reason is None else self.reason | reason
+         self.sync_event.set()
+         self.async_event.set()  # it is thread-safe: always called in operator's event loop.
+diff --git a/kopf/_core/actions/throttlers.py b/kopf/_core/actions/throttlers.py
+index fc945b8..7bbccf4 100644
+--- a/kopf/_core/actions/throttlers.py
++++ b/kopf/_core/actions/throttlers.py
+@@ -1,7 +1,6 @@
+ import asyncio
+ import contextlib
+ import dataclasses
+-import time
+ from collections.abc import AsyncGenerator, Iterable, Iterator
+ 
+ from kopf._cogs.aiokits import aiotime
+@@ -28,11 +27,12 @@ async def throttled(
+     """
+     A helper to throttle any arbitrary operation.
+     """
++    clock = asyncio.get_running_loop().time
+ 
+     # The 1st sleep: if throttling is already active, but was interrupted by a queue replenishment.
+     # It is needed to properly process the latest known event after the successful sleep.
+     if throttler.active_until is not None:
+-        remaining_time = throttler.active_until - time.monotonic()
++        remaining_time = throttler.active_until - clock()
+         unslept_time = await aiotime.sleep(remaining_time, wakeup=wakeup)
+         if unslept_time is None:
+             logger.info("Throttling is over. Switching back to normal operations.")
+@@ -61,7 +61,7 @@ async def throttled(
+         delay = next(throttler.source_of_delays, throttler.last_used_delay)
+         if delay is not None:
+             throttler.last_used_delay = delay
+-            throttler.active_until = time.monotonic() + delay
++            throttler.active_until = clock() + delay
+             logger.exception(f"Throttling for {delay} seconds due to an unexpected error: {e!r}")
+ 
+     else:
+@@ -72,7 +72,7 @@ async def throttled(
+     # The 2nd sleep: if throttling has been just activated (i.e. there was a fresh error).
+     # It is needed to have better logging/sleeping without workers exiting for "no events".
+     if throttler.active_until is not None and should_run:
+-        remaining_time = throttler.active_until - time.monotonic()
++        remaining_time = throttler.active_until - clock()
+         unslept_time = await aiotime.sleep(remaining_time, wakeup=wakeup)
+         if unslept_time is None:
+             throttler.active_until = None
+diff --git a/kopf/_core/engines/daemons.py b/kopf/_core/engines/daemons.py
+index 308fdaa..1c0e9be 100644
+--- a/kopf/_core/engines/daemons.py
++++ b/kopf/_core/engines/daemons.py
+@@ -23,7 +23,6 @@ of the daemons, and they are not actually "hung".
+ import abc
+ import asyncio
+ import dataclasses
+-import time
+ import warnings
+ from collections.abc import Collection, Iterable, Mapping, MutableMapping, Sequence
+ 
+@@ -35,6 +34,10 @@ from kopf._core.actions import application, execution, lifecycles, loggers, prog
+ from kopf._core.intents import causes, handlers as handlers_, stoppers
+ 
+ 
++def _loop_time() -> float:
++    return asyncio.get_running_loop().time()
++
++
+ @dataclasses.dataclass(frozen=True)
+ class Daemon:
+     task: aiotasks.Task  # a guarding task of the daemon.
+@@ -47,7 +50,7 @@ class Daemon:
+ class DaemonsMemory:
+     # For background and timed threads/tasks (invoked with the kwargs of the last-seen body).
+     live_fresh_body: bodies.Body | None = None
+-    idle_reset_time: float = dataclasses.field(default_factory=time.monotonic)
++    idle_reset_time: float = dataclasses.field(default_factory=_loop_time)
+     forever_stopped: set[ids.HandlerId] = dataclasses.field(default_factory=set)
+     running_daemons: dict[ids.HandlerId, Daemon] = dataclasses.field(default_factory=dict)
+ 
+@@ -182,7 +185,7 @@ async def stop_daemons(
+     (as by their surrounding circumstances: deletion handlers and finalizers).
+     """
+     delays: list[float] = []
+-    now = time.monotonic()
++    now = asyncio.get_running_loop().time()
+     for daemon in list(daemons.values()):
+         logger = daemon.logger
+         stopper = daemon.stopper
+@@ -537,6 +540,7 @@ async def _timer(
+         await aiotime.sleep(handler.initial_delay, wakeup=stopper.async_event)
+ 
+     # Similar to activities (in-memory execution), but applies patches on every attempt.
++    clock = asyncio.get_running_loop().time
+     state = progression.State.from_scratch().with_handlers([handler])
+     while not stopper.is_set():  # NB: ignore state.done! it is checked below explicitly.
+ 
+@@ -548,14 +552,14 @@ async def _timer(
+         # Both `now` and `last_seen_time` are moving targets: the last seen time is updated
+         # on every watch-event received, and prolongs the sleep. The sleep is never shortened.
+         if handler.idle is not None:
+-            while not stopper.is_set() and time.monotonic() - memory.idle_reset_time < handler.idle:
+-                delay = memory.idle_reset_time + handler.idle - time.monotonic()
++            while not stopper.is_set() and clock() - memory.idle_reset_time < handler.idle:
++                delay = memory.idle_reset_time + handler.idle - clock()
+                 await aiotime.sleep(delay, wakeup=stopper.async_event)
+             if stopper.is_set():
+                 continue
+ 
+         # Remember the start time for the sharp timing and idle-time-waster below.
+-        started = time.monotonic()
++        started = clock()
+ 
+         # Execute the handler as usually, in-memory, but handle its outcome on every attempt.
+         outcomes = await execution.execute_handlers_once(
+@@ -585,7 +589,7 @@ async def _timer(
+         #       |-----|-----|-----|-----|-----|-----|---> (interval=5, sharp=True)
+         #       [slow_handler]....[slow_handler]....[slow...
+         elif handler.interval is not None and handler.sharp:
+-            passed_duration = time.monotonic() - started
++            passed_duration = clock() - started
+             remaining_delay = handler.interval - (passed_duration % handler.interval)
+             await aiotime.sleep(remaining_delay, wakeup=stopper.async_event)
+ 
+diff --git a/kopf/_core/reactor/processing.py b/kopf/_core/reactor/processing.py
+index 5ad9b39..5ffdf04 100644
+--- a/kopf/_core/reactor/processing.py
++++ b/kopf/_core/reactor/processing.py
+@@ -14,7 +14,6 @@ But these internal changes are filtered out from the cause detection
+ and therefore do not trigger the user-defined handlers.
+ """
+ import asyncio
+-import time
+ from collections.abc import Collection
+ 
+ from kopf._cogs.aiokits import aiotoggles
+@@ -329,7 +328,7 @@ async def process_spawning_cause(
+     if memory.daemons_memory.live_fresh_body is None:
+         memory.daemons_memory.live_fresh_body = cause.body
+     if cause.reset:
+-        memory.daemons_memory.idle_reset_time = time.monotonic()
++        memory.daemons_memory.idle_reset_time = asyncio.get_running_loop().time()
+ 
+     if finalizers.is_deletion_ongoing(cause.body):
+         stopping_delays = await daemons.stop_daemons(

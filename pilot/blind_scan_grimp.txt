@@ -1,0 +1,25 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2025-10-01      43     5   0  0.12  0.82   0   0  -
+2026-01-01      62     5   2  0.14  0.94   0   0  -
+2026-04-01      56     5   1  0.15  0.99   0   0  -
+2026-07-01      31     5   1  0.15  0.99   0   0  -
+2026-10-01      26     5   0  0.17  1.11   0   0  -
+
+== details ==
+
+2025-10-01 (b1c48c4)  top changed: [('application', 31), ('adaptors', 12), ('domain', 4)]
+
+2026-01-01 (53dd737)  top changed: [('application', 45), ('adaptors', 24), ('domain', 7)]
+   hidden: adaptors ~ exceptions  sup=3 conf=0.6
+   hidden: application ~ main  sup=4 conf=1.0
+
+2026-04-01 (977b7f0)  top changed: [('application', 41), ('adaptors', 18), ('domain', 7)]
+   hidden: application ~ main  sup=4 conf=1.0
+
+2026-07-01 (977b7f0)  top changed: [('application', 21), ('adaptors', 16), ('domain', 4)]
+   hidden: application ~ main  sup=3 conf=1.0
+
+2026-10-01 (676e490)  top changed: [('application', 18), ('adaptors', 15), ('domain', 4)]
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=0 FP=1 FN=0 TN=4  precision=0.00 recall=0.00  base rate=0.00

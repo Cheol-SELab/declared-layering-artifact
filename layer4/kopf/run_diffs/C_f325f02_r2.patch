@@ -1,0 +1,136 @@
+diff --git a/kopf/_core/engines/daemons.py b/kopf/_core/engines/daemons.py
+index 7bd7fa8..982cc65 100644
+--- a/kopf/_core/engines/daemons.py
++++ b/kopf/_core/engines/daemons.py
+@@ -31,7 +31,7 @@ from kopf._cogs.configs import configuration
+ from kopf._cogs.helpers import typedefs
+ from kopf._cogs.structs import bodies, ids, patches
+ from kopf._core import loggers
+-from kopf._core.actions import application, execution, lifecycles, progression
++from kopf._core.actions import application, execution, invocation, lifecycles, progression
+ from kopf._core.intents import causes, handlers as handlers_, stoppers
+ 
+ 
+@@ -447,6 +447,24 @@ async def _runner(
+         stopper.set(reason=stoppers.DaemonStoppingReason.DONE)
+ 
+ 
++async def _resolve_initial_delay(
++        handler: handlers_.SpawningHandler,
++        cause: causes.DaemonCause,
++) -> float | None:
++    """
++    Resolve the initial delay: either a constant, or a callback's result.
++    """
++    delay = handler.initial_delay
++    if callable(delay):
++        result = await invocation.invoke(
++            delay,
++            kwargsrc=cause,
++            kwargs=dict(param=handler.param),
++        )
++        return None if result is None else float(result)  # type: ignore
++    return delay
++
++
+ async def _daemon(
+         *,
+         settings: configuration.OperatorSettings,
+@@ -468,8 +486,9 @@ async def _daemon(
+     patch = cause.patch
+     body = cause.body
+ 
+-    if handler.initial_delay is not None:
+-        await aiotime.sleep(handler.initial_delay, wakeup=cause.stopper.async_event)
++    initial_delay = await _resolve_initial_delay(handler, cause)
++    if initial_delay is not None:
++        await aiotime.sleep(initial_delay, wakeup=cause.stopper.async_event)
+ 
+     # Similar to activities (in-memory execution), but applies patches on every attempt.
+     state = progression.State.from_scratch().with_handlers([handler])
+@@ -537,8 +556,9 @@ async def _timer(
+     patch = cause.patch
+     body = cause.body
+ 
+-    if handler.initial_delay is not None:
+-        await aiotime.sleep(handler.initial_delay, wakeup=stopper.async_event)
++    initial_delay = await _resolve_initial_delay(handler, cause)
++    if initial_delay is not None:
++        await aiotime.sleep(initial_delay, wakeup=stopper.async_event)
+ 
+     # Similar to activities (in-memory execution), but applies patches on every attempt.
+     clock = asyncio.get_running_loop().time
+diff --git a/kopf/_core/intents/callbacks.py b/kopf/_core/intents/callbacks.py
+index f83a226..7c4acce 100644
+--- a/kopf/_core/intents/callbacks.py
++++ b/kopf/_core/intents/callbacks.py
+@@ -26,6 +26,7 @@ if not TYPE_CHECKING:  # pragma: nocover
+     ChangingFn = Callable[..., invocation.SyncOrAsync[object | None]]
+     WebhookFn = Callable[..., invocation.SyncOrAsync[object | None]]
+     DaemonFn = Callable[..., invocation.SyncOrAsync[object | None]]
++    DelayFn = Callable[..., invocation.SyncOrAsync[float | None]]
+     TimerFn = Callable[..., invocation.SyncOrAsync[object | None]]
+     WhenFilterFn = Callable[..., bool]  # strictly sync, no async!
+     MetaFilterFn = Callable[..., bool]  # strictly sync, no async!
+@@ -196,6 +197,26 @@ else:
+         invocation.SyncOrAsync[object | None]
+     ]
+ 
++    DelayFn = Callable[
++        [
++            NamedArg(bodies.Annotations, "annotations"),
++            NamedArg(bodies.Labels, "labels"),
++            NamedArg(bodies.Body, "body"),
++            NamedArg(bodies.Meta, "meta"),
++            NamedArg(bodies.Spec, "spec"),
++            NamedArg(bodies.Status, "status"),
++            NamedArg(references.Resource, "resource"),
++            NamedArg(str | None, "uid"),
++            NamedArg(str | None, "name"),
++            NamedArg(str | None, "namespace"),
++            NamedArg(typedefs.Logger, "logger"),
++            NamedArg(Any, "memo"),
++            DefaultNamedArg(Any, "param"),
++            KwArg(Any),
++        ],
++        invocation.SyncOrAsync[float | None]
++    ]
++
+     WhenFilterFn = Callable[
+         [
+             NamedArg(str, "type"),
+diff --git a/kopf/_core/intents/handlers.py b/kopf/_core/intents/handlers.py
+index 5ee9e03..9af762f 100644
+--- a/kopf/_core/intents/handlers.py
++++ b/kopf/_core/intents/handlers.py
+@@ -90,7 +90,7 @@ class ChangingHandler(ResourceHandler):
+ @dataclasses.dataclass(frozen=True)
+ class SpawningHandler(ResourceHandler):
+     requires_finalizer: bool | None
+-    initial_delay: float | None
++    initial_delay: float | callbacks.DelayFn | None
+ 
+ 
+ @dataclasses.dataclass(frozen=True)
+diff --git a/kopf/on.py b/kopf/on.py
+index d38e311..7601061 100644
+--- a/kopf/on.py
++++ b/kopf/on.py
+@@ -668,7 +668,7 @@ def daemon(  # lgtm[py/similar-function]
+         timeout: float | None = None,
+         retries: int | None = None,
+         backoff: float | None = None,
+-        initial_delay: float | None = None,
++        initial_delay: float | callbacks.DelayFn | None = None,
+         cancellation_backoff: float | None = None,
+         cancellation_timeout: float | None = None,
+         cancellation_polling: float | None = None,
+@@ -731,7 +731,7 @@ def timer(  # lgtm[py/similar-function]
+         retries: int | None = None,
+         backoff: float | None = None,
+         interval: float | None = None,
+-        initial_delay: float | None = None,
++        initial_delay: float | callbacks.DelayFn | None = None,
+         sharp: bool | None = None,
+         idle: float | None = None,
+         # Resource object specification:

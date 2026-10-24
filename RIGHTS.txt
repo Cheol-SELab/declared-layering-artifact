@@ -1,0 +1,15 @@
+Rights and third-party sources
+==============================
+Public availability does not add a blanket reuse license. No additional license
+has been applied to the authors' original code and data in this publication.
+For reuse permissions contact cheol@selab.ai.
+
+Third-party material remains under its own license and notices:
+- layer4/*/run_diffs/, layer4/*/C_refactor*.patch and the human-change replay
+  records contain fragments of the subject projects kedro
+  (https://github.com/kedro-org/kedro) and kopf (https://github.com/nolar/kopf).
+- study/a4/, pilot/ and study/data/ contain commit metadata (hashes, messages,
+  author names and e-mail addresses as published in public Git histories) and
+  layer contracts of the public repositories studied.
+The subject repositories themselves are not redistributed; every snapshot and
+follow-up task is identified by its upstream commit.

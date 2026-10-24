@@ -1,0 +1,26 @@
+Post hoc: sensitivity of RQ1 to the S2n implementation (five test repositories, archived quarters and labels)
+Clones used (HEAD):
+  bk-user            bd804645e39a3173d046d8e0e56a8ab0ef4afd80
+  ggshield           cefc56cccf414eac690b14619c493aef8b9f9733
+  kedro              e8677ac2fc531cb9157cefa54c89ea50c28ff2fd
+  legadilo           1ce06229d52148ee587c4b6230fcf4814bb3d81d
+  openedx-learning   f2ae44631662a4e2b48af7ea6bf5bd2dddd202f5
+
+Variant 0 reproduces the archived S2n in 70 of 70 quarters
+
+Pooled AUC of within-repository z-scored S2n; p from 20,000 within-repository label permutations and from the
+exact circular-shift permutation (all rotations). Per-repository AUC under A2 in the order bk-user, ggshield, kedro, legadilo, openedx-learning.
+variant                            changed  AUC A2 p perm p circ  AUC orig p circ  per-repository (A2)
+0  as run                                0   0.722 0.0049 0.0087     0.654 0.0580  0.70 0.90 0.50 0.89 0.67
+1  numerator = commit share             69   0.612 0.0990 0.1016     0.559 0.2500  0.86 0.53 0.50 0.89 0.37
+1b commit share within contract         65   0.652 0.0374 0.0412     0.593 0.1520  0.80 0.53 0.50 0.89 0.60
+2  generic path filter                   0   0.722 0.0049 0.0087     0.654 0.0580  0.70 0.90 0.50 0.89 0.67
+3  sweep cut-off 5 units                62   0.682 0.0175 0.0242     0.624 0.0960  0.61 0.82 0.50 0.94 0.61
+4  sweep cut-off 10 units               32   0.719 0.0052 0.0086     0.649 0.0624  0.61 0.93 0.50 0.89 0.67
+5  no sweep cut-off                     37   0.745 0.0022 0.0044     0.672 0.0412  0.73 0.92 0.50 0.89 0.67
+6  bottom = rank 0 only                 60   0.656 0.0397 0.0483     0.642 0.0658  0.59 0.47 0.47 0.94 0.70
+7  bottom = rank <= 0.5                 69   0.603 0.1203 0.1031     0.570 0.1965  0.89 0.97 0.16 0.50 0.46
+8  expanded units inherit rank           8   0.670 0.0243 0.0267     0.603 0.1281  0.70 0.90 0.50 0.89 0.50
+9  contract with largest S2n             8   0.698 0.0115 0.0157     0.626 0.0914  0.57 0.90 0.50 0.89 0.64
+10 1+2+8 (wording-literal)              68   0.609 0.1042 0.1072     0.557 0.2546  0.84 0.53 0.50 0.89 0.37
+10b 1b+2+8                              65   0.611 0.0935 0.0882     0.556 0.2504  0.80 0.53 0.50 0.89 0.44

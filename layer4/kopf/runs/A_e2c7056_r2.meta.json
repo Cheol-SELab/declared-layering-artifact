@@ -1,0 +1,60 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "e2c7056",
+ "rep": "r2",
+ "commit": "e2c70560403a7ed6d674dfba524e2c80e1dd948d",
+ "spec": [
+  "tests/basic-structs/test_memories.py",
+  "tests/handling/daemons/conftest.py",
+  "tests/timing/test_throttling.py"
+ ],
+ "code_in_pr": [
+  "kopf/_cogs/aiokits/aioenums.py",
+  "kopf/_core/actions/throttlers.py",
+  "kopf/_core/engines/daemons.py",
+  "kopf/_core/reactor/processing.py"
+ ],
+ "spec_sha": {
+  "tests/basic-structs/test_memories.py": "b450ec999dc3e8d4264d6ae0879d10356e7f23ab7c1ae8d1380b42137dc2a3ff",
+  "tests/handling/daemons/conftest.py": "42beb60cad12e89127ad711868d3db97fa3976b18c1315ccf9957d7c777a2df8",
+  "tests/timing/test_throttling.py": "9cf92e94da247c943d17728477093fd438ff8e55c556e699e6f3731cdeb460d3"
+ },
+ "message": "Use the loop time instead of system/process time for internal time intervals\n\nThe routines that depend only on the internal intervals and durations should use the internal loop time only \u2014 which can be later faked by e.g. `looptime`.\n\nIf the system or process time is used, these routines fall out of time-faking and might take many more cycles to reach the desired real-world timestamp (just by letting the real time flow naturally).\n\nThis does NOT cover the cases with intervals and durations based on the global time (i.e. UTC clock) \u2014\u00a0e.g. handlers' timeouts, retries, etc.\n\nSigned-off-by: Sergey Vasilyev <nolar@nolar.info>",
+ "moves": {},
+ "created": "2026-10-06T00:03:33",
+ "pre_spec": {
+  "tests.basic-structs.test_memories::test_creation_with_defaults": "passed",
+  "tests.basic-structs.test_memories::test_recalling_creates_when_absent": "passed",
+  "tests.basic-structs.test_memories::test_recalling_reuses_when_present": "passed",
+  "tests.basic-structs.test_memories::test_forgetting_deletes_when_present": "passed",
+  "tests.basic-structs.test_memories::test_forgetting_ignores_when_absent": "passed",
+  "tests.basic-structs.test_memories::test_memo_is_autocreated": "passed",
+  "tests.basic-structs.test_memories::test_memo_is_shallow_copied": "passed",
+  "tests.timing.test_throttling::test_remains_inactive_on_success": "passed",
+  "tests.timing.test_throttling::test_escalates_unexpected_errors[none]": "passed",
+  "tests.timing.test_throttling::test_escalates_unexpected_errors[base]": "passed",
+  "tests.timing.test_throttling::test_escalates_unexpected_errors[child]": "passed",
+  "tests.timing.test_throttling::test_escalates_unexpected_errors[sibling]": "passed",
+  "tests.timing.test_throttling::test_escalates_unexpected_errors[tuple]": "passed",
+  "tests.timing.test_throttling::test_escalates_unexpected_errors[cancelled]": "passed",
+  "tests.timing.test_throttling::test_activates_on_expected_errors[none]": "passed",
+  "tests.timing.test_throttling::test_activates_on_expected_errors[parent]": "passed",
+  "tests.timing.test_throttling::test_activates_on_expected_errors[tuple]": "passed",
+  "tests.timing.test_throttling::test_sleeps_for_the_first_delay_when_inactive": "failed",
+  "tests.timing.test_throttling::test_sleeps_for_the_next_delay_when_active": "failed",
+  "tests.timing.test_throttling::test_sleeps_for_the_last_known_delay_when_depleted": "failed",
+  "tests.timing.test_throttling::test_resets_on_success": "passed",
+  "tests.timing.test_throttling::test_skips_on_no_delays": "passed",
+  "tests.timing.test_throttling::test_renews_on_repeated_failure": "failed",
+  "tests.timing.test_throttling::test_interruption": "failed",
+  "tests.timing.test_throttling::test_continuation_with_success": "failed",
+  "tests.timing.test_throttling::test_continuation_with_error": "failed",
+  "tests.timing.test_throttling::test_continuation_when_overdue": "failed",
+  "tests.timing.test_throttling::test_recommends_running_initially": "passed",
+  "tests.timing.test_throttling::test_recommends_skipping_immediately_after_interrupted_error": "passed",
+  "tests.timing.test_throttling::test_recommends_running_immediately_after_continued": "passed",
+  "tests.timing.test_throttling::test_logging_when_deactivates_immediately": "passed",
+  "tests.timing.test_throttling::test_logging_when_deactivates_on_reentry": "passed"
+ }
+}

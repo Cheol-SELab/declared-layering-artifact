@@ -1,0 +1,9 @@
+{
+ "cond": "A",
+ "task": "956cd65",
+ "lint_broken": 0,
+ "n": 6999,
+ "failed": [
+  "tests.posting.test_threadsafety::test_nonthreadsafe_indeed_fails"
+ ]
+}

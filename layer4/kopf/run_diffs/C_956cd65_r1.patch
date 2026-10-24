@@ -1,0 +1,61 @@
+diff --git a/docs/configuration.rst b/docs/configuration.rst
+index 101e050..8b67b29 100644
+--- a/docs/configuration.rst
++++ b/docs/configuration.rst
+@@ -144,9 +144,20 @@ The event-posting can be disabled completely (the default is to be enabled):
+     def configure(settings: kopf.OperatorSettings, **_):
+         settings.posting.enabled = False
+ 
++The posting of the log messages (but not of the explicit `kopf.event` and
++similar calls) can be disabled separately:
++
++.. code-block:: python
++
++    import kopf
++
++    @kopf.on.startup()
++    def configure(settings: kopf.OperatorSettings, **_):
++        settings.posting.loggers = False
++
+ .. note::
+ 
+-    These settings also affect `kopf.event` and related functions:
++    The ``enabled`` and ``level`` settings also affect `kopf.event` and related functions:
+     `kopf.info`, `kopf.warn`, `kopf.exception`, etc --
+     even if they are called explicitly in the code.
+ 
+diff --git a/kopf/_cogs/configs/configuration.py b/kopf/_cogs/configs/configuration.py
+index 9b7ea8a..83e2520 100644
+--- a/kopf/_cogs/configs/configuration.py
++++ b/kopf/_cogs/configs/configuration.py
+@@ -80,6 +80,14 @@ class PostingSettings:
+     (``kopf.info()``, ``kopf.warn()``, ``kopf.exception()``).
+     """
+ 
++    loggers: bool = True
++    """
++    Should the log messages of the object loggers be posted as K8s Events.
++    This does not affect the explicit ``kopf.event()`` and similar functions
++    (``kopf.info()``, ``kopf.warn()``, ``kopf.exception()``),
++    which are controlled by ``enabled`` and ``level`` only.
++    """
++
+     reporting_component: str = 'kopf'
+     reporting_instance: str = 'dev'
+     event_name_prefix: str = 'kopf-event-'
+diff --git a/kopf/_core/engines/posting.py b/kopf/_core/engines/posting.py
+index 4d7e838..9ee2944 100644
+--- a/kopf/_core/engines/posting.py
++++ b/kopf/_core/engines/posting.py
+@@ -206,9 +206,10 @@ class K8sPoster(logging.Handler):
+         settings = getattr(record, 'settings', None)
+         level_ok = settings is not None and bool(record.levelno >= settings.posting.level)
+         enabled = settings is not None and bool(settings.posting.enabled)
++        loggers = settings is not None and bool(settings.posting.loggers)
+         has_ref = hasattr(record, 'k8s_ref')
+         skipped = hasattr(record, 'k8s_skip') and bool(getattr(record, 'k8s_skip'))
+-        return enabled and level_ok and has_ref and not skipped and bool(super().filter(record))
++        return enabled and loggers and level_ok and has_ref and not skipped and bool(super().filter(record))
+ 
+     def emit(self, record: logging.LogRecord) -> None:
+         # Same try-except as in e.g. `logging.StreamHandler`.

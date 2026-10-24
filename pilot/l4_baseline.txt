@@ -1,0 +1,43 @@
+
+== kedro (snapshot e9a07bb @ 2023-10-01) — first 10 PR commits with code+tests
+  # 2926 files= 6 units=1 bottom=-  Merge template `pyproject.toml` into one (#2926)  ['cli']
+  # 3115 files=13 units=5 bottom=Y  Rename uses of data_set to dataset (#3115)  ['cli', 'context', 'io', 'pipeline', 'runner']
+  # 3147 files= 9 units=3 bottom=Y  Rename all `DataSet` mentions to `Dataset` (excl. docs) (#31  ['config', 'io', 'runner']
+  # 2987 files= 4 units=1 bottom=-  MVP for "add-ons" flow within kedro new CLI command (#2987)  ['cli']
+  # 3145 files= 1 units=1 bottom=Y  Make `OmegaConfigLoader` accept paths containing dots outsid  ['config']
+  # 3095 files=13 units=4 bottom=Y  Implement and use custom `KedroDeprecationWarning` (#3095)  ['cli', 'io', 'runner', 'session']
+  # 3211 files= 1 units=1 bottom=-  Add new spaceflights starters to `kedro new --starter` (#321  ['cli']
+  # 3187 files= 1 units=1 bottom=Y  Remove PartitionedDataset and IncrementalDataset from kedro.  ['io']
+  # 3188 files= 3 units=1 bottom=-  Add `add_ons` metadata to `pyproject.toml` for project creat  ['cli']
+  # 3081 files= 1 units=1 bottom=-  Add addon flags to kedro new (#3081)  ['cli']
+  median units=1.0  mean files=5.2  touches bottom: 5/10
+
+== legadilo (snapshot 94be0f9 @ 2025-10-01) — first 10 PR commits with code+tests
+  #04ed268 files= 4 units=1 bottom=-  ref: remove support for non HTMX request  ['reading']
+  #1d76c24 files= 3 units=1 bottom=-  feat(reading): can reorder reading lists with drag & drop  ['reading']
+  #608162a files= 8 units=4 bottom=Y  feat(reading): can save raw text files  ['feeds', 'import_export', 'reading', 'utils']
+  #ae7508a files= 3 units=2 bottom=Y  ref(reading): reorder reading list with a form  ['core', 'reading']
+  #6d8d24c files= 1 units=1 bottom=-  fix(reading): update content type when content is updated  ['reading']
+  #35b49ce files= 1 units=1 bottom=-  fix(reading): can use lazy loaded images  ['reading']
+  #701b5d2 files= 2 units=1 bottom=-  ref(reading): return SaveArticleResult when saving invalid a  ['reading']
+  #4b56751 files= 2 units=1 bottom=-  ref(reading): associate reading lists with tags directly  ['reading']
+  #2886ecb files= 1 units=1 bottom=-  ref(reading): update reading lists in transaction  ['reading']
+  #ba89dd6 files= 4 units=1 bottom=-  ref(reading): build saved articles messages in HTML  ['reading']
+  median units=1.0  mean files=2.9  touches bottom: 2/10
+
+== kopf (snapshot 51b664f @ 2026-01-01) — first 10 PR commits with code+tests
+  #bad8649 files= 1 units=1 bottom=Y  Prevent handler retries if they are doomed to fail on the ne  ['actions']
+  #51c078d files= 3 units=2 bottom=Y  Narrow the handler state interface and shift the storage-spe  ['actions', 'progress']
+  #91f7ae0 files= 2 units=1 bottom=Y  Restrict the handler state's "started"/"active" from being N  ['actions']
+  #e2c7056 files= 4 units=4 bottom=Y  Use the loop time instead of system/process time for interna  ['actions', 'aiokits', 'engines', 'reactor']
+  #017dbe0 files= 1 units=1 bottom=Y  Use the loop time instead of wall clock for handler states (  ['actions']
+  #624c6d2 files= 1 units=1 bottom=-  Avoid streaming if stopped at the request handshake  ['clients']
+  #f325f02 files= 4 units=3 bottom=Y  Postpone the initial timer/daemon delay by computable (e.g.   ['engines', 'intents', 'on']
+  #956cd65 files= 2 units=2 bottom=-  Configure the posting from loggers separately from the expli  ['configuration', 'engines']
+  #a6403c4 files= 1 units=1 bottom=-  Restart the webhook server on renewal of externally provided  ['_kits']
+  #20de08c files= 9 units=7 bottom=Y  Rewrite to explicit code blocks in docs (for LLMs readabilit  ['_kits', 'aiokits', 'clients', 'engines', 'intents', 'on', 'structs']
+  median units=1.5  mean files=2.8  touches bottom: 7/10
+
+== openedx-learning (snapshot 335067d @ 2026-01-01) — first 1 PR commits with code+tests
+  #  478 files=99 units=4 bottom=Y  feat!: Make `openedx_content` and `openedx_tagging` flat, to  ['apps', 'authoring', 'contrib', 'lib']
+  median units=4  mean files=99.0  touches bottom: 1/1

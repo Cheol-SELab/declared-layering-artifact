@@ -1,0 +1,705 @@
+diff --git a/docs/async.rst b/docs/async.rst
+index 995bb57..9d32f29 100644
+--- a/docs/async.rst
++++ b/docs/async.rst
+@@ -4,7 +4,9 @@ Async/Await
+ 
+ .. todo:: Fit this page into the walk-through sample story?
+ 
+-Kopf supports asynchronous handler functions::
++Kopf supports asynchronous handler functions:
++
++.. code-block:: python
+ 
+     import asyncio
+     import kopf
+diff --git a/docs/authentication.rst b/docs/authentication.rst
+index b38468d..738b1e4 100644
+--- a/docs/authentication.rst
++++ b/docs/authentication.rst
+@@ -31,7 +31,9 @@ you have a specific and unusual cluster setup (e.g. your own auth tokens).
+ 
+ To implement a custom authentication method, one or a few login-handlers
+ can be added. The login handlers should either return nothing (``None``)
+-or an instance of :class:`kopf.ConnectionInfo`::
++or an instance of :class:`kopf.ConnectionInfo`:
++
++.. code-block:: python
+ 
+     import datetime
+     import kopf
+@@ -58,7 +60,9 @@ Both TZ-naive & TZ-aware expiration times are supported.
+ The TZ-naive timestamps are always treated as UTC.
+ 
+ As with any other handlers, the login handler can be async if the network
+-communication is needed and async mode is supported::
++communication is needed and async mode is supported:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -117,7 +121,9 @@ and all the credentials will be utilised in random order.
+ 
+ If that is not the desired case, and only one of the libraries is needed,
+ declare a custom login handler explicitly, and use only the preferred library
+-by calling one of the piggybacking functions::
++by calling one of the piggybacking functions:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -125,7 +131,9 @@ by calling one of the piggybacking functions::
+     def login_fn(**kwargs):
+         return kopf.login_via_pykube(**kwargs)
+ 
+-Or::
++Or:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -135,7 +143,9 @@ Or::
+ 
+ The same trick is also useful to limit the authentication attempts
+ by time or by number of retries (by default, it tries forever
+-until succeeded, returned nothing, or explicitly failed)::
++until succeeded, returned nothing, or explicitly failed):
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -144,7 +154,9 @@ until succeeded, returned nothing, or explicitly failed)::
+         return kopf.login_via_pykube(**kwargs)
+ 
+ Similarly, if the libraries are installed and needed, but their credentials
+-are not desired, the rudimentary login functions can be used directly::
++are not desired, the rudimentary login functions can be used directly:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -187,7 +199,9 @@ knowing how it works internally. See :class:`Vault`.
+ 
+ If the expiration is intended to be often (e.g. every few minutes),
+ you might want to disable the logging of re-authenication (whether this is
+-a good idea or not, you decide using the information about your system)::
++a good idea or not, you decide using the information about your system):
++
++.. code-block:: python
+ 
+     import logging
+ 
+diff --git a/docs/contributing.rst b/docs/contributing.rst
+index a211b34..a6e502b 100644
+--- a/docs/contributing.rst
++++ b/docs/contributing.rst
+@@ -27,12 +27,16 @@ in the individual forks, not in the feature branches of the main repo.
+ The recommended setup:
+ 
+ * Fork a repo on GitHub and clone the fork (not the original repo).
+-* Configure the ``upstream`` remote in addition to ``origin``::
++* Configure the ``upstream`` remote in addition to ``origin``:
++
++  .. code-block:: shell
+ 
+         git remote add upstream git@github.com:nolar/kopf.git
+         git fetch upstream
+ 
+-* Sync your ``main`` branch with the upstream regularly::
++* Sync your ``main`` branch with the upstream regularly:
++
++  .. code-block:: shell
+ 
+         git checkout main
+         git pull upstream main --ff
+@@ -40,7 +44,9 @@ The recommended setup:
+ 
+ Work in the feature branches of your fork, not in the upstream's branches:
+ 
+-* Create a feature branch in the fork::
++* Create a feature branch in the fork:
++
++  .. code-block:: shell
+ 
+         git checkout -b feature-x
+         git push origin feature-x
+@@ -107,7 +113,9 @@ In case of doubt, adhere to PEP-8 and
+ The line length is 100 characters for code, 80 for docstrings and RsT files.
+ Long URLs can exceed this length.
+ 
+-For linting, minor code styling, import sorting, layered modules checks, run::
++For linting, minor code styling, import sorting, layered modules checks, run:
++
++.. code-block:: shell
+ 
+     pre-commit run
+ 
+@@ -116,12 +124,16 @@ Tests
+ =====
+ 
+ If possible, run the unit-tests locally before submitting
+-(this will save you some time, but is not mandatory)::
++(this will save you some time, but is not mandatory):
++
++.. code-block:: shell
+ 
+     pytest
+ 
+ If possible, run the functional tests with a realistic local cluster
+-(for examples, with k3s/k3d on MacOS; Kind and Minikube are also fine)::
++(for examples, with k3s/k3d on MacOS; Kind and Minikube are also fine):
++
++.. code-block:: shell
+ 
+     brew install k3d
+     k3d cluster create
+diff --git a/docs/errors.rst b/docs/errors.rst
+index 1139cc4..54417f7 100644
+--- a/docs/errors.rst
++++ b/docs/errors.rst
+@@ -19,7 +19,9 @@ Temporary errors
+ 
+ If an exception raised inherits from :class:`kopf.TemporaryError`,
+ it will postpone the current handler for the next iteration,
+-which can happen either immediately, or after some delay::
++which can happen either immediately, or after some delay:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -49,7 +51,9 @@ If a raised exception inherits from :class:`kopf.PermanentError`, the handler
+ is considered as non-retriable and non-recoverable and completely failed.
+ 
+ Use this when the domain logic of the application means that there
+-is no need to retry over time, as it will not become better::
++is no need to retry over time, as it will not become better:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -74,7 +78,9 @@ As such, as default behaviour,
+ Kopf retries the handlers with arbitrary errors
+ infinitely until the handlers either succeed or fail permanently.
+ 
+-The reaction to the arbitrary errors can be configured::
++The reaction to the arbitrary errors can be configured:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -92,7 +98,9 @@ Possible values of ``errors`` are:
+ Timeouts
+ ========
+ 
+-The overall runtime of the handler can be limited::
++The overall runtime of the handler can be limited:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -113,7 +121,9 @@ By default, there is no timeout, so the retries continue forever.
+ Retries
+ =======
+ 
+-The number of retries can be limited too::
++The number of retries can be limited too:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -131,7 +141,9 @@ Backoff
+ 
+ The interval between retries on arbitrary errors, when an external environment
+ is supposed to recover and be able to succeed the handler execution,
+-can be configured::
++can be configured:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+diff --git a/docs/events.rst b/docs/events.rst
+index 1c57b0d..070bfab 100644
+--- a/docs/events.rst
++++ b/docs/events.rst
+@@ -17,7 +17,9 @@ Handled objects
+ .. todo:: the ``body`` arg must be optional, meaning the currently handled object.
+ 
+ Kopf provides some tools to report arbitrary information
+-for the handled objects as Kubernetes events::
++for the handled objects as Kubernetes events:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -34,7 +36,9 @@ The message is also arbitrary free-text.
+ However, newlines are not rendered nicely
+ (they break the whole output of ``kubectl``).
+ 
+-For convenience, a few shortcuts are provided to mimic the Python's ``logging``::
++For convenience, a few shortcuts are provided to mimic the Python's ``logging``:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -73,7 +77,9 @@ Other objects
+ .. todo:: kubernetes and pykube objects should be accepted natively, not only the dicts.
+ 
+ Events can be also attached to other objects, not only those handled
+-at the moment (and not event the children)::
++at the moment (and not event the children):
++
++.. code-block:: python
+ 
+     import kopf
+     import kubernetes
+diff --git a/docs/handlers.rst b/docs/handlers.rst
+index 89686a6..f54f2b9 100644
+--- a/docs/handlers.rst
++++ b/docs/handlers.rst
+@@ -39,7 +39,9 @@ information to the keyword arguments.
+ Registering
+ ===========
+ 
+-To register a handler for an event, use the ``@kopf.on`` decorator::
++To register a handler for an event, use the ``@kopf.on`` decorator:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -59,7 +61,9 @@ __ https://github.com/nolar/kopf/issues/849
+ 
+ Would you still want to use classes for namespacing, register the handlers
+ by using Kopf's decorators explicitly for specific instances/sub-classes thus
+-resolving the mentioned vagueness and giving the meaning to ``self``/``cls``::
++resolving the mentioned vagueness and giving the meaning to ``self``/``cls``:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -80,7 +84,9 @@ storing the handlers' status (errors, retries, successes) on the object.
+ This can be useful if the operator needs to watch over the objects
+ of another operator or controller, without adding its data.
+ 
+-The following event-handler is available::
++The following event-handler is available:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -118,7 +124,9 @@ i.e. what happened to the object:
+     which triggers its low-level events, but these events are not detected
+     as separate causes, as there is nothing changed *essentially*.
+ 
+-The following 3 core cause-handlers are available::
++The following 3 core cause-handlers are available:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -149,7 +157,9 @@ Resuming handlers
+ =================
+ 
+ A special kind of handlers can be used for cases when the operator restarts
+-and detects an object that existed before::
++and detects an object that existed before:
++
++.. code-block:: python
+ 
+     @kopf.on.resume('kopfexamples')
+     def my_handler(spec, **_):
+@@ -169,7 +179,9 @@ handling cycles, and are executed in the order they are declared.
+ It is a common pattern to declare both creation and resuming handler
+ pointing to the same function, so that this function is called either
+ when an object is created ("started) while the operator is alive ("exists"), or
+-when the operator is started ("created") when the object is existent ("alive")::
++when the operator is started ("created") when the object is existent ("alive"):
++
++.. code-block:: python
+ 
+     @kopf.on.resume('kopfexamples')
+     @kopf.on.create('kopfexamples')
+@@ -184,7 +196,9 @@ This is done intentionally to prevent the cases when the resuming handlers start
+ threads/tasks or allocate the resources, and the deletion handlers stop/free
+ them: it can happen so that the resuming handlers would be executed after
+ the deletion handlers, thus starting threads/tasks and never stopping them.
+-For example::
++For example:
++
++.. code-block:: python
+ 
+     TASKS = {}
+ 
+@@ -206,7 +220,9 @@ Otherwise, there would be a resource (e.g. memory) leak.
+ 
+ If the resume handlers are still desired during the deletion handling, they
+ can be explicitly marked as compatible with the deleted state of the object
+-with ``deleted=True`` option::
++with ``deleted=True`` option:
++
++.. code-block:: python
+ 
+     @kopf.on.resume('kopfexamples', deleted=True)
+     def my_handler(spec, **_):
+@@ -219,7 +235,9 @@ the developer's responsibility to ensure this does not lead to memory leaks.
+ Field handlers
+ ==============
+ 
+-Specific fields can be handled instead of the whole object::
++Specific fields can be handled instead of the whole object:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -257,7 +275,9 @@ partials (`functools.partial`), or the inner functions in the closures:
+         - item2
+ 
+ Sub-handlers can be implemented either imperatively
+-(where it requires :doc:`asynchronous handlers <async>` and ``async/await``)::
++(where it requires :doc:`asynchronous handlers <async>` and ``async/await``):
++
++.. code-block:: python
+ 
+     import functools
+     import kopf
+@@ -274,7 +294,9 @@ Sub-handlers can be implemented either imperatively
+     def handle_item(item, *, spec, **_):
+         pass
+ 
+-Or declaratively with decorators::
++Or declaratively with decorators:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+diff --git a/docs/install.rst b/docs/install.rst
+index 8b3fcba..a6f2cab 100644
+--- a/docs/install.rst
++++ b/docs/install.rst
+@@ -8,32 +8,44 @@ Prerequisites:
+ 
+ * Python >= 3.10 (CPython and PyPy are officially tested and supported).
+ 
+-To install Kopf::
++To install Kopf:
++
++.. code-block:: shell
+ 
+     pip install kopf
+ 
+ If you use some of the managed Kubernetes services which require a sophisticated
+ authentication beyond username+password, fixed tokens, or client SSL certs
+-(also see :ref:`authentication piggy-backing <auth-piggybacking>`)::
++(also see :ref:`authentication piggy-backing <auth-piggybacking>`):
++
++.. code-block:: shell
+ 
+     pip install kopf[full-auth]
+ 
+-If you want extra i/o performance under the hood, install it as (also see :ref:`custom-event-loops`)::
++If you want extra i/o performance under the hood, install it as (also see :ref:`custom-event-loops`):
++
++.. code-block:: shell
+ 
+     pip install kopf[uvloop]
+ 
+ Unless you use the standalone mode,
+-create a few Kopf-specific custom resources in the cluster::
++create a few Kopf-specific custom resources in the cluster:
++
++.. code-block:: shell
+ 
+     kubectl apply -f https://github.com/nolar/kopf/raw/main/peering.yaml
+ 
+-Optionally, if you are going to use the examples or the code snippets::
++Optionally, if you are going to use the examples or the code snippets:
++
++.. code-block:: shell
+ 
+     kubectl apply -f https://github.com/nolar/kopf/raw/main/examples/crd.yaml
+ 
+ .. todo:: RBAC objects! kubectl apply -f rbac.yaml
+ 
+-You are ready to go::
++You are ready to go:
++
++.. code-block:: shell
+ 
+     kopf --help
+     kopf run --help
+diff --git a/docs/loading.rst b/docs/loading.rst
+index 750e38d..04424a4 100644
+--- a/docs/loading.rst
++++ b/docs/loading.rst
+@@ -7,17 +7,23 @@ or to introduce any conventions (at least, now).
+ 
+ There are two ways to specify them (both mimicking the Python interpreter):
+ 
+-* Direct script files::
++* Direct script files:
+ 
+-    kopf run file1.py file2.py
++  .. code-block:: shell
+ 
+-* Importable modules::
++      kopf run file1.py file2.py
+ 
+-    kopf run -m package1.module1 -m package2.module2
++* Importable modules:
+ 
+-* Or mixed::
++  .. code-block:: shell
+ 
+-    kopf run file1.py file2.py -m package1.module1 -m package2.module2
++      kopf run -m package1.module1 -m package2.module2
++
++* Or mixed:
++
++  .. code-block:: shell
++
++      kopf run file1.py file2.py -m package1.module1 -m package2.module2
+ 
+ Which way to use depends on how the source code is structured,
+ and is out of the scope of Kopf.
+diff --git a/docs/minikube.rst b/docs/minikube.rst
+index b6b933d..07f68e3 100644
+--- a/docs/minikube.rst
++++ b/docs/minikube.rst
+@@ -9,7 +9,9 @@ use minikube_.
+ 
+ .. _minikube: https://github.com/kubernetes/minikube
+ 
+-MacOS::
++MacOS:
++
++.. code-block:: shell
+ 
+     brew install minikube
+     brew install hyperkit
+@@ -17,19 +19,25 @@ MacOS::
+     minikube start --driver=hyperkit
+     minikube config set driver hyperkit
+ 
+-Start the minikube cluster::
++Start the minikube cluster:
++
++.. code-block:: shell
+ 
+     minikube start
+     minikube dashboard
+ 
+ It automatically creates and activates the kubectl context named ``minikube``.
+-If not, or if you have multiple clusters, activate it explicitly::
++If not, or if you have multiple clusters, activate it explicitly:
++
++.. code-block:: shell
+ 
+     kubectl config get-contexts
+     kubectl config current-context
+     kubectl config use-context minikube
+ 
+-For the minikube cleanup (to release the CPU/RAM/disk resources)::
++For the minikube cleanup (to release the CPU/RAM/disk resources):
++
++.. code-block:: shell
+ 
+     minikube stop
+     minikube delete
+diff --git a/docs/naming.rst b/docs/naming.rst
+index e390c78..faa7e77 100644
+--- a/docs/naming.rst
++++ b/docs/naming.rst
+@@ -12,7 +12,9 @@ It is capitalised in natural language texts:
+ 
+     *I like using Kopf to manage my domain in Kubernetes.*
+ 
+-It is lower-cased in all system and code references::
++It is lower-cased in all system and code references:
++
++.. code-block:: shell
+ 
+     pip install kopf
+     import kopf
+diff --git a/docs/peering.rst b/docs/peering.rst
+index 03d5eb0..2cb31d7 100644
+--- a/docs/peering.rst
++++ b/docs/peering.rst
+@@ -88,7 +88,9 @@ Create a peering object as needed with one of:
+ Custom peering
+ ==============
+ 
+-The operator can be instructed to use alternative peering objects::
++The operator can be instructed to use alternative peering objects:
++
++.. code-block:: shell
+ 
+     kopf run --peering=example ...
+     kopf run --peering=example --namespace=some-ns ...
+@@ -125,7 +127,9 @@ Standalone mode
+ ===============
+ 
+ To prevent an operator from peering and talking to other operators,
+-the standalone mode can be enabled::
++the standalone mode can be enabled:
++
++.. code-block:: shell
+ 
+     kopf run --standalone ...
+ 
+diff --git a/docs/scopes.rst b/docs/scopes.rst
+index 4ab65c8..2c800d9 100644
+--- a/docs/scopes.rst
++++ b/docs/scopes.rst
+@@ -5,22 +5,30 @@ Scopes
+ Namespaces
+ ==========
+ 
+-An operator can be restricted to handle custom resources in one namespace only::
++An operator can be restricted to handle custom resources in one namespace only:
++
++.. code-block:: shell
+ 
+     kopf run --namespace=some-namespace ...
+     kopf run -n some-namespace ...
+ 
+-Multiple namespaces can be served::
++Multiple namespaces can be served:
++
++.. code-block:: shell
+ 
+     kopf run --namespace=some-namespace --namespace=another-namespace ...
+     kopf run -n some-namespace -n another-namespace ...
+ 
+-Namespace globs with ``*`` and ``?`` characters can be used too::
++Namespace globs with ``*`` and ``?`` characters can be used too:
++
++.. code-block:: shell
+ 
+     kopf run --namespace=*-pr-123-* ...
+     kopf run -n *-pr-123-* ...
+ 
+-Namespaces can be negated: all namespaces are served except those excluded::
++Namespaces can be negated: all namespaces are served except those excluded:
++
++.. code-block:: shell
+ 
+     kopf run --namespace=!*-pr-123-* ...
+     kopf run -n !*-pr-123-* ...
+@@ -34,7 +42,9 @@ do match (as if preceded by ``*``), and then the negated ones are excluded.
+ In this artificial example, ``myapp-live`` will match, ``myapp-pr-456`` will
+ not match, but ``myapp-pr-123`` will match; ``otherapp-live`` will not match;
+ even ``otherapp-pr-123`` will not match despite the ``-pr-123`` suffix in it
+-because it does not match the initial decisive glob::
++because it does not match the initial decisive glob:
++
++.. code-block:: shell
+ 
+     kopf run --namespace=myapp-*,!*-pr-*,*-pr-123 ...
+ 
+@@ -58,7 +68,9 @@ __ https://github.com/kubernetes/kubernetes/issues/75537
+ Cluster-wide
+ ============
+ 
+-To serve the resources in the whole cluster::
++To serve the resources in the whole cluster:
++
++.. code-block:: shell
+ 
+     kopf run --all-namespaces ...
+     kopf run -A ...
+diff --git a/docs/shutdown.rst b/docs/shutdown.rst
+index cd51eed..af2ca24 100644
+--- a/docs/shutdown.rst
++++ b/docs/shutdown.rst
+@@ -5,7 +5,9 @@ Shutdown
+ The cleanup handlers are executed when the operator exits
+ either by a signal (e.g. SIGTERM) or by catching an exception,
+ or by raising the stop-flag, or by cancelling the operator's task
+-(for :doc:`embedded operators </embedding>`)::
++(for :doc:`embedded operators </embedding>`):
++
++.. code-block:: python
+ 
+     import kopf
+ 
+diff --git a/docs/startup.rst b/docs/startup.rst
+index ff5ed70..99e53d6 100644
+--- a/docs/startup.rst
++++ b/docs/startup.rst
+@@ -7,7 +7,9 @@ the actual tasks (e.g. API calls for resource watching) are not started
+ until all the startup handlers succeed.
+ 
+ The handlers run inside of the operator's event loop, so they can initialise
+-the loop-bound variables -- which is impossible in the module-level code::
++the loop-bound variables -- which is impossible in the module-level code:
++
++.. code-block:: python
+ 
+     import asyncio
+     import kopf
+diff --git a/docs/walkthrough/diffs.rst b/docs/walkthrough/diffs.rst
+index c70dc68..915ed69 100644
+--- a/docs/walkthrough/diffs.rst
++++ b/docs/walkthrough/diffs.rst
+@@ -67,11 +67,15 @@ Kopf tracks the state of the objects and calculates the diffs.
+ The diffs are provided as the :kwarg:`diff` kwarg; the old & new states
+ of the object or field -- as the :kwarg:`old` & :kwarg:`new` kwargs.
+ 
+-A diff-object has this structure::
++A diff-object has this structure:
++
++.. code-block:: python
+ 
+     ((action, n-tuple of object or field path, old, new),)
+ 
+-with example::
++with example:
++
++.. code-block:: python
+ 
+     (('add', ('metadata', 'labels', 'label1'), None, 'new-value'),
+      ('change', ('metadata', 'labels', 'label2'), 'old-value', 'new-value'),
+@@ -81,7 +85,9 @@ with example::
+ For the field-handlers, it will be the same,
+ but the field path will be relative to the handled field,
+ and unrelated fields will be filtered out.
+-For example, if the field is ``metadata.labels``::
++For example, if the field is ``metadata.labels``:
++
++.. code-block:: python
+ 
+     (('add', ('label1',), None, 'new-value'),
+      ('change', ('label2',), 'old-value', 'new-value'),
+diff --git a/docs/walkthrough/updates.rst b/docs/walkthrough/updates.rst
+index 1b1a49a..409f025 100644
+--- a/docs/walkthrough/updates.rst
++++ b/docs/walkthrough/updates.rst
+@@ -76,7 +76,9 @@ We can see that with kubectl:
+ 
+ Let's add a yet another handler, but for the "update" cause.
+ This handler gets this stored PVC name from the creation handler,
+-and patches the PVC with the new size from the EVC::
++and patches the PVC with the new size from the EVC:
++
++.. code-block:: python
+ 
+     @kopf.on.update('ephemeralvolumeclaims')
+     def update_fn(spec, status, namespace, logger, **kwargs):

@@ -1,0 +1,35 @@
+{
+ "repo": "kopf",
+ "cond": "C",
+ "task": "956cd65",
+ "rep": "r1",
+ "commit": "956cd65e9c246ed485bdc8d988935280cf177165",
+ "spec": [
+  "tests/posting/test_loggers_setting.py"
+ ],
+ "code_in_pr": [
+  "kopf/_cogs/configs/configuration.py",
+  "kopf/_core/engines/posting.py"
+ ],
+ "spec_sha": {
+  "tests/posting/test_loggers_setting.py": "9a1269de3ad67816d1651dcc2a2738988d6c779e8db9b44b11907a869c36a352"
+ },
+ "message": "Configure the posting from loggers separately from the explicit routines\n\nSigned-off-by: Sergey Vasilyev <nolar@nolar.info>",
+ "moves": {
+  "kopf._core.actions.loggers": "kopf._core.loggers"
+ },
+ "created": "2026-10-06T00:05:20",
+ "pre_spec": {
+  "tests.posting.test_loggers_setting::test_loggers_setting_default_is_true": "failed",
+  "tests.posting.test_loggers_setting::test_loggers_setting_true_posts_loggers": "passed",
+  "tests.posting.test_loggers_setting::test_loggers_setting_false_skips_loggers": "failed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-routine0]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-info]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-warn]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-exception]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-routine0]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-info]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-warn]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-exception]": "passed"
+ }
+}

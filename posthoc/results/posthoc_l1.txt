@@ -1,0 +1,40 @@
+1. Registered statistic: pooled AUC of within-repository z-scored S2n (five test repositories)
+  label=y_a2   quarters=70 positives=14 AUC=0.722 within-repo permutation p=0.0049  circular-shift p=0.0087 (exact over 468468 rotations)
+  label=y_orig quarters=70 positives=16 AUC=0.654 within-repo permutation p=0.0311  circular-shift p=0.0580 (exact over 468468 rotations)
+
+2. Non-overlapping windows: every fourth quarter per repository, all four phases
+  label=y_a2   phase 0: AUC 0.547 (n=20, pos=4); phase 1: AUC 0.810 (n=17, pos=3); phase 2: AUC 0.758 (n=17, pos=6); phase 3: AUC 1.000 (n=16, pos=1)
+  label=y_orig phase 0: AUC 0.533 (n=20, pos=5); phase 1: AUC 0.673 (n=17, pos=4); phase 2: AUC 0.758 (n=17, pos=6); phase 3: AUC 1.000 (n=16, pos=1)
+
+3. Prospective (past-only) z-score: quarter t scored against quarters < t of the same repository
+  min prior quarters=4 label=y_a2   quarters=50 positives=8 AUC=0.771 within p=0.0006 circular p=0.0008 (exact over 77112 rotations)
+  min prior quarters=4 label=y_orig quarters=50 positives=9 AUC=0.721 within p=0.0022 circular p=0.0107 (exact over 77112 rotations)
+  min prior quarters=6 label=y_a2   quarters=40 positives=7 AUC=0.766 within p=0.0008 circular p=0.0010 (exact over 22050 rotations)
+  min prior quarters=6 label=y_orig quarters=40 positives=8 AUC=0.707 within p=0.0056 circular p=0.0124 (exact over 22050 rotations)
+  absolute S2n (no standardisation), A2 label: AUC=0.591
+
+4. Alarm performance (A2 label; base rate = positives / quarters)
+  base rate all quarters 14/70 = 0.20; base rate scored by past-only 8/50 = 0.16
+  absolute S2n > 1.0 : flagged 39, true 10, precision 0.26, recall 0.71, false alarms per repository-year 1.66
+  absolute S2n > 1.25: flagged 24, true  5, precision 0.21, recall 0.36, false alarms per repository-year 1.09
+  absolute S2n > 1.5 : flagged  8, true  2, precision 0.25, recall 0.14, false alarms per repository-year 0.34
+  past-only z  > 0.5 : flagged 10, true  5, precision 0.50, recall 0.62, false alarms per repository-year 0.40
+  past-only z  > 1.0 : flagged  7, true  3, precision 0.43, recall 0.38, false alarms per repository-year 0.32
+  past-only z  > 1.5 : flagged  5, true  3, precision 0.60, recall 0.38, false alarms per repository-year 0.16
+
+5. Inclusion: z-scored S2n pooled over more repositories (all have >= 10 commits per quarter)
+  tests + import-linter + sqlfluff label=y_a2   quarters=101 positives=17 AUC=0.702 within p=0.0039 circular p=0.0070 (Monte Carlo 200000 rotations)
+  tests + import-linter + sqlfluff label=y_orig quarters=101 positives=20 AUC=0.653 within p=0.0154 circular p=0.0384 (Monte Carlo 200000 rotations)
+  tests + import-linter + sqlfluff past-only (>=4 prior) A2: quarters=73 positives=10 AUC=0.740 within p=0.0001
+  all nine                         label=y_a2   quarters=149 positives=17 AUC=0.693 within p=0.0034 circular p=0.0066 (Monte Carlo 200000 rotations)
+  all nine                         label=y_orig quarters=149 positives=20 AUC=0.644 within p=0.0146 circular p=0.0365 (Monte Carlo 200000 rotations)
+  all nine                         past-only (>=4 prior) A2: quarters=113 positives=10 AUC=0.711 within p=0.0001
+
+6. Activity
+  label=y_a2   AUC(z log commits)=0.324 (inverse discrimination 0.676); median window commits positive 67.0 vs negative 134.5
+  label=y_orig AUC(z log commits)=0.337 (inverse discrimination 0.663); median window commits positive 84.0 vs negative 134.5
+  conditional logit, label=y_a2  : beta S2n +0.697 (SE 0.330), log commits -0.897 (SE 0.427), new packages +0.736 (SE 0.462); LR 4.66, one-sided permutation p 0.0198
+  conditional logit, label=y_orig: beta S2n +0.433 (SE 0.300), log commits -0.639 (SE 0.362), new packages +0.364 (SE 0.383); LR 2.08, one-sided permutation p 0.0814
+  S2n shrunk toward the repository mean with 10 pseudo-commits: AUC 0.708 (within p 0.0079); conditional logit beta +0.661 (SE 0.325), permutation p 0.0236
+  S2n shrunk toward the repository mean with 25 pseudo-commits: AUC 0.699 (within p 0.0094); conditional logit beta +0.599 (SE 0.320), permutation p 0.0346
+  S2n shrunk toward the repository mean with 50 pseudo-commits: AUC 0.668 (within p 0.0254); conditional logit beta +0.520 (SE 0.325), permutation p 0.0640

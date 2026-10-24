@@ -1,0 +1,372 @@
+[
+ {
+  "repo": "kedro",
+  "pr": "2926",
+  "subject": "Merge template `pyproject.toml` into one (#2926)",
+  "files": 6,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "cli"
+  ]
+ },
+ {
+  "repo": "kedro",
+  "pr": "3115",
+  "subject": "Rename uses of data_set to dataset (#3115)",
+  "files": 13,
+  "units": 5,
+  "touches_bottom": true,
+  "unit_list": [
+   "cli",
+   "context",
+   "io",
+   "pipeline",
+   "runner"
+  ]
+ },
+ {
+  "repo": "kedro",
+  "pr": "3147",
+  "subject": "Rename all `DataSet` mentions to `Dataset` (excl. docs) (#31",
+  "files": 9,
+  "units": 3,
+  "touches_bottom": true,
+  "unit_list": [
+   "config",
+   "io",
+   "runner"
+  ]
+ },
+ {
+  "repo": "kedro",
+  "pr": "2987",
+  "subject": "MVP for \"add-ons\" flow within kedro new CLI command (#2987)",
+  "files": 4,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "cli"
+  ]
+ },
+ {
+  "repo": "kedro",
+  "pr": "3145",
+  "subject": "Make `OmegaConfigLoader` accept paths containing dots outsid",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": true,
+  "unit_list": [
+   "config"
+  ]
+ },
+ {
+  "repo": "kedro",
+  "pr": "3095",
+  "subject": "Implement and use custom `KedroDeprecationWarning` (#3095)",
+  "files": 13,
+  "units": 4,
+  "touches_bottom": true,
+  "unit_list": [
+   "cli",
+   "io",
+   "runner",
+   "session"
+  ]
+ },
+ {
+  "repo": "kedro",
+  "pr": "3211",
+  "subject": "Add new spaceflights starters to `kedro new --starter` (#321",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "cli"
+  ]
+ },
+ {
+  "repo": "kedro",
+  "pr": "3187",
+  "subject": "Remove PartitionedDataset and IncrementalDataset from kedro.",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": true,
+  "unit_list": [
+   "io"
+  ]
+ },
+ {
+  "repo": "kedro",
+  "pr": "3188",
+  "subject": "Add `add_ons` metadata to `pyproject.toml` for project creat",
+  "files": 3,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "cli"
+  ]
+ },
+ {
+  "repo": "kedro",
+  "pr": "3081",
+  "subject": "Add addon flags to kedro new (#3081)",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "cli"
+  ]
+ },
+ {
+  "repo": "legadilo",
+  "pr": "04ed268",
+  "subject": "ref: remove support for non HTMX request",
+  "files": 4,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "reading"
+  ]
+ },
+ {
+  "repo": "legadilo",
+  "pr": "1d76c24",
+  "subject": "feat(reading): can reorder reading lists with drag & drop",
+  "files": 3,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "reading"
+  ]
+ },
+ {
+  "repo": "legadilo",
+  "pr": "608162a",
+  "subject": "feat(reading): can save raw text files",
+  "files": 8,
+  "units": 4,
+  "touches_bottom": true,
+  "unit_list": [
+   "feeds",
+   "import_export",
+   "reading",
+   "utils"
+  ]
+ },
+ {
+  "repo": "legadilo",
+  "pr": "ae7508a",
+  "subject": "ref(reading): reorder reading list with a form",
+  "files": 3,
+  "units": 2,
+  "touches_bottom": true,
+  "unit_list": [
+   "core",
+   "reading"
+  ]
+ },
+ {
+  "repo": "legadilo",
+  "pr": "6d8d24c",
+  "subject": "fix(reading): update content type when content is updated",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "reading"
+  ]
+ },
+ {
+  "repo": "legadilo",
+  "pr": "35b49ce",
+  "subject": "fix(reading): can use lazy loaded images",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "reading"
+  ]
+ },
+ {
+  "repo": "legadilo",
+  "pr": "701b5d2",
+  "subject": "ref(reading): return SaveArticleResult when saving invalid a",
+  "files": 2,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "reading"
+  ]
+ },
+ {
+  "repo": "legadilo",
+  "pr": "4b56751",
+  "subject": "ref(reading): associate reading lists with tags directly",
+  "files": 2,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "reading"
+  ]
+ },
+ {
+  "repo": "legadilo",
+  "pr": "2886ecb",
+  "subject": "ref(reading): update reading lists in transaction",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "reading"
+  ]
+ },
+ {
+  "repo": "legadilo",
+  "pr": "ba89dd6",
+  "subject": "ref(reading): build saved articles messages in HTML",
+  "files": 4,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "reading"
+  ]
+ },
+ {
+  "repo": "kopf",
+  "pr": "bad8649",
+  "subject": "Prevent handler retries if they are doomed to fail on the ne",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": true,
+  "unit_list": [
+   "actions"
+  ]
+ },
+ {
+  "repo": "kopf",
+  "pr": "51c078d",
+  "subject": "Narrow the handler state interface and shift the storage-spe",
+  "files": 3,
+  "units": 2,
+  "touches_bottom": true,
+  "unit_list": [
+   "actions",
+   "progress"
+  ]
+ },
+ {
+  "repo": "kopf",
+  "pr": "91f7ae0",
+  "subject": "Restrict the handler state's \"started\"/\"active\" from being N",
+  "files": 2,
+  "units": 1,
+  "touches_bottom": true,
+  "unit_list": [
+   "actions"
+  ]
+ },
+ {
+  "repo": "kopf",
+  "pr": "e2c7056",
+  "subject": "Use the loop time instead of system/process time for interna",
+  "files": 4,
+  "units": 4,
+  "touches_bottom": true,
+  "unit_list": [
+   "actions",
+   "aiokits",
+   "engines",
+   "reactor"
+  ]
+ },
+ {
+  "repo": "kopf",
+  "pr": "017dbe0",
+  "subject": "Use the loop time instead of wall clock for handler states (",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": true,
+  "unit_list": [
+   "actions"
+  ]
+ },
+ {
+  "repo": "kopf",
+  "pr": "624c6d2",
+  "subject": "Avoid streaming if stopped at the request handshake",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "clients"
+  ]
+ },
+ {
+  "repo": "kopf",
+  "pr": "f325f02",
+  "subject": "Postpone the initial timer/daemon delay by computable (e.g. ",
+  "files": 4,
+  "units": 3,
+  "touches_bottom": true,
+  "unit_list": [
+   "engines",
+   "intents",
+   "on"
+  ]
+ },
+ {
+  "repo": "kopf",
+  "pr": "956cd65",
+  "subject": "Configure the posting from loggers separately from the expli",
+  "files": 2,
+  "units": 2,
+  "touches_bottom": false,
+  "unit_list": [
+   "configuration",
+   "engines"
+  ]
+ },
+ {
+  "repo": "kopf",
+  "pr": "a6403c4",
+  "subject": "Restart the webhook server on renewal of externally provided",
+  "files": 1,
+  "units": 1,
+  "touches_bottom": false,
+  "unit_list": [
+   "_kits"
+  ]
+ },
+ {
+  "repo": "kopf",
+  "pr": "20de08c",
+  "subject": "Rewrite to explicit code blocks in docs (for LLMs readabilit",
+  "files": 9,
+  "units": 7,
+  "touches_bottom": true,
+  "unit_list": [
+   "_kits",
+   "aiokits",
+   "clients",
+   "engines",
+   "intents",
+   "on",
+   "structs"
+  ]
+ },
+ {
+  "repo": "openedx-learning",
+  "pr": "478",
+  "subject": "feat!: Make `openedx_content` and `openedx_tagging` flat, to",
+  "files": 99,
+  "units": 4,
+  "touches_bottom": true,
+  "unit_list": [
+   "apps",
+   "authoring",
+   "contrib",
+   "lib"
+  ]
+ }
+]

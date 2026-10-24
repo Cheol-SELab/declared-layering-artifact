@@ -1,0 +1,97 @@
+{
+ "repo": "kopf",
+ "cond": "C",
+ "task": "91f7ae0",
+ "rep": "r1",
+ "commit": "91f7ae0",
+ "spec_files": [
+  "tests/handling/test_delays.py"
+ ],
+ "new_failures_candidates": [
+  "tests.observation.test_processing_of_namespaces::test_followups_for_deletion[DELETED]"
+ ],
+ "new_failures_persistent": [],
+ "changed_code_files": 2,
+ "code_files": [
+  "kopf/_core/actions/execution.py",
+  "kopf/_core/actions/progression.py"
+ ],
+ "lines_changed": 12,
+ "other_test_files_edited": [],
+ "units_own": 1,
+ "units_own_list": [
+  "kopf._core.actions"
+ ],
+ "units_Aframe": 1,
+ "units_Aframe_list": [
+  "kopf._core.actions"
+ ],
+ "touches_bottom_own": true,
+ "touches_bottom_Aframe": true,
+ "spec_intact": true,
+ "spec_results": {
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-resume]": "passed"
+ },
+ "pre_spec": {
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-resume]": "passed"
+ },
+ "lint_rc": 0,
+ "lint_broken": 0,
+ "lint_tail": "----\n\nThe root framework modules must be layered KEPT\nThe internal core must be layered KEPT\nThe internal cogs must be layered KEPT\nProgress storages must be persistence settings KEPT\nDiffbase storages must be persistence settings KEPT\nStorage types must be unaware of each other KEPT\nMost asyncio kits must be unaware of each other KEPT\nThe internals must be unaware of user-facing toolkits KEPT\nThe user-facing toolkits must be unaware of each other KEPT\n3rd-party clients must be explicitly allowed KEPT\n3rd-party clients must be secured by conditional imports KEPT\n\nContracts: 11 kept, 0 broken.\n",
+ "full_counts": {
+  "passed": 6965,
+  "failed": 1,
+  "skipped": 0
+ },
+ "full_failed": [
+  "tests.observation.test_processing_of_namespaces::test_followups_for_deletion[DELETED]"
+ ],
+ "full_rc": 1,
+ "evaluated": "2026-10-06T03:28:18"
+}

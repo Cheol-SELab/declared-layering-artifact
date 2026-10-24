@@ -1,0 +1,497 @@
+[
+ {
+  "U": "openedx_learning.core.publishing",
+  "U_commits": 13,
+  "U_share_of_window": 0.68,
+  "commit": "a800b68",
+  "date": "2024-04-01",
+  "detail": "openedx_learning.core.publishing.models → move up one layer",
+  "proposal": "EXTRACT",
+  "r_U": 0.54,
+  "r_top": 0.75,
+  "repo": "openedx-learning",
+  "sub_share": 0.62,
+  "top_sub": "models.py",
+  "top_subs": [
+   [
+    "models.py",
+    8
+   ],
+   [
+    "api.py",
+    7
+   ],
+   [
+    "admin.py",
+    7
+   ],
+   [
+    "model_mixins.py",
+    4
+   ]
+  ],
+  "window_commits": 19
+ },
+ {
+  "U": "openedx_learning.lib",
+  "U_commits": 7,
+  "U_share_of_window": 0.88,
+  "commit": "6a4cfc7",
+  "date": "2024-07-01",
+  "detail": "openedx_learning.lib.fields → move up one layer",
+  "proposal": "EXTRACT",
+  "r_U": 0.29,
+  "r_top": 0.5,
+  "repo": "openedx-learning",
+  "sub_share": 0.57,
+  "top_sub": "fields.py",
+  "top_subs": [
+   [
+    "fields.py",
+    4
+   ],
+   [
+    "admin_utils.py",
+    2
+   ],
+   [
+    "managers.py",
+    2
+   ],
+   [
+    "collations.py",
+    1
+   ]
+  ],
+  "window_commits": 8
+ },
+ {
+  "U": "openedx_learning.apps.authoring.publishing",
+  "U_commits": 18,
+  "U_share_of_window": 0.5,
+  "commit": "a1f689e",
+  "date": "2025-07-01",
+  "detail": "ambiguous r",
+  "proposal": "HOLD",
+  "r_U": 0.39,
+  "r_top": 0.29,
+  "repo": "openedx-learning",
+  "sub_share": 0.78,
+  "top_sub": "api.py",
+  "top_subs": [
+   [
+    "api.py",
+    14
+   ],
+   [
+    "model_mixins.py",
+    4
+   ],
+   [
+    "models",
+    4
+   ],
+   [
+    "models.py",
+    2
+   ]
+  ],
+  "window_commits": 36
+ },
+ {
+  "U": "openedx_content.applets.publishing",
+  "U_commits": 13,
+  "U_share_of_window": 0.36,
+  "commit": "6d50ec1",
+  "date": "2026-07-01",
+  "detail": "ambiguous r",
+  "proposal": "HOLD",
+  "r_U": 0.46,
+  "r_top": 0.45,
+  "repo": "openedx-learning",
+  "sub_share": 0.85,
+  "top_sub": "api.py",
+  "top_subs": [
+   [
+    "api.py",
+    11
+   ],
+   [
+    "models",
+    4
+   ],
+   [
+    "signals.py",
+    2
+   ],
+   [
+    "admin.py",
+    1
+   ]
+  ],
+  "window_commits": 36
+ },
+ {
+  "U": "ggshield.core",
+  "U_commits": 82,
+  "U_share_of_window": 0.5,
+  "commit": "7d85eb1",
+  "date": "2025-01-01",
+  "detail": "ggshield.core → one rank up",
+  "proposal": "PROMOTE",
+  "r_U": 0.6,
+  "r_top": 0.71,
+  "repo": "r2/ggshield",
+  "sub_share": 0.26,
+  "top_sub": "scan",
+  "top_subs": [
+   [
+    "scan",
+    21
+   ],
+   [
+    "config",
+    21
+   ],
+   [
+    "lines.py",
+    12
+   ],
+   [
+    "filter.py",
+    9
+   ]
+  ],
+  "window_commits": 164
+ },
+ {
+  "U": "ggshield.core",
+  "U_commits": 31,
+  "U_share_of_window": 0.45,
+  "commit": "03efce7",
+  "date": "2026-01-01",
+  "detail": "ambiguous r",
+  "proposal": "HOLD",
+  "r_U": 0.32,
+  "r_top": 0.25,
+  "repo": "r2/ggshield",
+  "sub_share": 0.39,
+  "top_sub": "client.py",
+  "top_subs": [
+   [
+    "client.py",
+    12
+   ],
+   [
+    "config",
+    9
+   ],
+   [
+    "errors.py",
+    5
+   ],
+   [
+    "scan",
+    4
+   ]
+  ],
+  "window_commits": 69
+ },
+ {
+  "U": "ggshield.core",
+  "U_commits": 50,
+  "U_share_of_window": 0.5,
+  "commit": "9728dc2",
+  "date": "2026-04-01",
+  "detail": "volatility internal to U",
+  "proposal": "HOLD",
+  "r_U": 0.18,
+  "r_top": 0.17,
+  "repo": "r2/ggshield",
+  "sub_share": 0.24,
+  "top_sub": "client.py",
+  "top_subs": [
+   [
+    "client.py",
+    12
+   ],
+   [
+    "config",
+    7
+   ],
+   [
+    "scan",
+    6
+   ],
+   [
+    "plugin",
+    6
+   ]
+  ],
+  "window_commits": 101
+ },
+ {
+  "U": "kedro.io",
+  "U_commits": 16,
+  "U_share_of_window": 0.1,
+  "commit": "b4e4ea8",
+  "date": "2021-10-01",
+  "detail": "kedro.io → one rank up",
+  "proposal": "PROMOTE",
+  "r_U": 0.56,
+  "r_top": 0.43,
+  "repo": "kedro",
+  "sub_share": 0.44,
+  "top_sub": "partitioned_data_set.py",
+  "top_subs": [
+   [
+    "partitioned_data_set.py",
+    7
+   ],
+   [
+    "core.py",
+    6
+   ],
+   [
+    "data_catalog.py",
+    5
+   ],
+   [
+    "transformers.py",
+    2
+   ]
+  ],
+  "window_commits": 161
+ },
+ {
+  "U": "kedro.io",
+  "U_commits": 26,
+  "U_share_of_window": 0.24,
+  "commit": "d5fcdf1",
+  "date": "2023-07-01",
+  "detail": "ambiguous r",
+  "proposal": "HOLD",
+  "r_U": 0.31,
+  "r_top": 0.2,
+  "repo": "kedro",
+  "sub_share": 0.58,
+  "top_sub": "core.py",
+  "top_subs": [
+   [
+    "core.py",
+    15
+   ],
+   [
+    "partitioned_dataset.py",
+    10
+   ],
+   [
+    "data_catalog.py",
+    5
+   ],
+   [
+    "cached_dataset.py",
+    5
+   ]
+  ],
+  "window_commits": 107
+ },
+ {
+  "U": "kedro.io",
+  "U_commits": 30,
+  "U_share_of_window": 0.29,
+  "commit": "e9a07bb",
+  "date": "2023-10-01",
+  "detail": "ambiguous r",
+  "proposal": "HOLD",
+  "r_U": 0.3,
+  "r_top": 0.25,
+  "repo": "kedro",
+  "sub_share": 0.53,
+  "top_sub": "core.py",
+  "top_subs": [
+   [
+    "core.py",
+    16
+   ],
+   [
+    "partitioned_dataset.py",
+    12
+   ],
+   [
+    "data_catalog.py",
+    10
+   ],
+   [
+    "cached_dataset.py",
+    7
+   ]
+  ],
+  "window_commits": 103
+ },
+ {
+  "U": "bkuser.common",
+  "U_commits": 11,
+  "U_share_of_window": 0.38,
+  "commit": "e5fb0be",
+  "date": "2023-10-01",
+  "detail": "bkuser.common.log → move up one layer",
+  "proposal": "EXTRACT",
+  "r_U": 0.73,
+  "r_top": 0.86,
+  "repo": "r3/TencentBlueKing__bk-user",
+  "sub_share": 0.64,
+  "top_sub": "log.py",
+  "top_subs": [
+   [
+    "log.py",
+    7
+   ],
+   [
+    "error_codes.py",
+    5
+   ],
+   [
+    "views.py",
+    2
+   ],
+   [
+    "passwd",
+    1
+   ]
+  ],
+  "window_commits": 29
+ },
+ {
+  "U": "bkuser.common",
+  "U_commits": 36,
+  "U_share_of_window": 0.31,
+  "commit": "3fa6dfc",
+  "date": "2024-04-01",
+  "detail": "bkuser.common.log → move up one layer",
+  "proposal": "EXTRACT",
+  "r_U": 0.81,
+  "r_top": 0.95,
+  "repo": "r3/TencentBlueKing__bk-user",
+  "sub_share": 0.53,
+  "top_sub": "log.py",
+  "top_subs": [
+   [
+    "log.py",
+    19
+   ],
+   [
+    "error_codes.py",
+    8
+   ],
+   [
+    "constants.py",
+    5
+   ],
+   [
+    "validators.py",
+    3
+   ]
+  ],
+  "window_commits": 116
+ },
+ {
+  "U": "legadilo.utils",
+  "U_commits": 14,
+  "U_share_of_window": 0.26,
+  "commit": "7123956",
+  "date": "2024-04-01",
+  "detail": "legadilo.utils → one rank up",
+  "proposal": "PROMOTE",
+  "r_U": 0.64,
+  "r_top": 0.5,
+  "repo": "r3/JujensGh__legadilo",
+  "sub_share": 0.29,
+  "top_sub": "security.py",
+  "top_subs": [
+   [
+    "security.py",
+    4
+   ],
+   [
+    "validators.py",
+    3
+   ],
+   [
+    "storages.py",
+    2
+   ],
+   [
+    "iterables.py",
+    2
+   ]
+  ],
+  "window_commits": 53
+ },
+ {
+  "U": "legadilo.utils",
+  "U_commits": 41,
+  "U_share_of_window": 0.16,
+  "commit": "7e70076",
+  "date": "2024-07-01",
+  "detail": "legadilo.utils → one rank up",
+  "proposal": "PROMOTE",
+  "r_U": 0.73,
+  "r_top": 0.89,
+  "repo": "r3/JujensGh__legadilo",
+  "sub_share": 0.22,
+  "top_sub": "validators.py",
+  "top_subs": [
+   [
+    "validators.py",
+    9
+   ],
+   [
+    "security.py",
+    8
+   ],
+   [
+    "time.py",
+    7
+   ],
+   [
+    "urls.py",
+    5
+   ]
+  ],
+  "window_commits": 251
+ },
+ {
+  "U": "legadilo.utils",
+  "U_commits": 35,
+  "U_share_of_window": 0.24,
+  "commit": "94be0f9",
+  "date": "2025-10-01",
+  "detail": "legadilo.utils.testing → move up one layer",
+  "proposal": "EXTRACT",
+  "r_U": 0.74,
+  "r_top": 0.87,
+  "repo": "r3/JujensGh__legadilo",
+  "sub_share": 0.43,
+  "top_sub": "testing.py",
+  "top_subs": [
+   [
+    "testing.py",
+    15
+   ],
+   [
+    "collections_utils.py",
+    11
+   ],
+   [
+    "validators.py",
+    9
+   ],
+   [
+    "api.py",
+    9
+   ]
+  ],
+  "window_commits": 146
+ }
+]

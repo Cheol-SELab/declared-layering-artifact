@@ -1,0 +1,1 @@
+{"cond": "A", "task": "69a6fe1", "rep": "r2", "changed_code_files": 1, "lines_changed": 5, "units_own": 1, "units_Aframe": 1, "spec_intact": true, "lint_broken": 0, "full_counts": {"passed": 1338, "failed": 17, "skipped": 0}}

@@ -1,0 +1,60 @@
+{
+ "U": "kedro.io",
+ "U_commits": 29,
+ "bottom_units": [
+  "kedro.config",
+  "kedro.io",
+  "kedro.pipeline"
+ ],
+ "decision": "EXTRACT",
+ "fallback": "A5: most-co-changed-with-higher-layer sub-module of the busiest bottom unit",
+ "mean_r": 0.58,
+ "repo": "kedro",
+ "snapshot": "e9a07bb7344fa9b1b7cad1e50bbca5ae4aea9ca0",
+ "snapshot_date": "2023-10-01",
+ "sub_loc": {
+  "cached_dataset": 136,
+  "core": 781,
+  "data_catalog": 770,
+  "lambda_dataset": 136,
+  "memory_dataset": 155,
+  "partitioned_dataset": 575
+ },
+ "submodules": {
+  "cached_dataset": {
+   "n": 7,
+   "r": 0.71,
+   "with_higher": 5
+  },
+  "core": {
+   "n": 15,
+   "r": 0.27,
+   "with_higher": 4
+  },
+  "data_catalog": {
+   "n": 10,
+   "r": 0.6,
+   "with_higher": 6
+  },
+  "lambda_dataset": {
+   "n": 6,
+   "r": 0.83,
+   "with_higher": 5
+  },
+  "memory_dataset": {
+   "n": 7,
+   "r": 0.86,
+   "with_higher": 6
+  },
+  "partitioned_dataset": {
+   "n": 12,
+   "r": 0.58,
+   "with_higher": 7
+  }
+ },
+ "table_decision": "HOLD",
+ "target": "kedro.io.partitioned_dataset",
+ "tie_rule": "count, then larger sub-module (lines), then name",
+ "window_commits": 102,
+ "window_since": "2022-10-06"
+}

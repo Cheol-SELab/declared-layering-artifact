@@ -1,0 +1,226 @@
+From b9e141ed10570f85b5a0f093bcbbc4640ebaa376 Mon Sep 17 00:00:00 2001
+From: harness <h@x>
+Date: Mon, 5 Oct 2026 21:52:45 -0400
+Subject: [PATCH] vdm condition C refactoring (agent, gates passed per agent
+ report)
+
+---
+ docs/source/conf.py                            |  2 +-
+ .../data/how_to_create_a_custom_dataset.md     |  2 +-
+ .../partitioned_and_incremental_datasets.md    |  6 +++---
+ kedro/io/__init__.py                           | 10 ----------
+ kedro/io/core.py                               |  2 +-
+ kedro/partitioned/__init__.py                  | 18 ++++++++++++++++++
+ .../{io => partitioned}/partitioned_dataset.py |  0
+ pyproject.toml                                 |  3 +++
+ tests/io/test_data_catalog.py                  |  2 +-
+ tests/io/test_incremental_dataset.py           |  3 ++-
+ tests/io/test_partitioned_dataset.py           |  5 +++--
+ 11 files changed, 33 insertions(+), 20 deletions(-)
+ create mode 100644 kedro/partitioned/__init__.py
+ rename kedro/{io => partitioned}/partitioned_dataset.py (100%)
+
+diff --git a/docs/source/conf.py b/docs/source/conf.py
+index 77bad9c..45e7afd 100644
+--- a/docs/source/conf.py
++++ b/docs/source/conf.py
+@@ -118,7 +118,7 @@ type_targets = {
+         "kedro.io.core.Version",
+         "kedro.io.data_catalog.DataCatalog",
+         "kedro.io.memory_dataset.MemoryDataSet",
+-        "kedro.io.partitioned_dataset.PartitionedDataSet",
++        "kedro.partitioned.partitioned_dataset.PartitionedDataSet",
+         "kedro.pipeline.pipeline.Pipeline",
+         "kedro.runner.runner.AbstractRunner",
+         "kedro.runner.parallel_runner._SharedMemoryDataSet",
+diff --git a/docs/source/data/how_to_create_a_custom_dataset.md b/docs/source/data/how_to_create_a_custom_dataset.md
+index 8aedac6..c48a4cf 100644
+--- a/docs/source/data/how_to_create_a_custom_dataset.md
++++ b/docs/source/data/how_to_create_a_custom_dataset.md
+@@ -271,7 +271,7 @@ class ImageDataSet(AbstractDataset[np.ndarray, np.ndarray]):
+ 
+ Currently, the `ImageDataSet` only works with a single image, but this example needs to load all Pokemon images from the raw data directory for further processing.
+ 
+-Kedro's [`PartitionedDataset`](/kedro.io.PartitionedDataset) is a convenient way to load multiple separate data files of the same underlying dataset type into a directory.
++Kedro's [`PartitionedDataset`](/kedro.partitioned.PartitionedDataset) is a convenient way to load multiple separate data files of the same underlying dataset type into a directory.
+ 
+ To use `PartitionedDataset` with `ImageDataSet` to load all Pokemon PNG images, add this to the data catalog YAML so that `PartitionedDataset` loads all PNG files from the data directory using `ImageDataSet`:
+ 
+diff --git a/docs/source/data/partitioned_and_incremental_datasets.md b/docs/source/data/partitioned_and_incremental_datasets.md
+index f54d9b9..48e1826 100644
+--- a/docs/source/data/partitioned_and_incremental_datasets.md
++++ b/docs/source/data/partitioned_and_incremental_datasets.md
+@@ -4,7 +4,7 @@
+ 
+ Distributed systems play an increasingly important role in ETL data pipelines. They increase the processing throughput, enabling us to work with much larger volumes of input data. A situation may arise where your Kedro node needs to read the data from a directory full of uniform files of the same type like JSON or CSV. Tools like `PySpark` and the corresponding [SparkDataSet](/kedro_datasets.spark.SparkDataSet) cater for such use cases but may not always be possible.
+ 
+-This is why Kedro provides a built-in [PartitionedDataset](/kedro.io.PartitionedDataset), with the following features:
++This is why Kedro provides a built-in [PartitionedDataset](/kedro.partitioned.PartitionedDataset), with the following features:
+ 
+ * `PartitionedDataset` can recursively load/save all or specific files from a given location.
+ * It is platform agnostic, and can work with any filesystem implementation supported by [fsspec](https://filesystem-spec.readthedocs.io/) including local, S3, GCS, and many more.
+@@ -240,7 +240,7 @@ When using lazy saving, the dataset will be written _after_ the `after_node_run`
+ 
+ ## Incremental datasets
+ 
+-[IncrementalDataset](/kedro.io.IncrementalDataset) is a subclass of `PartitionedDataset`, which stores the information about the last processed partition in the so-called `checkpoint`. `IncrementalDataset` addresses the use case when partitions have to be processed incrementally, i.e. each subsequent pipeline run should only process the partitions which were not processed by the previous runs.
++[IncrementalDataset](/kedro.partitioned.IncrementalDataset) is a subclass of `PartitionedDataset`, which stores the information about the last processed partition in the so-called `checkpoint`. `IncrementalDataset` addresses the use case when partitions have to be processed incrementally, i.e. each subsequent pipeline run should only process the partitions which were not processed by the previous runs.
+ 
+ This checkpoint, by default, is persisted to the location of the data partitions. For example, for `IncrementalDataset` instantiated with path `s3://my-bucket-name/path/to/folder`, the checkpoint will be saved to `s3://my-bucket-name/path/to/folder/CHECKPOINT`, unless [the checkpoint configuration is explicitly overwritten](#checkpoint-configuration).
+ 
+@@ -309,7 +309,7 @@ pipeline(
+ 
+ Important notes about the confirmation operation:
+ 
+-* Confirming a partitioned dataset does not affect any subsequent loads within the same run. All downstream nodes that input the same partitioned dataset as input will all receive the _same_ partitions. Partitions that are created externally during the run will also not affect the dataset loads and won't appear in the list of loaded partitions until the next run or until the [`release()`](/kedro.io.IncrementalDataset) method is called on the dataset object.
++* Confirming a partitioned dataset does not affect any subsequent loads within the same run. All downstream nodes that input the same partitioned dataset as input will all receive the _same_ partitions. Partitions that are created externally during the run will also not affect the dataset loads and won't appear in the list of loaded partitions until the next run or until the [`release()`](/kedro.partitioned.IncrementalDataset) method is called on the dataset object.
+ * A pipeline cannot contain more than one node confirming the same dataset.
+ 
+ 
+diff --git a/kedro/io/__init__.py b/kedro/io/__init__.py
+index 26d4c36..ef8e1b5 100644
+--- a/kedro/io/__init__.py
++++ b/kedro/io/__init__.py
+@@ -15,12 +15,6 @@ from .core import (
+ from .data_catalog import DataCatalog
+ from .lambda_dataset import LambdaDataSet, LambdaDataset
+ from .memory_dataset import MemoryDataSet, MemoryDataset
+-from .partitioned_dataset import (
+-    IncrementalDataSet,
+-    IncrementalDataset,
+-    PartitionedDataSet,
+-    PartitionedDataset,
+-)
+ 
+ # https://github.com/pylint-dev/pylint/issues/4300#issuecomment-1043601901
+ DataSetError: type[DatasetError]
+@@ -52,13 +46,9 @@ __all__ = [
+     "DatasetError",
+     "DataSetNotFoundError",
+     "DatasetNotFoundError",
+-    "IncrementalDataSet",
+-    "IncrementalDataset",
+     "LambdaDataSet",
+     "LambdaDataset",
+     "MemoryDataSet",
+     "MemoryDataset",
+-    "PartitionedDataSet",
+-    "PartitionedDataset",
+     "Version",
+ ]
+diff --git a/kedro/io/core.py b/kedro/io/core.py
+index e031678..e8eb8f1 100644
+--- a/kedro/io/core.py
++++ b/kedro/io/core.py
+@@ -353,7 +353,7 @@ _CONSISTENCY_WARNING = (
+     "intermediate data sets where possible to avoid this warning."
+ )
+ 
+-_DEFAULT_PACKAGES = ["kedro.io.", "kedro_datasets.", ""]
++_DEFAULT_PACKAGES = ["kedro.io.", "kedro.partitioned.", "kedro_datasets.", ""]
+ 
+ 
+ def parse_dataset_definition(
+diff --git a/kedro/partitioned/__init__.py b/kedro/partitioned/__init__.py
+new file mode 100644
+index 0000000..281e526
+--- /dev/null
++++ b/kedro/partitioned/__init__.py
+@@ -0,0 +1,18 @@
++"""``kedro.partitioned`` provides partitioned and incremental datasets built on
++top of ``kedro.io``.
++"""
++from __future__ import annotations
++
++from .partitioned_dataset import (
++    IncrementalDataSet,
++    IncrementalDataset,
++    PartitionedDataSet,
++    PartitionedDataset,
++)
++
++__all__ = [
++    "IncrementalDataSet",
++    "IncrementalDataset",
++    "PartitionedDataSet",
++    "PartitionedDataset",
++]
+diff --git a/kedro/io/partitioned_dataset.py b/kedro/partitioned/partitioned_dataset.py
+similarity index 100%
+rename from kedro/io/partitioned_dataset.py
+rename to kedro/partitioned/partitioned_dataset.py
+diff --git a/pyproject.toml b/pyproject.toml
+index b73ba91..3346de2 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -121,6 +121,7 @@ layers = [
+     "framework.context",
+     "framework.project",
+     "runner",
++    "partitioned",
+     "io",
+     "pipeline",
+     "config"
+@@ -147,6 +148,7 @@ source_modules = [
+ forbidden_modules = [
+     "kedro.runner",
+     "kedro.io",
++    "kedro.partitioned",
+     "kedro.pipeline",
+ ]
+ 
+@@ -156,6 +158,7 @@ type = "forbidden"
+ source_modules = [
+     "kedro.runner",
+     "kedro.io",
++    "kedro.partitioned",
+     "kedro.pipeline",
+ ]
+ forbidden_modules = [
+diff --git a/tests/io/test_data_catalog.py b/tests/io/test_data_catalog.py
+index 8c86da5..243a6c5 100644
+--- a/tests/io/test_data_catalog.py
++++ b/tests/io/test_data_catalog.py
+@@ -594,7 +594,7 @@ class TestDataCatalogFromConfig:
+     def test_confirm(self, tmp_path, caplog, mocker):
+         """Confirm the dataset"""
+         with caplog.at_level(logging.INFO):
+-            mock_confirm = mocker.patch("kedro.io.IncrementalDataset.confirm")
++            mock_confirm = mocker.patch("kedro.partitioned.IncrementalDataset.confirm")
+             catalog = {
+                 "ds_to_confirm": {
+                     "type": "IncrementalDataset",
+diff --git a/tests/io/test_incremental_dataset.py b/tests/io/test_incremental_dataset.py
+index ae4c02a..e5b0483 100644
+--- a/tests/io/test_incremental_dataset.py
++++ b/tests/io/test_incremental_dataset.py
+@@ -13,7 +13,8 @@ from kedro_datasets.text import TextDataSet
+ from moto import mock_s3
+ from pandas.util.testing import assert_frame_equal
+ 
+-from kedro.io import AbstractDataset, DatasetError, IncrementalDataset
++from kedro.io import AbstractDataset, DatasetError
++from kedro.partitioned import IncrementalDataset
+ from kedro.io.data_catalog import CREDENTIALS_KEY
+ 
+ DATASET = "kedro_datasets.pandas.CSVDataSet"
+diff --git a/tests/io/test_partitioned_dataset.py b/tests/io/test_partitioned_dataset.py
+index 1740b38..7e88037 100644
+--- a/tests/io/test_partitioned_dataset.py
++++ b/tests/io/test_partitioned_dataset.py
+@@ -11,9 +11,10 @@ from kedro_datasets.pandas import CSVDataSet, ParquetDataSet
+ from moto import mock_s3
+ from pandas.util.testing import assert_frame_equal
+ 
+-from kedro.io import DatasetError, PartitionedDataset
++from kedro.io import DatasetError
++from kedro.partitioned import PartitionedDataset
+ from kedro.io.data_catalog import CREDENTIALS_KEY
+-from kedro.io.partitioned_dataset import KEY_PROPAGATION_WARNING
++from kedro.partitioned.partitioned_dataset import KEY_PROPAGATION_WARNING
+ 
+ 
+ @pytest.fixture
+-- 
+2.38.1.windows.1
+

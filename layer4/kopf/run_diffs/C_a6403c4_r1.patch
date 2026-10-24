@@ -1,0 +1,115 @@
+diff --git a/kopf/_kits/webhooks.py b/kopf/_kits/webhooks.py
+index 8cdf1e6..e7b36aa 100644
+--- a/kopf/_kits/webhooks.py
++++ b/kopf/_kits/webhooks.py
+@@ -95,6 +95,7 @@ class WebhookServer(webhacks.WebhookContextManager):
+     certfile: StrPath | None
+     pkeyfile: StrPath | None
+     password: str | None
++    file_check_interval: float
+ 
+     extra_sans: Iterable[str]
+ 
+@@ -122,6 +123,8 @@ class WebhookServer(webhacks.WebhookContextManager):
+             certfile: StrPath | None = None,
+             pkeyfile: StrPath | None = None,
+             password: str | None = None,
++            # How often to check the externally provided cert/key files for renewals (seconds):
++            file_check_interval: float = 60.0,
+             # Generated certificate's extra info.
+             extra_sans: Iterable[str] = (),
+             # Verification of client certificates (loaded into the context):
+@@ -143,6 +146,7 @@ class WebhookServer(webhacks.WebhookContextManager):
+         self.certfile = certfile
+         self.pkeyfile = pkeyfile
+         self.password = password
++        self.file_check_interval = file_check_interval
+         self.extra_sans = extra_sans
+         self.verify_mode = verify_mode
+         self.verify_cafile = verify_cafile
+@@ -155,37 +159,58 @@ class WebhookServer(webhacks.WebhookContextManager):
+         async def _serve_fn(request: aiohttp.web.Request) -> aiohttp.web.Response:
+             return await self._serve(fn, request)
+ 
+-        cadata, context = self._build_ssl()
+         path = self.path.rstrip('/') if self.path else ''
+         app = aiohttp.web.Application()
+         app.add_routes([aiohttp.web.post(f"{path}/{{id:.*}}", _serve_fn)])
+-        runner = aiohttp.web.AppRunner(app, handle_signals=False)
+-        await runner.setup()
+-        try:
+-            # Note: reuse_port is mostly (but not only) for fast-running tests with SSL sockets;
+-            # multi-threaded sockets are not really used -- high load is not expected for webhooks.
+-            addr = self.addr or None  # None is aiohttp's "any interface"
+-            port = self.port or self._allocate_free_port()
+-            site = aiohttp.web.TCPSite(runner, addr, port, ssl_context=context, reuse_port=True)
+-            await site.start()
+-
+-            # Log with the actual URL: normalised, with hostname/port set.
+-            schema = 'http' if context is None else 'https'
+-            url = self._build_url(schema, addr or '*', port, self.path or '')
+-            logger.debug(f"Listening for webhooks at {url}")
+-            host = self.host or self.DEFAULT_HOST or self._get_accessible_addr(self.addr)
+-            url = self._build_url(schema, host, port, self.path or '')
+-            logger.debug(f"Accessing the webhooks at {url}")
+-
+-            client_config = reviews.WebhookClientConfig(url=url)
+-            if cadata is not None:
+-                client_config['caBundle'] = base64.b64encode(cadata).decode('ascii')
++        port = self.port or self._allocate_free_port()
++        while True:
++            # (Re)build the SSL context and the server; the files are read at this moment.
++            fingerprint = self._read_files()
++            cadata, context = self._build_ssl()
++            runner = aiohttp.web.AppRunner(app, handle_signals=False)
++            await runner.setup()
++            try:
++                # Note: reuse_port is mostly (but not only) for fast-running tests with SSL sockets;
++                # multi-threaded sockets are not really used -- high load is not expected for webhooks.
++                addr = self.addr or None  # None is aiohttp's "any interface"
++                site = aiohttp.web.TCPSite(runner, addr, port, ssl_context=context, reuse_port=True)
++                await site.start()
++
++                # Log with the actual URL: normalised, with hostname/port set.
++                schema = 'http' if context is None else 'https'
++                url = self._build_url(schema, addr or '*', port, self.path or '')
++                logger.debug(f"Listening for webhooks at {url}")
++                host = self.host or self.DEFAULT_HOST or self._get_accessible_addr(self.addr)
++                url = self._build_url(schema, host, port, self.path or '')
++                logger.debug(f"Accessing the webhooks at {url}")
++
++                client_config = reviews.WebhookClientConfig(url=url)
++                if cadata is not None:
++                    client_config['caBundle'] = base64.b64encode(cadata).decode('ascii')
+ 
+-            yield client_config
+-            await asyncio.Event().wait()
+-        finally:
+-            # On any reason of exit, stop serving the endpoint.
+-            await runner.cleanup()
++                yield client_config
++
++                if fingerprint is None:
++                    await asyncio.Event().wait()
++                while True:
++                    await asyncio.sleep(self.file_check_interval)
++                    if self._read_files() != fingerprint:
++                        logger.info("The certificate/key files are changed; restarting the server.")
++                        break
++            finally:
++                # On any reason of exit or restart, stop serving the endpoint.
++                await runner.cleanup()
++
++    def _read_files(self) -> tuple[bytes, bytes] | None:
++        """ Read the externally provided cert/key files; None if they are not used. """
++        if self.certfile is None or self.pkeyfile is None:
++            return None
++        try:
++            return (pathlib.Path(self.certfile).read_bytes(),
++                    pathlib.Path(self.pkeyfile).read_bytes())
++        except OSError as e:
++            logger.warning(f"Cannot read the certificate/key files: {e}")
++            return (b'', b'')
+ 
+     @staticmethod
+     async def _serve(

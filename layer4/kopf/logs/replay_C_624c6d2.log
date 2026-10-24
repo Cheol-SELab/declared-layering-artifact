@@ -1,0 +1,9 @@
+C:\vdm\l4\kopf\runs\C_624c6d2_replay 0
+Traceback (most recent call last):
+  File "G:\SW\SW-SELab\SELab-Researches\selab-research-papers\2026\publish\[access] Volatility-Driven Modularization\study\scripts\l4h.py", line 295, in <module>
+    r = evaluate(a[0], a[1], a[2], a[3])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\SW\SW-SELab\SELab-Researches\selab-research-papers\2026\publish\[access] Volatility-Driven Modularization\study\scripts\l4h.py", line 252, in evaluate
+    raise RuntimeError(f"full suite produced no junit results (rc={rc_f}): {out_f[-800:]}")
+RuntimeError: full suite produced no junit results (rc=9): ........................................................................ [  1%]
+.............

@@ -1,0 +1,2260 @@
+{
+ "langgenius/dify": {
+  "stars": 157888,
+  "created": "2023-04-12",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "TypeScript",
+  "decl": "api/.importlinter",
+  "max_layers": 4,
+  "layers": [
+   "controllers",
+   "services",
+   "core",
+   "libs"
+  ]
+ },
+ "NVIDIA/physicsnemo": {
+  "stars": 3314,
+  "created": "2023-01-26",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 8,
+  "layers": [
+   "experimental",
+   "deploy | active_learning | diffusion | sym",
+   "models : datapipes : metrics : domain_parallel : optim",
+   "mesh",
+   "nn",
+   "utils",
+   "distributed",
+   "core"
+  ]
+ },
+ "open-metadata/OpenMetadata": {
+  "stars": 15377,
+  "created": "2021-08-01",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "TypeScript",
+  "decl": "ingestion/.importlinter",
+  "max_layers": 6,
+  "layers": [
+   "workflow : cli : automations : applications : sdk",
+   "ingestion.source",
+   "profiler : data_quality : sampler : pii : readers : parsers : great_expectations : ingestion.api : ingestion.lineage : ingestion.sink : ingestion.stage : ingestion.bulksink : ingestion.processor : ingestion.progress",
+   "entity_resolution",
+   "ingestion.ometa : ingestion.connections : ingestion.diagnostics : core : clients : config : utils : antlr : models : mixins : timer : domain",
+   "generated"
+  ]
+ },
+ "wemake-services/wemake-python-styleguide": {
+  "stars": 2918,
+  "created": "2018-03-09",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 11,
+  "layers": [
+   "checker",
+   "formatter",
+   "transformations",
+   "presets",
+   "visitors",
+   "violations",
+   "logic",
+   "compat",
+   "options",
+   "constants",
+   "types"
+  ]
+ },
+ "GitGuardian/ggshield": {
+  "stars": 2000,
+  "created": "2020-04-20",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 5,
+  "layers": [
+   "ggshield.__main__",
+   "ggshield.cmd.ai | ggshield.cmd.auth | ggshield.cmd.config | ggshield.cmd.hmsl | ggshield.cmd.honeytoken | ggshield.cmd.install | ggshield.cmd.machine | ggshield.cmd.plugin | ggshield.cmd.quota | ggshield.cmd.secret | ggshield.cmd.status | ggshield.cmd.utils",
+   "ggshield.verticals.ai | ggshield.verticals.auth | ggshield.verticals.hmsl | ggshield.verticals.honeytoken | ggshield.verticals.secret",
+   "ggshield.core",
+   "click | ggshield.utils | pygitguardian"
+  ]
+ },
+ "nolar/kopf": {
+  "stars": 2648,
+  "created": "2020-08-17",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 5,
+  "layers": [
+   "kopf._cogs.clients",
+   "kopf._cogs.configs",
+   "kopf._cogs.structs",
+   "kopf._cogs.aiokits",
+   "kopf._cogs.helpers"
+  ]
+ },
+ "modelscope/evalscope": {
+  "stars": 3501,
+  "created": "2023-12-07",
+  "pushed": "2026-09-30",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "DataDog/system-tests": {
+  "stars": 52,
+  "created": "2021-10-04",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "wemake-services/wemake-django-template": {
+  "stars": 2276,
+  "created": "2017-09-14",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "{{cookiecutter.project_name}}/.importlinter",
+  "max_layers": -1,
+  "layers": [
+   "File contains no section heade"
+  ]
+ },
+ "endurain-project/endurain": {
+  "stars": 2233,
+  "created": "2023-10-26",
+  "pushed": "2026-10-01",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "backend/.importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "seddonym/import-linter": {
+  "stars": 1207,
+  "created": "2019-01-27",
+  "pushed": "2026-09-16",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 8,
+  "layers": [
+   "cli",
+   "ui",
+   "api",
+   "contracts",
+   "configuration",
+   "adapters",
+   "application",
+   "domain"
+  ]
+ },
+ "DOI-USGS/dataretrieval-python": {
+  "stars": 268,
+  "created": "2018-09-27",
+  "pushed": "2026-10-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 14,
+  "layers": [
+   "wateruse",
+   "ngwmn | nldi | nwdc | nwis | streamstats | waterdata | wqp",
+   "ogc",
+   "utils",
+   "_querying",
+   "transport",
+   "progress",
+   "_wqx",
+   "_response_metadata | codes | combining | interruptions | rdb",
+   "credentials",
+   "configuration",
+   "_configuration_core"
+  ]
+ },
+ "TencentBlueKing/blueking-paas": {
+  "stars": 281,
+  "created": "2022-10-26",
+  "pushed": "2026-09-30",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "apiserver/paasng/.importlinter",
+  "max_layers": 6,
+  "layers": [
+   "paasng.plat_admin",
+   "paasng.bk_plugins",
+   "paasng.platform",
+   "paasng.accessories",
+   "paasng.infras",
+   "paasng.core"
+  ]
+ },
+ "Azure/agent-app-orchestrator": {
+  "stars": 102,
+  "created": "2023-06-27",
+  "pushed": "2026-10-03",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "python-grimp/grimp": {
+  "stars": 134,
+  "created": "2018-11-05",
+  "pushed": "2026-10-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 5,
+  "layers": [
+   "main",
+   "adaptors",
+   "application",
+   "domain",
+   "exceptions"
+  ]
+ },
+ "project-codeflare/codeflare-sdk": {
+  "stars": 35,
+  "created": "2022-10-24",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "sandialabs/pyapprox": {
+  "stars": 76,
+  "created": "2019-12-02",
+  "pushed": "2026-09-28",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "ZM-Kimu/Blue-Archive-Asset-Downloader": {
+  "stars": 154,
+  "created": "2024-05-08",
+  "pushed": "2026-08-30",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "BrainPad/cliboa": {
+  "stars": 22,
+  "created": "2019-11-11",
+  "pushed": "2026-10-01",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 7,
+  "layers": [
+   "interface",
+   "core",
+   "listener",
+   "scenario",
+   "adapter",
+   "util",
+   "conf"
+  ]
+ },
+ "seddonym/impulse": {
+  "stars": 51,
+  "created": "2019-02-01",
+  "pushed": "2026-01-16",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 5,
+  "layers": [
+   "cli",
+   "adapters",
+   "application",
+   "ports",
+   "dotfile"
+  ]
+ },
+ "mceq-project/MCEq": {
+  "stars": 36,
+  "created": "2015-02-17",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 7,
+  "layers": [
+   "core : driver",
+   "solvers",
+   "operators",
+   "species",
+   "data",
+   "config",
+   "misc : mkl_runtime : (util)"
+  ]
+ },
+ "SACGF/variantgrid": {
+  "stars": 31,
+  "created": "2020-09-29",
+  "pushed": "2026-10-01",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "meaningfy-ws/rdf-differ-ws": {
+  "stars": 8,
+  "created": "2020-07-06",
+  "pushed": "2026-10-01",
+  "fork": false,
+  "archived": false,
+  "lang": "HTML",
+  "decl": ".importlinter",
+  "max_layers": 4,
+  "layers": [
+   "(entrypoints)",
+   "(services)",
+   "(adapters)",
+   "(domain)"
+  ]
+ },
+ "aSel1x/Backend_Template": {
+  "stars": 21,
+  "created": "2024-07-10",
+  "pushed": "2026-09-30",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 4,
+  "layers": [
+   "presentation",
+   "infrastructure",
+   "application",
+   "domain"
+  ]
+ },
+ "broadinstitute/depmap-portal": {
+  "stars": 8,
+  "created": "2024-07-17",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "TypeScript",
+  "decl": "portal-backend/.importlinter",
+  "max_layers": 1,
+  "layers": [
+   "depmap.data_access"
+  ]
+ },
+ "OCHA-DAP/topo-tools-py": {
+  "stars": 27,
+  "created": "2021-03-18",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "AustralianCancerDataNetwork/omop-alchemy": {
+  "stars": 13,
+  "created": "2024-02-02",
+  "pushed": "2026-09-24",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 6,
+  "layers": [
+   "omop_alchemy.toolkit.integrations",
+   "omop_alchemy.toolkit.analytics",
+   "omop_alchemy.toolkit.episodes",
+   "omop_alchemy.toolkit.core",
+   "omop_alchemy.toolkit._utils",
+   "omop_alchemy.cdm"
+  ]
+ },
+ "unicef/hope-dedup-engine": {
+  "stars": 2,
+  "created": "2024-02-05",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 7,
+  "layers": [
+   "utils",
+   "api",
+   "admin",
+   "ui",
+   "modules",
+   "models",
+   "utils"
+  ]
+ },
+ "srtab/daiv": {
+  "stars": 24,
+  "created": "2024-05-01",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "openedx/openedx-core": {
+  "stars": 10,
+  "created": "2021-12-12",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 6,
+  "layers": [
+   "openedx_learning",
+   "openedx_content",
+   "openedx_catalog",
+   "openedx_tagging",
+   "openedx_django_lib",
+   "openedx_core"
+  ]
+ },
+ "unicef/hope-payment-gateway": {
+  "stars": 2,
+  "created": "2023-06-23",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 9,
+  "layers": [
+   "__cli__",
+   "security",
+   "admin",
+   "web",
+   "theme",
+   "models",
+   "utils",
+   "ws",
+   "storage"
+  ]
+ },
+ "usethis-python/usethis-python": {
+  "stars": 19,
+  "created": "2024-08-13",
+  "pushed": "2026-09-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 16,
+  "layers": [
+   "__main__",
+   "_ui",
+   "_toolset",
+   "_core",
+   "_tool",
+   "_init",
+   "_detect",
+   "_deps",
+   "_config_file",
+   "_integrations",
+   "_backend",
+   "_file"
+  ]
+ },
+ "meaningfy-ws/eds4jinja2": {
+  "stars": 2,
+  "created": "2020-08-07",
+  "pushed": "2026-06-20",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 4,
+  "layers": [
+   "eds4jinja2.entrypoints",
+   "eds4jinja2.services",
+   "eds4jinja2.adapters",
+   "eds4jinja2.models"
+  ]
+ },
+ "kartverket/automatisk-generalisering": {
+  "stars": 3,
+  "created": "2023-11-08",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 7,
+  "layers": [
+   "orchestrator",
+   "runtime",
+   "generalization",
+   "lineage | staging",
+   "adapters",
+   "ports",
+   "core"
+  ]
+ },
+ "actions-marketplace-validations/wemake-services_wemake-python-styleguide": {
+  "stars": 0,
+  "created": "2022-11-11",
+  "pushed": "2026-09-24",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 11,
+  "layers": [
+   "checker",
+   "formatter",
+   "transformations",
+   "presets",
+   "visitors",
+   "violations",
+   "logic",
+   "compat",
+   "options",
+   "constants",
+   "types"
+  ]
+ },
+ "walterfan/lazy-rabbit-agent": {
+  "stars": 1,
+  "created": "2024-08-25",
+  "pushed": "2026-08-01",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "backend/.importlinter",
+  "max_layers": 3,
+  "layers": [
+   "app.api",
+   "app.services",
+   "app.models"
+  ]
+ },
+ "ekolvah/kinozal_scraper": {
+  "stars": 0,
+  "created": "2023-12-15",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 3,
+  "layers": [
+   "kinozal_scraper.kinozal_pipeline | kinozal_scraper.github_popular_pipeline | kinozal_scraper.steam_pipeline | kinozal_scraper.github_trending_pipeline | kinozal_scraper.soldout_pipeline",
+   "kinozal_scraper.sheets_storage | kinozal_scraper.telegram_notifier | kinozal_scraper.gemini_enricher",
+   "kinozal_scraper.generic_pipeline"
+  ]
+ },
+ "Jason-Clark-FG/OpenMetadata-Mirror": {
+  "stars": 0,
+  "created": "2023-07-13",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "TypeScript",
+  "decl": "ingestion/.importlinter",
+  "max_layers": 6,
+  "layers": [
+   "workflow : cli : automations : applications : sdk",
+   "ingestion.source",
+   "profiler : data_quality : sampler : pii : readers : parsers : great_expectations : ingestion.api : ingestion.lineage : ingestion.sink : ingestion.stage : ingestion.bulksink : ingestion.processor : ingestion.progress",
+   "entity_resolution",
+   "ingestion.ometa : ingestion.connections : ingestion.diagnostics : core : clients : config : utils : antlr : models : mixins : timer : domain",
+   "generated"
+  ]
+ },
+ "Jason-Clark-FG/OpenMetadata-FG": {
+  "stars": 0,
+  "created": "2023-07-18",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "TypeScript",
+  "decl": "ingestion/.importlinter",
+  "max_layers": 6,
+  "layers": [
+   "workflow : cli : automations : applications : sdk",
+   "ingestion.source",
+   "profiler : data_quality : sampler : pii : readers : parsers : great_expectations : ingestion.api : ingestion.lineage : ingestion.sink : ingestion.stage : ingestion.bulksink : ingestion.processor : ingestion.progress",
+   "entity_resolution",
+   "ingestion.ometa : ingestion.connections : ingestion.diagnostics : core : clients : config : utils : antlr : models : mixins : timer : domain",
+   "generated"
+  ]
+ },
+ "dataregion/DataEtatRegion-back": {
+  "stars": 1,
+  "created": "2023-07-13",
+  "pushed": "2026-08-13",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "app/.importlinter.toml",
+  "max_layers": 0,
+  "layers": []
+ },
+ "genuinemerit/saskan-app": {
+  "stars": 3,
+  "created": "2021-11-08",
+  "pushed": "2025-11-11",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "C3EQUALZz/DSTU_VKB": {
+  "stars": 15,
+  "created": "2023-09-10",
+  "pushed": "2026-10-03",
+  "fork": false,
+  "archived": false,
+  "lang": "Jupyter Notebook",
+  "decl": "development_of_secure_web_resources/2026/1/.importlinter",
+  "max_layers": 3,
+  "layers": [
+   "blast_furnace.presentation",
+   "blast_furnace.application",
+   "blast_furnace.domain"
+  ]
+ },
+ "mjhfvi/DevSecLab": {
+  "stars": 0,
+  "created": "2024-08-27",
+  "pushed": "2026-07-28",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "Miyamura80/Python-Template": {
+  "stars": 5,
+  "created": "2024-09-20",
+  "pushed": "2026-08-26",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "bonnbear/codeCollection": {
+  "stars": 0,
+  "created": "2024-05-28",
+  "pushed": "2026-09-15",
+  "fork": false,
+  "archived": false,
+  "lang": "TypeScript",
+  "decl": "dify/api/.importlinter",
+  "max_layers": 9,
+  "layers": [
+   "graph_engine",
+   "orchestration",
+   "command_processing",
+   "event_management",
+   "error_handler",
+   "graph_traversal",
+   "graph_state_manager",
+   "worker_management",
+   "domain"
+  ]
+ },
+ "eventcally/eventcally": {
+  "stars": 4,
+  "created": "2020-09-27",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 3,
+  "layers": [
+   "project.infrastructure",
+   "project.application",
+   "project.domain"
+  ]
+ },
+ "opossum-tool/opossum-file": {
+  "stars": 2,
+  "created": "2023-03-06",
+  "pushed": "2026-10-03",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "AustralianCancerDataNetwork/hemonc-alchemy": {
+  "stars": 0,
+  "created": "2024-09-02",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 5,
+  "layers": [
+   "hemonc_alchemy.cli",
+   "hemonc_alchemy.compiler",
+   "hemonc_alchemy.toolkit.analytics",
+   "hemonc_alchemy.toolkit.core",
+   "hemonc_alchemy.model"
+  ]
+ },
+ "K4liber/definit": {
+  "stars": 3,
+  "created": "2024-09-11",
+  "pushed": "2026-09-27",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "rafailmdzdv/ssaem": {
+  "stars": 1,
+  "created": "2023-10-27",
+  "pushed": "2026-09-28",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 6,
+  "layers": [
+   "(urls) | (admin)",
+   "(views) | (htmx) | (api)",
+   "(tasks)",
+   "(infra)",
+   "(models)",
+   "(logic)"
+  ]
+ },
+ "LgbtBsod/AI-EVOLVE": {
+  "stars": 1,
+  "created": "2022-06-07",
+  "pushed": "2026-09-27",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 5,
+  "layers": [
+   "src.scenes | src.features",
+   "src.ui",
+   "src.gameplay | src.entities",
+   "src.systems : src.effects : src.content : src.database",
+   "src.core"
+  ]
+ },
+ "shalomb/terrapyne": {
+  "stars": 1,
+  "created": "2024-10-05",
+  "pushed": "2026-06-20",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 5,
+  "layers": [
+   "terrapyne.cli",
+   "terrapyne.api",
+   "terrapyne.rendering",
+   "terrapyne.core",
+   "terrapyne.models"
+  ]
+ },
+ "fabien-marty/smartjob": {
+  "stars": 1,
+  "created": "2024-08-01",
+  "pushed": "2025-12-08",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 2,
+  "layers": [
+   "smartjob.infra",
+   "smartjob.app"
+  ]
+ },
+ "Major-Wudy/sqs-application": {
+  "stars": 2,
+  "created": "2024-03-18",
+  "pushed": "2026-07-07",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "src/.importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "openedx/wg-build-test-release": {
+  "stars": 25,
+  "created": "2021-02-01",
+  "pushed": "2026-05-19",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "release-scripts/toggles-diffs/sumac-xml/references/docstrings/openedx/openedx.testing.importlinter.xml",
+  "max_layers": -1,
+  "layers": [
+   "File contains no section heade"
+  ]
+ },
+ "JavaPioneer/dockerImagesBuild": {
+  "stars": 0,
+  "created": "2023-08-22",
+  "pushed": "2026-01-14",
+  "fork": false,
+  "archived": false,
+  "lang": "TypeScript",
+  "decl": "dify-1.10.1-fix.1/api/.importlinter",
+  "max_layers": 9,
+  "layers": [
+   "graph_engine",
+   "orchestration",
+   "command_processing",
+   "event_management",
+   "error_handler",
+   "graph_traversal",
+   "graph_state_manager",
+   "worker_management",
+   "domain"
+  ]
+ },
+ "fardeenes7/mohajon-server": {
+  "stars": 0,
+  "created": "2024-03-29",
+  "pushed": "2026-08-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 4,
+  "layers": [
+   "users.api",
+   "users.services",
+   "users.selectors",
+   "users.models"
+  ]
+ },
+ "davidheryanto/etc": {
+  "stars": 21,
+  "created": "2018-05-22",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "HTML",
+  "decl": "layered-architecture-python/.importlinter",
+  "max_layers": 3,
+  "layers": [
+   "api",
+   "repository",
+   "service"
+  ]
+ },
+ "andrewbolster/bolster": {
+  "stars": 3,
+  "created": "2021-03-11",
+  "pushed": "2026-10-03",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "vncntprvst/AtlasTrack": {
+  "stars": 0,
+  "created": "2020-10-09",
+  "pushed": "2026-09-29",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "titusfx/hexagonal_sample": {
+  "stars": 0,
+  "created": "2023-05-14",
+  "pushed": "2026-08-17",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": ".importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "JQG-Ventures/2fit-webapp": {
+  "stars": 0,
+  "created": "2024-08-28",
+  "pushed": "2026-09-01",
+  "fork": false,
+  "archived": false,
+  "lang": "TypeScript",
+  "decl": "backend/.importlinter",
+  "max_layers": 0,
+  "layers": []
+ },
+ "kedro-org/kedro": {
+  "stars": 11012,
+  "created": "2019-04-18",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 8,
+  "layers": [
+   "framework.cli",
+   "framework.session",
+   "framework.context",
+   "framework.project",
+   "runner",
+   "io",
+   "pipeline",
+   "config"
+  ]
+ },
+ "sqlfluff/sqlfluff": {
+  "stars": 9935,
+  "created": "2018-11-01",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 6,
+  "layers": [
+   "sqlfluff.core.linter",
+   "sqlfluff.core.rules",
+   "sqlfluff.core.parser",
+   "sqlfluff.core.errors",
+   "sqlfluff.core.types",
+   "sqlfluff.core.helpers"
+  ]
+ },
+ "openedx/openedx-platform": {
+  "stars": 8197,
+  "created": "2013-05-30",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 6,
+  "layers": [
+   "cms.lib.xblock.upstream_sync | openedx.core.djangoapps.content.search | openedx.core.djangoapps.olx_rest_api",
+   "openedx.core.djangoapps.content_libraries",
+   "openedx.core.djangoapps.content_staging",
+   "openedx.core.djangoapps.xblock",
+   "openedx.core.lib.xblock_serializer",
+   "openedx.core.djangoapps.content_tagging"
+  ]
+ },
+ "nilearn/nilearn": {
+  "stars": 1443,
+  "created": "2011-01-09",
+  "pushed": "2026-10-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 7,
+  "layers": [
+   "nilearn.utils",
+   "nilearn.glm | nilearn.decoding | nilearn.connectome | nilearn.decomposition",
+   "nilearn.mass_univariate",
+   "nilearn.maskers : nilearn.image : nilearn.surface : nilearn.plotting : nilearn.masking : nilearn.reporting : nilearn.datasets : nilearn.interfaces",
+   "nilearn.signal",
+   "nilearn._base",
+   "nilearn.nilearn_typing | nilearn.exceptions | nilearn._utils.versions"
+  ]
+ },
+ "napari/napari": {
+  "stars": 2771,
+  "created": "2018-08-13",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 2,
+  "layers": [
+   "napari.qt",
+   "napari.layers"
+  ]
+ },
+ "vllm-project/guidellm": {
+  "stars": 1660,
+  "created": "2024-05-29",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 9,
+  "layers": [
+   "__main__",
+   "cli",
+   "entrypoints",
+   "benchmark | mock_server",
+   "data | backends",
+   "scheduler",
+   "utils : extras : schemas",
+   "logger",
+   "settings"
+  ]
+ },
+ "mlrun/mlrun": {
+  "stars": 1701,
+  "created": "2019-09-01",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "server.py.services",
+   "services",
+   "framework",
+   "mlrun"
+  ]
+ },
+ "open-edge-platform/geti": {
+  "stars": 1344,
+  "created": "2018-10-26",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "application/backend/pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "app.api",
+   "app.services",
+   "app.repositories",
+   "app.db"
+  ]
+ },
+ "alan-turing-institute/AIrsenal": {
+  "stars": 352,
+  "created": "2018-07-25",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Jupyter Notebook",
+  "decl": "pyproject.toml",
+  "max_layers": 13,
+  "layers": [
+   "cli",
+   "pipeline",
+   "apply",
+   "optimization",
+   "export",
+   "ingest",
+   "reporting",
+   "squad",
+   "prediction",
+   "db",
+   "remote",
+   "core"
+  ]
+ },
+ "ccie18643/PyTCP": {
+  "stars": 376,
+  "created": "2020-10-07",
+  "pushed": "2026-09-17",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "pytcp",
+   "net_proto",
+   "net_addr"
+  ]
+ },
+ "TeKrop/overfast-api": {
+  "stars": 196,
+  "created": "2021-11-17",
+  "pushed": "2026-10-01",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 8,
+  "layers": [
+   "main",
+   "worker",
+   "api",
+   "adapters",
+   "domain",
+   "monitoring",
+   "infrastructure",
+   "config"
+  ]
+ },
+ "SecObserve/SecObserve": {
+  "stars": 317,
+  "created": "2023-03-15",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "backend/pyproject.toml",
+  "max_layers": 6,
+  "layers": [
+   "application.background_tasks",
+   "application.import_observations",
+   "application.vex | application.epss | application.metrics",
+   "application.core : application.issue_tracker : application.licenses : application.notifications : application.rules",
+   "application.access_control : application.authorization",
+   "application.commons"
+  ]
+ },
+ "invana/invana": {
+  "stars": 180,
+  "created": "2018-07-27",
+  "pushed": "2026-10-04",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "engine/pyproject.toml",
+  "max_layers": 12,
+  "layers": [
+   "invana.apps.work",
+   "invana.apps.task_plans",
+   "invana.apps.explorer",
+   "invana.apps.boards",
+   "invana.apps.sessions",
+   "invana.apps.agents",
+   "invana.apps.skills",
+   "invana.apps.govern",
+   "invana.apps.llm",
+   "invana.apps.llm_providers",
+   "invana.apps.graphs",
+   "invana.apps.modeller"
+  ]
+ },
+ "arenadata/adcm": {
+  "stars": 35,
+  "created": "2019-11-26",
+  "pushed": "2026-10-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 10,
+  "layers": [
+   "core.legacy",
+   "core.scenarios",
+   "core.bundle",
+   "core.concern",
+   "core.action",
+   "core.config | core.mapping | core.cluster | core.provider | core.upgrade | core.logs",
+   "core.templates | core.secrets | core.spec",
+   "core.errors | core.settings",
+   "core.types",
+   "core.result"
+  ]
+ },
+ "ramses-rf/ramses_rf": {
+  "stars": 83,
+  "created": "2019-11-25",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 10,
+  "layers": [
+   "ramses_rf.gateway",
+   "ramses_rf.pipeline",
+   "ramses_rf.systems",
+   "ramses_rf.devices",
+   "ramses_rf.state",
+   "ramses_rf.schemas",
+   "ramses_rf.messages",
+   "ramses_rf.routing",
+   "ramses_rf.protocol",
+   "ramses_rf.models"
+  ]
+ },
+ "TencentBlueKing/bk-user": {
+  "stars": 74,
+  "created": "2021-08-10",
+  "pushed": "2026-09-30",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "src/bk-user/pyproject.toml",
+  "max_layers": 7,
+  "layers": [
+   "bkuser.apis | bkuser.auth | bkuser.monitoring",
+   "bkuser.biz",
+   "bkuser.apps",
+   "bkuser.plugins",
+   "bkuser.component",
+   "bkuser.common",
+   "bkuser.utils"
+  ]
+ },
+ "kaxiluo/fastapi-skeleton": {
+  "stars": 225,
+  "created": "2022-06-28",
+  "pushed": "2026-09-20",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "app.http | app.jobs",
+   "app.services",
+   "app.repositories",
+   "app.models"
+  ]
+ },
+ "ISA-tools/isa-api": {
+  "stars": 48,
+  "created": "2015-03-12",
+  "pushed": "2026-09-01",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "isatools.convert",
+   "isatools.isajson",
+   "isatools.isatab",
+   "isatools.model"
+  ]
+ },
+ "TencentBlueKing/blueking-apigateway": {
+  "stars": 55,
+  "created": "2023-02-06",
+  "pushed": "2026-09-24",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "src/dashboard/pyproject.toml",
+  "max_layers": 9,
+  "layers": [
+   "apigateway.apis",
+   "apigateway.biz",
+   "apigateway.controller",
+   "apigateway.service",
+   "apigateway.components",
+   "apigateway.apps",
+   "apigateway.core",
+   "apigateway.common",
+   "apigateway.utils"
+  ]
+ },
+ "bluesky/ophyd-async": {
+  "stars": 28,
+  "created": "2023-08-23",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "fastcs",
+   "epics | tango | sim",
+   "plan_stubs",
+   "core"
+  ]
+ },
+ "cds-snc/sre-bot": {
+  "stars": 12,
+  "created": "2022-02-21",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "app/pyproject.toml",
+  "max_layers": 7,
+  "layers": [
+   "server",
+   "(modules) : (api) : (jobs)",
+   "(features) | packages",
+   "(capabilities)",
+   "infrastructure",
+   "integrations",
+   "contracts"
+  ]
+ },
+ "TencentBlueKing/bk-iam-saas": {
+  "stars": 35,
+  "created": "2021-07-12",
+  "pushed": "2026-09-21",
+  "fork": false,
+  "archived": false,
+  "lang": "Vue",
+  "decl": "saas/pyproject.toml",
+  "max_layers": 5,
+  "layers": [
+   "backend.apps",
+   "backend.trans",
+   "backend.biz",
+   "backend.service",
+   "backend.component"
+  ]
+ },
+ "tcprescott/sahasrahbot": {
+  "stars": 28,
+  "created": "2019-03-29",
+  "pushed": "2026-07-07",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "alttprbot.presentation",
+   "alttprbot.services",
+   "alttprbot.repositories",
+   "alttprbot.models"
+  ]
+ },
+ "rAPIdy-org/rAPIdy": {
+  "stars": 100,
+  "created": "2024-02-28",
+  "pushed": "2026-08-09",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "rapidy_client._models",
+   "rapidy_client.errors",
+   "rapidy_client._redaction"
+  ]
+ },
+ "DiamondLightSource/dodal": {
+  "stars": 5,
+  "created": "2022-08-30",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "dodal.plans",
+   "dodal.beamlines",
+   "dodal.devices"
+  ]
+ },
+ "fubinf/sedrila": {
+  "stars": 12,
+  "created": "2022-09-20",
+  "pushed": "2026-10-03",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 10,
+  "layers": [
+   "sedrila.__main__",
+   "sedrila.cmd.author : sedrila.cmd.student : sedrila.cmd.instructor : sedrila.cmd.maintainer : sedrila.cmd.evaluator : sedrila.cmd.server : sedrila.cmd.cli",
+   "sedrila.subcmd.rename | sedrila.webapp",
+   "sedrila.course.course : sedrila.course.coursebuilder : sedrila.course.course_si : sedrila.course.participant : sedrila.course.programchecker : sedrila.course.repo : sedrila.course.glossary : sedrila.course.report",
+   "sedrila.framework.macros : sedrila.framework.markdown : sedrila.framework.elements : sedrila.framework.directory : sedrila.framework.partbuilder : sedrila.framework.macroexpanders",
+   "sedrila.mech.replacements | sedrila.mech.snippetchecker | sedrila.mech.linkchecker | sedrila.mech.protocolchecker",
+   "sedrila.base2.argparser",
+   "sedrila.base2.constants : sedrila.base2.html",
+   "sedrila.base.cache | sedrila.base.sgit | sedrila.base.mycrypt",
+   "sedrila.base.base"
+  ]
+ },
+ "dfetch-org/dfetch": {
+  "stars": 13,
+  "created": "2020-10-14",
+  "pushed": "2026-10-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 5,
+  "layers": [
+   "dfetch.commands",
+   "dfetch.reporting",
+   "dfetch.project",
+   "dfetch.manifest | dfetch.vcs",
+   "dfetch.util | dfetch.log | dfetch.terminal"
+  ]
+ },
+ "bitranox/igittigitt": {
+  "stars": 29,
+  "created": "2020-08-12",
+  "pushed": "2026-09-27",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "igittigitt.composition",
+   "igittigitt.adapters",
+   "igittigitt.application",
+   "igittigitt.domain"
+  ]
+ },
+ "bitranox/lib_shopware6_api_base": {
+  "stars": 27,
+  "created": "2021-12-26",
+  "pushed": "2026-08-04",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "lib_shopware6_api_base.lib_shopware6_api_base",
+   "lib_shopware6_api_base.lib_shopware6_api_base_criteria",
+   "lib_shopware6_api_base.conf_shopware6_api_base_classes"
+  ]
+ },
+ "mctinker/Map-Tasker": {
+  "stars": 69,
+  "created": "2022-05-24",
+  "pushed": "2026-09-28",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "    mapit : progargs : runcli : rungui\n    ",
+   "    getfile : guistate : guiutils : guiwins :\n    guiwins2 : guiwins_canvas : guiwins_designer_legacy : guiwins_designer_v2 :\n    guiwins_fix : guiwins_impact : guiwins_profedit : guiwins_refactor :\n    guiwins_restore : guiwins_taskedit : mapai : sceneview :\n    userintr : userintr_ai : userintr_android : userintr_editors :\n    userintr_loading : userintr_reports : userintr_settings : webassets\n    ",
+   "    actargs : action : caches : codelint : actionc : actiond : actione : actionr :\n    actiont : addcss : aiutils : apikeys : appinv : bildhtml :\n    bldargs : bldbndle : bundle : caveats : clip : clock :\n    colors : colrmode : condition : condjoin : config : console :\n    cria : debug : deprecate : deviceinv : diagcnst : diagintr :\n    diagram : diagutil : diffload : dirout : editcommon : error :\n    format : frontmtr : getbakup : getids : getputer : globalvr :\n    guiutil2 : healthck : impact : initparg : kidapp : lineout :\n    mapask : mapcache : mapexport : mapfind : mapfix : mapfonts :\n    mapjump : mappdf : maprefac : maprestore : mapswap : maputil2 :\n    maputil3 : maputils : mtexcept : nameattr : objprops : outdir : outline :\n    parsearg : piiscan : plugchk : plugset : prefers : presave : primitem : proclist :\n    profedit : profiles : proflint : proginit : projects : projedit :\n    property : roundtrip : runcfg : sceneedit : scenes : servicec :\n    sessundo : share : shelsort : sysconst : taskactn : taskedit :\n    taskerd : taskervars : taskflag : taskflow : tasks : taskuniq :\n    timeline : translator : twisty : userhelp : valcodes : varxref :\n    xmldata : xmldiff\n    "
+  ]
+ },
+ "mathmed/py-awesome-template": {
+  "stars": 18,
+  "created": "2024-01-04",
+  "pushed": "2026-10-04",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 5,
+  "layers": [
+   "app.domain.usecases",
+   "(app.domain.services)",
+   "app.domain.contracts",
+   "app.domain.entities",
+   "app.domain.errors | (app.domain.enums) | (app.domain.constants)"
+  ]
+ },
+ "psiexperiment/psiexperiment": {
+  "stars": 11,
+  "created": "2016-01-28",
+  "pushed": "2026-10-01",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 9,
+  "layers": [
+   "psi.launcher",
+   "psi.application",
+   "psi.experiment",
+   "psi.data",
+   "psi.controller",
+   "psi.token",
+   "psi.context",
+   "psi.core",
+   "psi.util"
+  ]
+ },
+ "EBI-Metabolights/metabolights-utils": {
+  "stars": 7,
+  "created": "2023-07-11",
+  "pushed": "2026-06-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "metabolights_utils.provider",
+   "metabolights_utils.isatab",
+   "metabolights_utils.models"
+  ]
+ },
+ "cpp-lln-lab/bidsMReye": {
+  "stars": 8,
+  "created": "2022-01-21",
+  "pushed": "2026-07-23",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 12,
+  "layers": [
+   "_cli",
+   "_parsers | bidsmreye",
+   "prepare_data | generalize | download",
+   "quality_control",
+   "visualize",
+   "bids_utils",
+   "methods",
+   "report",
+   "utils",
+   "configuration",
+   "logger",
+   "defaults"
+  ]
+ },
+ "Mattral/FlashSpec": {
+  "stars": 16,
+  "created": "2024-02-09",
+  "pushed": "2026-07-09",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 7,
+  "layers": [
+   "flashspec.utils",
+   "flashspec.kernels",
+   "flashspec.sampling",
+   "flashspec.bandit",
+   "flashspec.metrics",
+   "flashspec.export",
+   "flashspec.engine"
+  ]
+ },
+ "UKHSA-Internal/data-dashboard-api": {
+  "stars": 5,
+  "created": "2022-11-02",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "metrics.api",
+   "metrics.domain",
+   "metrics.data"
+  ]
+ },
+ "QCrBox/QCrBox": {
+  "stars": 3,
+  "created": "2023-09-21",
+  "pushed": "2026-08-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyqcrbox/pyproject.toml",
+  "max_layers": 0,
+  "layers": []
+ },
+ "dcceew-bdr/abis-mapping": {
+  "stars": 5,
+  "created": "2022-03-03",
+  "pushed": "2026-09-28",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 5,
+  "layers": [
+   "templates | documentation",
+   "base | plugins | vocabs",
+   "models",
+   "utils",
+   "settings"
+  ]
+ },
+ "finecode-dev/finecode": {
+  "stars": 4,
+  "created": "2023-12-31",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 6,
+  "layers": [
+   "wm_server",
+   "_api_handlers",
+   "services",
+   "runner",
+   "config",
+   "domain : errors : context"
+  ]
+ },
+ "Unique-AG/ai": {
+  "stars": 5,
+  "created": "2024-06-18",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "unique_toolkit/pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "unique_toolkit.experimental.integrations",
+   "unique_toolkit.experimental.resources",
+   "unique_toolkit.experimental._internal"
+  ]
+ },
+ "infinito-nexus/core": {
+  "stars": 18,
+  "created": "2019-11-13",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "cli.administration.deploy.development.compose",
+   "cli.administration.deploy.development.common",
+   "cli.administration.deploy.development.env"
+  ]
+ },
+ "JujensGh/legadilo": {
+  "stars": 3,
+  "created": "2023-12-17",
+  "pushed": "2026-10-04",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 5,
+  "layers": [
+   "legadilo.import_export",
+   "legadilo.feeds",
+   "legadilo.reading",
+   "legadilo.users",
+   "legadilo.core"
+  ]
+ },
+ "AliKHaliliT/CVAugmentor": {
+  "stars": 1,
+  "created": "2023-04-30",
+  "pushed": "2026-09-09",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "cvaugmentor.facade",
+   "cvaugmentor.services",
+   "cvaugmentor.domain"
+  ]
+ },
+ "masrurimz/s2-thesis-kubernetes-serverless-integration": {
+  "stars": 0,
+  "created": "2024-09-21",
+  "pushed": "2026-09-20",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 5,
+  "layers": [
+   "cli",
+   "experiment | analysis_cli | dashboard | routing",
+   "prediction",
+   "infra | analysis",
+   "shared"
+  ]
+ },
+ "luiznaac/environments": {
+  "stars": 0,
+  "created": "2021-05-29",
+  "pushed": "2026-09-21",
+  "fork": false,
+  "archived": false,
+  "lang": "JavaScript",
+  "decl": "python/pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "application",
+   "(httpapi) (persistence) (gateway)",
+   "usecase"
+  ]
+ },
+ "blalterman/SolarWindPy": {
+  "stars": 4,
+  "created": "2019-02-01",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "fitfunctions | instabilities | solar_activity",
+   "plotting",
+   "core | tools"
+  ]
+ },
+ "sirosen/mddj": {
+  "stars": 3,
+  "created": "2023-08-22",
+  "pushed": "2026-09-30",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "mddj._cli",
+   "mddj.api",
+   "mddj._internal"
+  ]
+ },
+ "bitranox/keep_github_workflows_active": {
+  "stars": 0,
+  "created": "2024-01-19",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 2,
+  "layers": [
+   "keep_github_workflows_active.cli",
+   "keep_github_workflows_active.behaviors"
+  ]
+ },
+ "brunns/rss-agg": {
+  "stars": 0,
+  "created": "2024-04-18",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "core",
+   "(services)",
+   "domain | utils"
+  ]
+ },
+ "connorads/dotfiles": {
+  "stars": 16,
+  "created": "2023-07-09",
+  "pushed": "2026-10-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Shell",
+  "decl": "src/handoff/pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "handoff.cli",
+   "handoff.formats",
+   "handoff.ir",
+   "handoff.errors | handoff._json | handoff._ids"
+  ]
+ },
+ "skarzi/drf-exception-dispatcher": {
+  "stars": 0,
+  "created": "2021-01-31",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "handlers",
+   "dispatchers",
+   "parsers",
+   "types"
+  ]
+ },
+ "mrKazzila/shortener-url-api": {
+  "stars": 1,
+  "created": "2023-08-04",
+  "pushed": "2026-03-20",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "backend/pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "shortener_app.presentation",
+   "shortener_app.application",
+   "shortener_app.domain"
+  ]
+ },
+ "QUANTENSOR/QUANTIME": {
+  "stars": 2,
+  "created": "2021-10-01",
+  "pushed": "2026-09-23",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 2,
+  "layers": [
+   "quantime_data",
+   "quantime_core"
+  ]
+ },
+ "HyperLEDA/db-app": {
+  "stars": 0,
+  "created": "2024-03-03",
+  "pushed": "2026-10-04",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "app.adminapi | app.dataapi | app.fieldapi | app.tasks",
+   "app.catalogs | app.specs.adminapi | app.specs.dataapi | app.specs.fieldapi",
+   "app.lib"
+  ]
+ },
+ "vakasyanov81/priceformation": {
+  "stars": 1,
+  "created": "2022-11-06",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 5,
+  "layers": [
+   "cfg",
+   "services",
+   "parsers",
+   "infrastructure",
+   "domain"
+  ]
+ },
+ "wojciechpolak/glifestream": {
+  "stars": 6,
+  "created": "2011-08-20",
+  "pushed": "2026-09-30",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 14,
+  "layers": [
+   "glifestream.urls",
+   "glifestream.stream.management",
+   "glifestream.worker | glifestream.usettings | glifestream.stream.views",
+   "glifestream.stream.api_view",
+   "glifestream.stream.index_view",
+   "glifestream.stream.templatetags | glifestream.gauth.views",
+   "glifestream.fetching",
+   "glifestream.stream.websub",
+   "glifestream.apis",
+   "glifestream.ingestion | glifestream.filters",
+   "glifestream.stream.media | glifestream.gauth.gls_oauth | glifestream.gauth.gls_oauth2",
+   "glifestream.gauth.models"
+  ]
+ },
+ "VilnaCRM-Org/infrastructure-template": {
+  "stars": 0,
+  "created": "2022-12-17",
+  "pushed": "2026-07-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "pack",
+   "guardrails",
+   "config"
+  ]
+ },
+ "thekaveh/LinguAI": {
+  "stars": 1,
+  "created": "2024-02-06",
+  "pushed": "2026-06-17",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "frontend/pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "views",
+   "viewmodels",
+   "models",
+   "core"
+  ]
+ },
+ "Zumud/Zumud": {
+  "stars": 5,
+  "created": "2024-07-06",
+  "pushed": "2026-09-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 5,
+  "layers": [
+   "backend.api",
+   "backend.core",
+   "backend.utils",
+   "backend.models",
+   "backend.config"
+  ]
+ },
+ "hoelzl/clm": {
+  "stars": 4,
+  "created": "2022-10-02",
+  "pushed": "2026-10-04",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "clm.build",
+   "clm.workers",
+   "clm.infrastructure",
+   "clm.core"
+  ]
+ },
+ "pedrocr83/biotapy": {
+  "stars": 0,
+  "created": "2020-02-08",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 6,
+  "layers": [
+   "(pl) | (ml) | (da)",
+   "(tl) | (fn)",
+   "(pp)",
+   "(datasets)",
+   "(io)",
+   "_core"
+  ]
+ },
+ "ks6088ts/template-python": {
+  "stars": 0,
+  "created": "2024-03-14",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 2,
+  "layers": [
+   "scripts",
+   "template_python"
+  ]
+ },
+ "bitranox/lib_detect_testenv": {
+  "stars": 0,
+  "created": "2021-11-17",
+  "pushed": "2026-09-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "lib_detect_testenv.cli",
+   "lib_detect_testenv.lib_detect_testenv",
+   "lib_detect_testenv.behaviors"
+  ]
+ },
+ "gioe/laughtrack": {
+  "stars": 0,
+  "created": "2024-05-25",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "apps/scraper/pyproject.toml",
+  "max_layers": 0,
+  "layers": []
+ },
+ "MattJColes/macols-ai-coding-setup": {
+  "stars": 0,
+  "created": "2022-08-15",
+  "pushed": "2026-10-04",
+  "fork": false,
+  "archived": false,
+  "lang": "Shell",
+  "decl": "config/personas/quality/references/python-pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "routers",
+   "services",
+   "repositories",
+   "models"
+  ]
+ },
+ "bitranox/fake_winreg": {
+  "stars": 7,
+  "created": "2020-07-08",
+  "pushed": "2026-08-27",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "fake_winreg.composition",
+   "fake_winreg.adapters",
+   "fake_winreg.application",
+   "fake_winreg.domain"
+  ]
+ },
+ "tilde-lab/yascheduler": {
+  "stars": 5,
+  "created": "2019-11-20",
+  "pushed": "2026-10-01",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 5,
+  "layers": [
+   "yascheduler.entrypoints",
+   "yascheduler.infra",
+   "yascheduler.application",
+   "yascheduler.domain",
+   "yascheduler.shared"
+  ]
+ },
+ "hasansezertasan/hwid": {
+  "stars": 9,
+  "created": "2023-09-30",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 4,
+  "layers": [
+   "app | resolution",
+   "logging_setup | impl",
+   "config | exceptions",
+   "dirs"
+  ]
+ },
+ "KinjiKawaguchi/text2manim": {
+  "stars": 3,
+  "created": "2024-08-02",
+  "pushed": "2026-09-07",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 6,
+  "layers": [
+   "text2manim.cli",
+   "text2manim.server",
+   "text2manim.generate",
+   "text2manim.pipeline",
+   "text2manim.llm | text2manim.sandbox",
+   "text2manim.events | text2manim.errors | text2manim.config"
+  ]
+ },
+ "gbouvignies/PeakFit": {
+  "stars": 3,
+  "created": "2018-09-26",
+  "pushed": "2026-07-27",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 10,
+  "layers": [
+   "__main__",
+   "cli",
+   "ui",
+   "fit",
+   "auto_pick",
+   "mcmc",
+   "plot",
+   "io",
+   "engine",
+   "shared"
+  ]
+ },
+ "DariuszMak/fullstack-python-app": {
+  "stars": 0,
+  "created": "2023-04-30",
+  "pushed": "2026-09-29",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "pyproject.toml",
+  "max_layers": 3,
+  "layers": [
+   "src.ui",
+   "src.backend",
+   "src.helpers"
+  ]
+ },
+ "truenas/middleware": {
+  "stars": 2602,
+  "created": "2013-03-07",
+  "pushed": "2026-10-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "src/middlewared/setup.cfg",
+  "max_layers": 5,
+  "layers": [
+   "system",
+   "policy",
+   "matrix",
+   "engine",
+   "facts"
+  ]
+ },
+ "lukasz-migas/napari-plot": {
+  "stars": 25,
+  "created": "2021-06-13",
+  "pushed": "2026-10-01",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "misc/setup.cfg",
+  "max_layers": 1,
+  "layers": [
+   "napari_plot.layers"
+  ]
+ },
+ "fccn/openedx-platform": {
+  "stars": 3,
+  "created": "2021-05-11",
+  "pushed": "2026-10-01",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "setup.cfg",
+  "max_layers": 6,
+  "layers": [
+   "cms.lib.xblock.upstream_sync | openedx.core.djangoapps.content.search | openedx.core.djangoapps.olx_rest_api",
+   "openedx.core.djangoapps.content_libraries",
+   "openedx.core.djangoapps.content_staging",
+   "openedx.core.djangoapps.xblock",
+   "openedx.core.lib.xblock_serializer",
+   "openedx.core.djangoapps.content_tagging"
+  ]
+ },
+ "Addrick/agent-orchestrator": {
+  "stars": 2,
+  "created": "2023-07-10",
+  "pushed": "2026-10-02",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "setup.cfg",
+  "max_layers": 23,
+  "layers": [
+   "src.main : src.bootstrap",
+   "src.interfaces",
+   "src.agents",
+   "src.huggingface",
+   "src.voice : src.proxmox : src.self_edit",
+   "src.chat_system",
+   "src.turn_persistence",
+   "src.message_handler",
+   "src.request_builder",
+   "src.confirmations",
+   "src.personas",
+   "src.tools"
+  ]
+ },
+ "Alimento-Team/chalix-ed": {
+  "stars": 0,
+  "created": "2024-09-14",
+  "pushed": "2026-08-05",
+  "fork": false,
+  "archived": false,
+  "lang": "Python",
+  "decl": "setup.cfg",
+  "max_layers": 6,
+  "layers": [
+   "cms.lib.xblock.upstream_sync | openedx.core.djangoapps.content.search | openedx.core.djangoapps.olx_rest_api",
+   "openedx.core.djangoapps.content_libraries",
+   "openedx.core.djangoapps.content_staging",
+   "openedx.core.djangoapps.xblock",
+   "openedx.core.lib.xblock_serializer",
+   "openedx.core.djangoapps.content_tagging"
+  ]
+ }
+}

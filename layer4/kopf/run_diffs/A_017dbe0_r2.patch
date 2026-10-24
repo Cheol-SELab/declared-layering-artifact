@@ -1,0 +1,307 @@
+diff --git a/kopf/_core/actions/progression.py b/kopf/_core/actions/progression.py
+index 560b434..734398e 100644
+--- a/kopf/_core/actions/progression.py
++++ b/kopf/_core/actions/progression.py
+@@ -11,6 +11,7 @@ and the overall handling routine should persist the handler status somewhere.
+ The states are persisted in a state storage: see `kopf._cogs.configs.progress`.
+ """
+ 
++import asyncio
+ import collections.abc
+ import copy
+ import dataclasses
+@@ -40,9 +41,11 @@ class HandlerState(execution.HandlerState):
+     """
+ 
+     active: bool  # whether it is used in done/delays [T] or only in counters/purges [F].
+-    started: datetime.datetime
+-    stopped: datetime.datetime | None = None  # None means it is still running (e.g. delayed).
+-    delayed: datetime.datetime | None = None  # None means it is finished (succeeded/failed).
++    basetime: datetime.datetime  # the wall-clock time corresponding to `loopbase`.
++    loopbase: float  # the event loop's time corresponding to `basetime`.
++    started_loop: float  # in the event loop's time, not the wall-clock time.
++    stopped_loop: float | None = None  # None means it is still running (e.g. delayed).
++    delayed_loop: float | None = None  # None means it is finished (succeeded/failed).
+     purpose: str | None = None  # None is a catch-all marker for upgrades/rollbacks.
+     retries: int = 0
+     success: bool = False
+@@ -55,10 +58,22 @@ class HandlerState(execution.HandlerState):
+     def finished(self) -> bool:
+         return bool(self.success or self.failure)
+ 
++    @property
++    def started(self) -> datetime.datetime:
++        return self._to_datetime(self.started_loop)
++
++    @property
++    def stopped(self) -> datetime.datetime | None:
++        return None if self.stopped_loop is None else self._to_datetime(self.stopped_loop)
++
++    @property
++    def delayed(self) -> datetime.datetime | None:
++        return None if self.delayed_loop is None else self._to_datetime(self.delayed_loop)
++
+     @property
+     def sleeping(self) -> bool:
+-        ts = self.delayed
+-        now = datetime.datetime.now(tz=datetime.timezone.utc)
++        ts = self.delayed_loop
++        now = _loop_time()
+         return not self.finished and ts is not None and ts > now
+ 
+     @property
+@@ -67,23 +82,54 @@ class HandlerState(execution.HandlerState):
+ 
+     @property
+     def runtime(self) -> datetime.timedelta:
+-        return datetime.datetime.now(tz=datetime.timezone.utc) - self.started
++        return datetime.timedelta(seconds=_loop_time() - self.started_loop)
++
++    def _to_datetime(self, val: float) -> datetime.datetime:
++        return self.basetime + datetime.timedelta(seconds=val - self.loopbase)
+ 
+     @classmethod
+-    def from_scratch(cls, *, purpose: str | None = None) -> "HandlerState":
++    def from_scratch(
++            cls,
++            *,
++            basetime: datetime.datetime | None = None,
++            loopbase: float | None = None,
++            purpose: str | None = None,
++    ) -> "HandlerState":
++        basetime, loopbase = _bases(basetime, loopbase)
+         return cls(
+             active=True,
+-            started=datetime.datetime.now(datetime.timezone.utc),
++            basetime=basetime,
++            loopbase=loopbase,
++            started_loop=loopbase,
+             purpose=purpose,
+         )
+ 
+     @classmethod
+-    def from_storage(cls, __d: progress.ProgressRecord) -> "HandlerState":
++    def from_storage(
++            cls,
++            __d: progress.ProgressRecord,
++            *,
++            basetime: datetime.datetime | None = None,
++            loopbase: float | None = None,
++    ) -> "HandlerState":
++        basetime, loopbase = _bases(basetime, loopbase)
++
++        def convert(val: str | None) -> float | None:
++            dt = parse_iso8601(val)
++            if dt is None:
++                return None
++            if dt.tzinfo is None:
++                dt = dt.replace(tzinfo=datetime.timezone.utc)
++            return loopbase + (dt - basetime).total_seconds()
++
++        started = convert(__d.get('started'))
+         return cls(
+             active=False,
+-            started=parse_iso8601(__d.get('started')) or datetime.datetime.now(datetime.timezone.utc),
+-            stopped=parse_iso8601(__d.get('stopped')),
+-            delayed=parse_iso8601(__d.get('delayed')),
++            basetime=basetime,
++            loopbase=loopbase,
++            started_loop=started if started is not None else loopbase,
++            stopped_loop=convert(__d.get('stopped')),
++            delayed_loop=convert(__d.get('delayed')),
+             purpose=__d.get('purpose') if __d.get('purpose') else None,
+             retries=__d.get('retries') or 0,
+             success=__d.get('success') or False,
+@@ -95,9 +141,9 @@ class HandlerState(execution.HandlerState):
+ 
+     def for_storage(self) -> progress.ProgressRecord:
+         return progress.ProgressRecord(
+-            started=None if self.started is None else format_iso8601(self.started),
+-            stopped=None if self.stopped is None else format_iso8601(self.stopped),
+-            delayed=None if self.delayed is None else format_iso8601(self.delayed),
++            started=format_iso8601(self.started),
++            stopped=format_iso8601(self.stopped),
++            delayed=format_iso8601(self.delayed),
+             purpose=None if self.purpose is None else str(self.purpose),
+             retries=None if self.retries is None else int(self.retries),
+             success=None if self.success is None else bool(self.success),
+@@ -123,14 +169,16 @@ class HandlerState(execution.HandlerState):
+             self,
+             outcome: execution.Outcome,
+     ) -> "HandlerState":
+-        now = datetime.datetime.now(datetime.timezone.utc)
++        now = _loop_time()
+         cls = type(self)
+         return cls(
+             active=self.active,
++            basetime=self.basetime,
++            loopbase=self.loopbase,
+             purpose=self.purpose,
+-            started=self.started,
+-            stopped=self.stopped if self.stopped is not None else now if outcome.final else None,
+-            delayed=now + datetime.timedelta(seconds=outcome.delay) if outcome.delay is not None else None,
++            started_loop=self.started_loop,
++            stopped_loop=self.stopped_loop if self.stopped_loop is not None else now if outcome.final else None,
++            delayed_loop=now + outcome.delay if outcome.delay is not None else None,
+             success=bool(outcome.final and outcome.exception is None),
+             failure=bool(outcome.final and outcome.exception is not None),
+             retries=(self.retries if self.retries is not None else 0) + 1,
+@@ -140,6 +188,29 @@ class HandlerState(execution.HandlerState):
+         )
+ 
+ 
++def _loop_time() -> float:
++    return asyncio.get_running_loop().time()
++
++
++def _bases(
++        basetime: datetime.datetime | None,
++        loopbase: float | None,
++) -> tuple[datetime.datetime, float]:
++    """
++    Pair the wall-clock time with the event loop's time (both "now" by default).
++
++    The handler states operate in the loop's time (monotonic, immune to clock
++    jumps); the wall-clock time is used only to convert from/to the storage.
++    """
++    if basetime is None:
++        basetime = datetime.datetime.now(datetime.timezone.utc)
++    elif basetime.tzinfo is None:
++        basetime = basetime.replace(tzinfo=datetime.timezone.utc)
++    if loopbase is None:
++        loopbase = _loop_time()
++    return basetime, loopbase
++
++
+ class StateCounters(NamedTuple):
+     success: int
+     failure: int
+@@ -163,12 +234,23 @@ class State(execution.State):
+             self,
+             __src: Mapping[ids.HandlerId, HandlerState],
+             *,
++            basetime: datetime.datetime | None = None,
++            loopbase: float | None = None,
+             purpose: str | None = None,
+     ):
+         super().__init__()
++        self.basetime, self.loopbase = _bases(basetime, loopbase)
+         self._states = dict(__src)
+         self.purpose = purpose
+ 
++    def _clone(
++            self,
++            states: Mapping[ids.HandlerId, HandlerState],
++            *,
++            purpose: str | None = None,
++    ) -> "State":
++        return type(self)(states, basetime=self.basetime, loopbase=self.loopbase, purpose=purpose)
++
+     @classmethod
+     def from_scratch(cls) -> "State":
+         return cls({})
+@@ -181,13 +263,15 @@ class State(execution.State):
+             storage: progress.ProgressStorage,
+             handlers: Iterable[execution.Handler],
+     ) -> "State":
++        basetime, loopbase = _bases(None, None)
+         handler_ids = {handler.id for handler in handlers}
+         handler_states: dict[ids.HandlerId, HandlerState] = {}
+         for handler_id in handler_ids:
+             content = storage.fetch(key=handler_id, body=body)
+             if content is not None:
+-                handler_states[handler_id] = HandlerState.from_storage(content)
+-        return cls(handler_states)
++                handler_states[handler_id] = HandlerState.from_storage(
++                    content, basetime=basetime, loopbase=loopbase)
++        return cls(handler_states, basetime=basetime, loopbase=loopbase)
+ 
+     def with_purpose(
+             self,
+@@ -197,8 +281,7 @@ class State(execution.State):
+         handler_states: dict[ids.HandlerId, HandlerState] = dict(self)
+         for handler in handlers:
+             handler_states[handler.id] = handler_states[handler.id].with_purpose(purpose)
+-        cls = type(self)
+-        return cls(handler_states, purpose=purpose)
++        return self._clone(handler_states, purpose=purpose)
+ 
+     def with_handlers(
+             self,
+@@ -207,11 +290,11 @@ class State(execution.State):
+         handler_states: dict[ids.HandlerId, HandlerState] = dict(self)
+         for handler in handlers:
+             if handler.id not in handler_states:
+-                handler_states[handler.id] = HandlerState.from_scratch(purpose=self.purpose)
++                handler_states[handler.id] = HandlerState.from_scratch(
++                    basetime=self.basetime, loopbase=self.loopbase, purpose=self.purpose)
+             else:
+                 handler_states[handler.id] = handler_states[handler.id].as_active()
+-        cls = type(self)
+-        return cls(handler_states, purpose=self.purpose)
++        return self._clone(handler_states, purpose=self.purpose)
+ 
+     def with_outcomes(
+             self,
+@@ -221,16 +304,14 @@ class State(execution.State):
+         if unknown_ids:
+             raise RuntimeError(f"Unexpected outcomes for unknown handlers: {unknown_ids!r}")
+ 
+-        cls = type(self)
+-        return cls({
++        return self._clone({
+             handler_id: (handler_state if handler_id not in outcomes else
+                          handler_state.with_outcome(outcomes[handler_id]))
+             for handler_id, handler_state in self._states.items()
+         }, purpose=self.purpose)
+ 
+     def without_successes(self) -> "State":
+-        cls = type(self)
+-        return cls({
++        return self._clone({
+             handler_id: handler_state
+             for handler_id, handler_state in self._states.items()
+             if not handler_state.success # i.e. failures & in-progress/retrying
+@@ -332,9 +413,9 @@ class State(execution.State):
+         processing routine, based on all delays of different origin:
+         e.g. postponed daemons, stopping daemons, temporarily failed handlers.
+         """
+-        now = datetime.datetime.now(datetime.timezone.utc)
++        now = _loop_time()
+         return [
+-            max(0, (handler_state.delayed - now).total_seconds()) if handler_state.delayed else 0
++            max(0, handler_state.delayed_loop - now) if handler_state.delayed_loop is not None else 0
+             for handler_state in self._states.values()
+             if handler_state.active and not handler_state.finished
+         ]
+diff --git a/tests/handling/test_activity_triggering.py b/tests/handling/test_activity_triggering.py
+index f703361..b640040 100644
+--- a/tests/handling/test_activity_triggering.py
++++ b/tests/handling/test_activity_triggering.py
+@@ -1,3 +1,4 @@
++import asyncio
+ from collections.abc import Mapping
+ 
+ import freezegun
+@@ -165,9 +166,21 @@ async def test_delays_are_simulated(settings, activity, mocker):
+         param=None, errors=None, timeout=None, retries=3, backoff=None,
+     ))
+ 
++    # The handler states operate in the loop's time, so that is what must be advanced.
++    loop = asyncio.get_running_loop()
++    original_time = loop.time
++    offset = 0.0
++
++    def fake_time() -> float:
++        return original_time() + offset
++
++    mocker.patch.object(loop, 'time', fake_time)
++
+     with freezegun.freeze_time() as frozen:
+ 
+         async def sleep_substitute(*_, **__):
++            nonlocal offset
++            offset += 123
+             frozen.tick(123)
+ 
+         sleep = mocker.patch('kopf._cogs.aiokits.aiotime.sleep', wraps=sleep_substitute)

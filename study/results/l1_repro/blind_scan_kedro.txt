@@ -1,0 +1,84 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2021-10-01     161    10   1  0.17  0.72   0   3  YES 2021-10-25,2021-11-09
+2022-01-01     179     9   2  0.22  1.23   0   2  -
+2022-04-01     168     9   0  0.23  1.31   0   3  -
+2022-07-01     153     9   0  0.26  1.54   0   3  -
+2022-10-01     147     9   0  0.27  1.62   0   3  -
+2023-01-01     114     9   0  0.24  1.46   0   3  -
+2023-04-01     113     9   0  0.30  1.82   0   3  -
+2023-07-01     103     9   0  0.34  1.99   0   3  YES 2023-09-22
+2023-10-01     102     8   0  0.42  1.06   0   3  YES 2023-11-04,2023-11-08,2023-11-17,2023-11-21,2023-12-07,2023-12-07
+2024-01-01     144     8   4  0.36  1.02   0   3  -
+2024-04-01     142     8   1  0.35  1.01   0   3  -
+2024-07-01     133     8   1  0.35  0.94   0   3  -
+2024-10-01     136     8   1  0.39  0.96   0   3  -
+2025-01-01      95     8   0  0.48  1.21   0   3  -
+2025-04-01      96     8   0  0.53  1.34   0   3  -
+2025-07-01     157     8   0  0.47  1.34   0   3  -
+2025-10-01     155     8   1  0.45  1.29   0   3  -
+2026-01-01     142     8   1  0.45  1.28   0   3  -
+2026-04-01     120     8   3  0.45  1.21   0   3  -
+2026-07-01      61     8   0  0.46  1.28   0   3  -
+2026-10-01      61     8   0  0.46  1.28   0   3  -
+
+== details ==
+
+2021-10-01 (b4e4ea8)  top changed: [('cli', 81), ('datasets', 40), ('context', 31)]
+   hidden: cli ~ runner  sup=13 conf=0.65
+
+2022-01-01 (35e78cc)  top changed: [('cli', 83), ('datasets', 58), ('io', 31)]
+   hidden: datasets ~ runner  sup=9 conf=0.5
+   hidden: cli ~ runner  sup=12 conf=0.67
+
+2022-04-01 (35e4ac5)  top changed: [('cli', 75), ('datasets', 56), ('io', 31)]
+
+2022-07-01 (fd7abcf)  top changed: [('cli', 65), ('datasets', 45), ('io', 28)]
+
+2022-10-01 (58dae2b)  top changed: [('cli', 56), ('datasets', 41), ('io', 28)]
+
+2023-01-01 (b1fbb4e)  top changed: [('cli', 34), ('datasets', 33), ('session', 21)]
+
+2023-04-01 (f5321e0)  top changed: [('cli', 35), ('datasets', 28), ('config', 21)]
+
+2023-07-01 (d5fcdf1)  top changed: [('cli', 31), ('datasets', 26), ('io', 24)]
+
+2023-10-01 (e9a07bb)  top changed: [('cli', 40), ('io', 29), ('config', 23)]
+
+2024-01-01 (2e64459)  top changed: [('cli', 78), ('io', 40), ('config', 23)]
+   hidden: cli ~ runner  sup=9 conf=0.5
+   hidden: config ~ pipeline  sup=3 conf=0.5
+   hidden: cli ~ pipeline  sup=3 conf=0.5
+   hidden: io ~ pipeline  sup=3 conf=0.5
+
+2024-04-01 (a45cb5a)  top changed: [('cli', 82), ('io', 39), ('config', 18)]
+   hidden: cli ~ runner  sup=9 conf=0.56
+
+2024-07-01 (9d68f71)  top changed: [('cli', 81), ('io', 29), ('config', 15)]
+   hidden: cli ~ runner  sup=6 conf=0.5
+
+2024-10-01 (02c1758)  top changed: [('cli', 77), ('io', 40), ('pipeline', 14)]
+   hidden: cli ~ runner  sup=6 conf=0.55
+
+2025-01-01 (de3940f)  top changed: [('cli', 40), ('io', 37), ('pipeline', 13)]
+
+2025-04-01 (ff6aed4)  top changed: [('io', 43), ('cli', 34), ('pipeline', 13)]
+
+2025-07-01 (b551689)  top changed: [('io', 74), ('cli', 51), ('runner', 31)]
+
+2025-10-01 (491c822)  top changed: [('io', 73), ('cli', 49), ('context', 34)]
+   hidden: config ~ io  sup=5 conf=0.5
+
+2026-01-01 (bafeed5)  top changed: [('io', 66), ('cli', 47), ('context', 34)]
+   hidden: config ~ io  sup=5 conf=0.5
+
+2026-04-01 (d1af182)  top changed: [('io', 52), ('cli', 42), ('context', 25)]
+   hidden: cli ~ session  sup=10 conf=0.62
+   hidden: config ~ io  sup=4 conf=0.5
+   hidden: config ~ pipeline  sup=4 conf=0.5
+
+2026-07-01 (6a7476f)  top changed: [('cli', 24), ('io', 20), ('pipeline', 13)]
+
+2026-10-01 (afb1c15)  top changed: [('cli', 24), ('io', 17), ('pipeline', 15)]
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=0 FP=3 FN=3 TN=15  precision=0.00 recall=0.00  base rate=0.14

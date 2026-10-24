@@ -1,0 +1,2 @@
+C:\vdm\l4\kopf\runs\A_f325f02_replay 0
+{"cond": "A", "task": "f325f02", "rep": "replay", "changed_code_files": 4, "lines_changed": 35, "units_own": 3, "units_Aframe": 3, "spec_intact": true, "lint_broken": 0, "full_counts": {"passed": 6998, "failed": 1, "skipped": 0}}

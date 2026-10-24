@@ -1,0 +1,105 @@
+diff --git a/kopf/_core/actions/execution.py b/kopf/_core/actions/execution.py
+index 2344324..b8d1abc 100644
+--- a/kopf/_core/actions/execution.py
++++ b/kopf/_core/actions/execution.py
+@@ -7,6 +7,7 @@ where the raw watch-events are interpreted and wrapped into extended *causes*.
+ The handler execution can also be used in other places, such as in-memory
+ activities, when there is no underlying Kubernetes object to patch'n'watch.
+ """
++import abc
+ import asyncio
+ import contextlib
+ import dataclasses
+@@ -85,44 +86,37 @@ class Outcome:
+     subrefs: Collection[ids.HandlerId] = ()
+ 
+ 
+-@dataclasses.dataclass(frozen=True)
+-class HandlerState:
++class HandlerState(abc.ABC):
+     """
+-    A persisted state of a single handler, as stored on the resource's status.
++    A state of a single handler, as seen by the execution logic.
++
++    The interface is intentionally narrow: only what is needed to decide
++    if the handler should be invoked now, and to build the invocation context.
++    The storage-specific fields and conversions are in the implementations.
+ 
+     Note the difference: `Outcome` is for in-memory results of handlers,
+     which is then additionally converted before being storing as a state.
+-
+-    Active handler states are those used in .done/.delays for the current
+-    handling cycle & the current cause. Passive handler states are those
+-    carried over for logging of counts/extras, and for final state purging,
+-    but not participating in the current handling cycle.
+     """
+-    started: datetime.datetime | None = None  # None means this information was lost.
+-    stopped: datetime.datetime | None = None  # None means it is still running (e.g. delayed).
+-    delayed: datetime.datetime | None = None  # None means it is finished (succeeded/failed).
+-    retries: int = 0
+-    success: bool = False
+-    failure: bool = False
+ 
+     @property
+-    def finished(self) -> bool:
+-        return bool(self.success or self.failure)
++    @abc.abstractmethod
++    def started(self) -> datetime.datetime | None:
++        raise NotImplementedError
+ 
+     @property
+-    def sleeping(self) -> bool:
+-        ts = self.delayed
+-        now = datetime.datetime.now(datetime.timezone.utc)
+-        return not self.finished and ts is not None and ts > now
++    @abc.abstractmethod
++    def retries(self) -> int:
++        raise NotImplementedError
+ 
+     @property
+-    def awakened(self) -> bool:
+-        return bool(not self.finished and not self.sleeping)
++    @abc.abstractmethod
++    def runtime(self) -> datetime.timedelta:
++        raise NotImplementedError
+ 
+     @property
+-    def runtime(self) -> datetime.timedelta:
+-        now = datetime.datetime.now(datetime.timezone.utc)
+-        return now - (self.started if self.started else now)
++    @abc.abstractmethod
++    def awakened(self) -> bool:
++        raise NotImplementedError
+ 
+ 
+ class State(Mapping[ids.HandlerId, HandlerState]):
+diff --git a/kopf/_core/actions/progression.py b/kopf/_core/actions/progression.py
+index 32c4c81..4c0dc44 100644
+--- a/kopf/_core/actions/progression.py
++++ b/kopf/_core/actions/progression.py
+@@ -52,6 +52,25 @@ class HandlerState(execution.HandlerState):
+     subrefs: Collection[ids.HandlerId] = ()  # ids of actual sub-handlers of all levels deep.
+     _origin: progress.ProgressRecord | None = None  # to check later if it has actually changed.
+ 
++    @property
++    def finished(self) -> bool:
++        return bool(self.success or self.failure)
++
++    @property
++    def sleeping(self) -> bool:
++        ts = self.delayed
++        now = datetime.datetime.now(datetime.timezone.utc)
++        return not self.finished and ts is not None and ts > now
++
++    @property
++    def awakened(self) -> bool:
++        return bool(not self.finished and not self.sleeping)
++
++    @property
++    def runtime(self) -> datetime.timedelta:
++        now = datetime.datetime.now(datetime.timezone.utc)
++        return now - (self.started if self.started else now)
++
+     @classmethod
+     def from_scratch(cls, *, purpose: str | None = None) -> "HandlerState":
+         return cls(

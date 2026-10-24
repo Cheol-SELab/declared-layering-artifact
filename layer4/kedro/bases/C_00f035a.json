@@ -1,0 +1,10 @@
+{
+ "repo": "kedro",
+ "cond": "C",
+ "task": "00f035a",
+ "parent": "05f147330565de28b446917ca81df98c15d29cef",
+ "refactor_commit": "7afc1db98ce6170fe6f09cf9b7a9529a7c77c996",
+ "cherry_pick_rc": 1,
+ "cherry_pick_out": "_incremental_dataset.py deleted in HEAD and modified in 7afc1db9 (vdm condition C refactoring).  Version 7afc1db9 (vdm condition C refactoring) of tests/io/test_incremental_dataset.py left in tree.\nCONFLICT (modify/delete): tests/io/test_partitioned_dataset.py deleted in HEAD and modified in 7afc1db9 (vdm condition C refactoring).  Version 7afc1db9 (vdm condition C refactoring) of tests/io/test_partitioned_dataset.py left in tree.\nerror: could not apply 7afc1db9... vdm condition C refactoring\nhint: After resolving the conflicts, mark them with\nhint: \"git add/rm <pathspec>\", then run\nhint: \"git cherry-pick --continue\".\nhint: You can instead skip this commit with \"git cherry-pick --skip\".\nhint: To abort and get back to the state before \"git cherry-pick\",\nhint: run \"git cherry-pick --abort\".\n",
+ "resolved": "unresolvable conflicts: ['kedro/io/__init__.py', 'kedro/partitioned/partitioned_dataset.py', 'tests/io/test_data_catalog.py', 'tests/io/test_incremental_dataset.py', 'tests/io/test_partitioned_dataset.py']"
+}

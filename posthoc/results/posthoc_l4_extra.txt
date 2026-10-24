@@ -1,0 +1,13 @@
+1. Lines changed per run (agent runs r1-r3); unit of analysis = task
+  kopf: run mean A 380, C 194; median of task means A 54, C 171; C<A in 4 of 10 tasks; exact Wilcoxon p=0.742, sign test p=1.000
+    per task (C - A): 017dbe0 -253, 20de08c +0, 51c078d +241, 624c6d2 +1, 91f7ae0 +2, 956cd65 +458, a6403c4 -6, bad8649 -3, e2c7056 +0, f325f02 -2306
+  kedro: run mean A 605, C 322; median of task means A 496, C 214; C<A in 3 of 6 tasks; exact Wilcoxon p=0.688, sign test p=1.000
+    per task (C - A): 2297d23 +10, 2f526b6 -1719, 3f2a226 -63, 60f676e +11, 69a6fe1 +426, ab576bc -363
+
+2. Runs that edited test files outside the acceptance specification (archived run records)
+  kopf: A 3/30 runs, C 3/30 runs; 017dbe0 A r1,r2,r3; 017dbe0 C r1,r2,r3
+  kedro: A 3/18 runs, C 3/18 runs; 60f676e A r1,r2,r3; 60f676e C r1,r2,r3
+
+3. kedro: maintainers' change on the A base, declared units touched (human baselines)
+  analysed       tasks=6 mean units 2.00; touching kedro.io 3; 2297d23 (#3147) 3 config/io/runner, 2f526b6 (#2926) 1 cli, 3f2a226 (#3115) 5 cli/context/io/pipeline/runner, 60f676e (#3187) 1 io, 69a6fe1 (#3211) 1 cli, ab576bc (#2987) 1 cli
+  excluded (D6)  tasks=4 mean units 1.75; touching kedro.io 1; 00f035a (#3188) 1 cli, 5752f68 (#3081) 1 cli, cd83bad (#3145) 1 config, 0cd8ecc (#3095) 4 cli/io/runner/session

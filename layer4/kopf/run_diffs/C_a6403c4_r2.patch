@@ -1,0 +1,72 @@
+diff --git a/kopf/_kits/webhooks.py b/kopf/_kits/webhooks.py
+index 8cdf1e6..b337dd0 100644
+--- a/kopf/_kits/webhooks.py
++++ b/kopf/_kits/webhooks.py
+@@ -14,7 +14,7 @@ import socket
+ import ssl
+ import tempfile
+ import urllib.parse
+-from collections.abc import AsyncIterator, Collection, Iterable
++from collections.abc import AsyncIterator, Awaitable, Callable, Collection, Iterable
+ from typing import TYPE_CHECKING, TypeAlias
+ 
+ import aiohttp.web
+@@ -102,6 +102,7 @@ class WebhookServer(webhacks.WebhookContextManager):
+     verify_cafile: StrPath | None
+     verify_capath: StrPath | None
+     verify_cadata: str | bytes | None
++    file_check_interval: float
+ 
+     def __init__(
+             self,
+@@ -129,8 +130,11 @@ class WebhookServer(webhacks.WebhookContextManager):
+             verify_cafile: StrPath | None = None,
+             verify_capath: StrPath | None = None,
+             verify_cadata: str | bytes | None = None,
++            # How often to check the certificate/key files for renewal (and restart on changes):
++            file_check_interval: float = 10.0,
+     ) -> None:
+         super().__init__()
++        self.file_check_interval = file_check_interval
+         self.addr = addr
+         self.port = port
+         self.path = path
+@@ -155,6 +159,30 @@ class WebhookServer(webhacks.WebhookContextManager):
+         async def _serve_fn(request: aiohttp.web.Request) -> aiohttp.web.Response:
+             return await self._serve(fn, request)
+ 
++        # Restart the server whenever the externally provided certificate/key files are renewed.
++        # Each (re)start yields a new client config, as the CA bundle can change with the cert.
++        while True:
++            snapshot = self._read_cert_files()
++            async with self._run_server(_serve_fn) as client_config:
++                yield client_config
++                if snapshot is None:
++                    await asyncio.Event().wait()
++                while self._read_cert_files() == snapshot:
++                    await asyncio.sleep(self.file_check_interval)
++            logger.info("The certificate files are changed; restarting the webhook server.")
++
++    def _read_cert_files(self) -> tuple[bytes, bytes] | None:
++        if self.certfile is None or self.pkeyfile is None:
++            return None
++        try:
++            return (pathlib.Path(self.certfile).read_bytes(),
++                    pathlib.Path(self.pkeyfile).read_bytes())
++        except OSError:
++            return None  # e.g. mid-renewal; treated as "unknown", compared on the next check
++
++    @contextlib.asynccontextmanager
++    async def _run_server(self, _serve_fn: Callable[..., Awaitable[aiohttp.web.Response]]) -> (
++            AsyncIterator[reviews.WebhookClientConfig]):
+         cadata, context = self._build_ssl()
+         path = self.path.rstrip('/') if self.path else ''
+         app = aiohttp.web.Application()
+@@ -182,7 +210,6 @@ class WebhookServer(webhacks.WebhookContextManager):
+                 client_config['caBundle'] = base64.b64encode(cadata).decode('ascii')
+ 
+             yield client_config
+-            await asyncio.Event().wait()
+         finally:
+             # On any reason of exit, stop serving the endpoint.
+             await runner.cleanup()

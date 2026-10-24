@@ -1,0 +1,7 @@
+{
+ "repo": "kedro",
+ "cond": "A",
+ "task": "3f2a226",
+ "parent": "247f6cfd686e56f12f6ed45e1e55e63873afa63c",
+ "refactor_commit": null
+}

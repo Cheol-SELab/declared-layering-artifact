@@ -1,0 +1,23 @@
+{
+ "cond": "C",
+ "task": "69a6fe1",
+ "lint_broken": 0,
+ "n": 1355,
+ "failed": [
+  "tests.framework.cli.test_cli_hooks.TestKedroCLIHooks::test_kedro_cli_should_invoke_cli_hooks_from_plugin[-V-0]",
+  "tests.framework.cli.test_cli_hooks.TestKedroCLIHooks::test_kedro_cli_should_invoke_cli_hooks_from_plugin[info-2]",
+  "tests.framework.cli.test_cli_hooks.TestKedroCLIHooks::test_kedro_cli_should_invoke_cli_hooks_from_plugin[pipeline list-2]",
+  "tests.framework.cli.test_cli_hooks.TestKedroCLIHooks::test_kedro_cli_should_invoke_cli_hooks_from_plugin[starter-0]",
+  "tests.framework.cli.test_jupyter.TestCreateKernel::test_create_new_kernel",
+  "tests.framework.cli.test_jupyter.TestCreateKernel::test_error",
+  "tests.framework.cli.test_jupyter.TestCreateKernel::test_kernel_install_replaces",
+  "tests.framework.cli.test_jupyter.TestJupyterLabCommand::test_env[--env-base]",
+  "tests.framework.cli.test_jupyter.TestJupyterLabCommand::test_env[-e-local]",
+  "tests.framework.cli.test_jupyter.TestJupyterLabCommand::test_happy_path",
+  "tests.framework.cli.test_jupyter.TestJupyterNotebookCommand::test_env[--env-base]",
+  "tests.framework.cli.test_jupyter.TestJupyterNotebookCommand::test_env[-e-local]",
+  "tests.framework.cli.test_jupyter.TestJupyterNotebookCommand::test_happy_path",
+  "tests.framework.cli.test_jupyter.TestJupyterSetupCommand::test_happy_path",
+  "tests.io.test_data_catalog.TestDataCatalogVersioned::test_no_versions_with_cloud_protocol"
+ ]
+}

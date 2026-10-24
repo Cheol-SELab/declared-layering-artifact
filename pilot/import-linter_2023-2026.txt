@@ -1,0 +1,45 @@
+window 2023-09-01..2026-09-05: 65 commits touching tracked units
+
+unit               commits
+  application          32
+  contracts            22
+  domain               20
+  cli                   9
+  adapters              8
+  ui                    3
+  configuration         3
+  api                   1
+
+== co-change pairs (support = commits touching both; conf = support/min(n_a,n_b)) ==
+pair                                      sup  conf  static-import  
+application ~ domain                       10  0.50  application->domain:6
+application ~ contracts                     7  0.32  contracts->application:12
+contracts ~ domain                          6  0.30  contracts->domain:18
+adapters ~ application                      6  0.75  adapters->application:7
+application ~ cli                           4  0.44  cli->application:3
+cli ~ domain                                3  0.33  NONE  <-- co-change without static dependency
+adapters ~ contracts                        3  0.38  NONE  <-- co-change without static dependency
+application ~ ui                            2  0.67  ui->application:1
+cli ~ ui                                    2  0.67  cli->ui:1
+domain ~ ui                                 2  0.67  NONE
+application ~ configuration                 2  0.67  configuration->application:1
+adapters ~ configuration                    2  0.67  configuration->adapters:4
+adapters ~ domain                           2  0.25  NONE
+adapters ~ cli                              1  0.12  NONE
+cli ~ contracts                             1  0.11  NONE
+api ~ application                           1  1.00  api->application:1
+api ~ contracts                             1  1.00  NONE
+api ~ domain                                1  1.00  NONE
+
+== static import edges between units (count of import statements) ==
+  contracts          -> domain             18
+  contracts          -> application        12
+  adapters           -> application        7
+  application        -> domain             6
+  configuration      -> adapters           4
+  cli                -> application        3
+  contracts          -> configuration      2
+  cli                -> ui                 1
+  configuration      -> application        1
+  api                -> application        1
+  ui                 -> application        1

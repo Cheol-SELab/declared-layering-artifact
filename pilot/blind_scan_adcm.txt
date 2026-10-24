@@ -1,0 +1,24 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2026-01-01     121    11   1  0.17  0.00   0   0  YES 2026-02-10,2026-02-24,2026-03-19
+2026-04-01     127    14   1  0.12  0.00   0   0  -
+2026-07-01     133    16   2  0.13  0.00   0   0  YES 2026-08-26,2026-09-03,2026-09-16
+2026-10-01     140    18   2  0.14  2.08   0   0  -
+
+== details ==
+
+2026-01-01 (0092bf3)  top changed: [('legacy', 84), ('config', 36), ('types', 17)]
+   hidden: bundle ~ legacy  sup=3 conf=0.75
+
+2026-04-01 (2f541f5)  top changed: [('legacy', 71), ('config', 39), ('bundle', 21)]
+   hidden: action ~ bundle  sup=3 conf=0.6
+
+2026-07-01 (e823bd6)  top changed: [('legacy', 58), ('config', 45), ('bundle', 28)]
+   hidden: cluster ~ provider  sup=3 conf=1.0
+   hidden: legacy ~ provider  sup=3 conf=1.0
+
+2026-10-01 (17ada89)  top changed: [('legacy', 45), ('config', 44), ('bundle', 44)]
+   hidden: cluster ~ provider  sup=3 conf=1.0
+   hidden: legacy ~ provider  sup=3 conf=1.0
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=1 FP=1 FN=1 TN=1  precision=0.50 recall=0.50  base rate=0.50

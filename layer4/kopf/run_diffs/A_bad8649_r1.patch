@@ -1,0 +1,63 @@
+diff --git a/kopf/_core/actions/execution.py b/kopf/_core/actions/execution.py
+index 468812c..c0111f4 100644
+--- a/kopf/_core/actions/execution.py
++++ b/kopf/_core/actions/execution.py
+@@ -231,6 +231,25 @@ async def execute_handlers_once(
+     return outcomes
+ 
+ 
++def _doomed_to_fail(
++        handler: Handler,
++        state: HandlerState,
++        delay: float | int | None,
++) -> HandlerTimeoutError | HandlerRetriesError | None:
++    """
++    Detect if the next retry is certain to hit the retries/timeout limits.
++
++    If so, there is no point in sleeping & retrying: the handler is finished now.
++    """
++    if handler.retries is not None and state.retries + 1 >= handler.retries:
++        return HandlerRetriesError(f"{handler} has exceeded {handler.retries} retries.")
++    if handler.timeout is not None:
++        next_runtime = state.runtime.total_seconds() + (delay or 0)
++        if next_runtime >= handler.timeout:
++            return HandlerTimeoutError(f"{handler} has timed out after {handler.timeout} seconds.")
++    return None
++
++
+ async def execute_handler_once(
+         settings: configuration.OperatorSettings,
+         handler: Handler,
+@@ -297,6 +316,10 @@ async def execute_handler_once(
+     # Definitely a temporary error, regardless of the error strictness.
+     except TemporaryError as e:
+         logger.error(f"{handler} failed temporarily: {str(e) or repr(e)}")
++        doomed = _doomed_to_fail(handler, state, e.delay)
++        if doomed is not None:
++            logger.error(f"{str(doomed)}")
++            return Outcome(final=True, exception=doomed, subrefs=subrefs)
+         return Outcome(final=False, exception=e, delay=e.delay, subrefs=subrefs)
+ 
+     # Same as permanent errors below, but with better logging for our internal cases.
+@@ -314,13 +337,18 @@ async def execute_handler_once(
+     # Regular errors behave as either temporary or permanent depending on the error strictness.
+     except Exception as e:
+         if errors_mode == ErrorsMode.IGNORED:
+-            logger.exception(f"{handler} failed with an exception. Will ignore.")
++            logger.exception(f"{handler} failed with an exception and will ignore it: {str(e) or repr(e)}")
+             return Outcome(final=True, subrefs=subrefs)
+         elif errors_mode == ErrorsMode.TEMPORARY:
+-            logger.exception(f"{handler} failed with an exception. Will retry.")
++            doomed = _doomed_to_fail(handler, state, backoff)
++            if doomed is not None:
++                logger.exception(f"{handler} failed with an exception and will stop now: {str(e) or repr(e)}")
++                logger.error(f"{str(doomed)}")
++                return Outcome(final=True, exception=doomed, subrefs=subrefs)
++            logger.exception(f"{handler} failed with an exception and will try again in {backoff} seconds: {str(e) or repr(e)}")
+             return Outcome(final=False, exception=e, delay=backoff, subrefs=subrefs)
+         elif errors_mode == ErrorsMode.PERMANENT:
+-            logger.exception(f"{handler} failed with an exception. Will stop.")
++            logger.exception(f"{handler} failed with an exception and will stop now: {str(e) or repr(e)}")
+             return Outcome(final=True, exception=e, subrefs=subrefs)
+             # TODO: report the handling failure somehow (beside logs/events). persistent status?
+         else:

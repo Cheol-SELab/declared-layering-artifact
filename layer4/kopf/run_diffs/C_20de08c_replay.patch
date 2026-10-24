@@ -1,0 +1,214 @@
+diff --git a/_importlinter_conditional.py b/_importlinter_conditional.py
+index 28349d3..735a798 100644
+--- a/_importlinter_conditional.py
++++ b/_importlinter_conditional.py
+@@ -1,11 +1,15 @@
+ """
+ A contract for the import linter to secure 3rd-party clients importing.
+ 
+-Wrong::
++Wrong:
++
++.. code-block:: python
+ 
+     import kubernetes
+ 
+-Right::
++Right:
++
++.. code-block:: python
+ 
+     try:
+         import kubernetes
+diff --git a/kopf/_cogs/aiokits/aioenums.py b/kopf/_cogs/aiokits/aioenums.py
+index 6bcaf4e..cafa791 100644
+--- a/kopf/_cogs/aiokits/aioenums.py
++++ b/kopf/_cogs/aiokits/aioenums.py
+@@ -66,12 +66,16 @@ class FlagWaiter(Generic[FlagReasonT]):
+     The flag setter is hidden from the users, and is an internal class.
+     The users should not be able to trigger the stopping activities.
+ 
+-    Usage::
++    Usage:
++
++    .. code-block:: python
++
++        import kopf
+ 
+         @kopf.daemon('kopfexamples')
+         def handler(stopped, **kwargs):
+             while not stopped:
+-                ...
++                ...  # do something useful
+                 stopped.wait(60)
+     """
+ 
+diff --git a/kopf/_cogs/clients/api.py b/kopf/_cogs/clients/api.py
+index af92fd7..86a1f48 100644
+--- a/kopf/_cogs/clients/api.py
++++ b/kopf/_cogs/clients/api.py
+@@ -273,12 +273,16 @@ async def iter_jsonlines(
+     """
+     Iterate line by line over the response's content.
+ 
+-    Usage::
++    Usage:
++
++    .. code-block:: python
+ 
+         async for line in _iter_lines(response.content):
+             pass
+ 
+-    This is an equivalent of::
++    This is an equivalent of:
++
++    .. code-block:: python
+ 
+         async for line in response.content:
+             pass
+diff --git a/kopf/_cogs/structs/bodies.py b/kopf/_cogs/structs/bodies.py
+index 3a8edc9..f72c6b0 100644
+--- a/kopf/_cogs/structs/bodies.py
++++ b/kopf/_cogs/structs/bodies.py
+@@ -10,7 +10,9 @@ as used by the framework. The operators can use arbitrary fields at runtime,
+ which are not declared in the type definitions at type-checking time.
+ 
+ In case the operators are also type-checked, type casting can be used
+-(without `cast`, this code fails at type-checking, though works at runtime)::
++(without `cast`, this code fails at type-checking, though works at runtime):
++
++.. code-block:: python
+ 
+     from typing import cast
+     import kopf
+diff --git a/kopf/_cogs/structs/dicts.py b/kopf/_cogs/structs/dicts.py
+index 2242b4e..5c3a90d 100644
+--- a/kopf/_cogs/structs/dicts.py
++++ b/kopf/_cogs/structs/dicts.py
+@@ -225,7 +225,9 @@ def walk(
+     of objects with any level of nesting. The dicts/mappings are excluded,
+     despite they are iterables too, as they are treated as objects themselves.
+ 
+-    For the output, it yields all the objects in a flat iterable suitable for::
++    For the output, it yields all the objects in a flat iterable suitable for:
++
++    .. code-block:: python
+ 
+         for obj in walk(objs):
+             pass
+diff --git a/kopf/_core/engines/peering.py b/kopf/_core/engines/peering.py
+index c8ac445..4619e6c 100644
+--- a/kopf/_core/engines/peering.py
++++ b/kopf/_core/engines/peering.py
+@@ -261,7 +261,9 @@ def detect_own_id(*, manual: bool) -> Identity:
+     (if in the cluster), or who runs the operator (if not in the cluster,
+     i.e. in the dev-mode), and how long ago was it started.
+ 
+-    The pod id can be specified by::
++    The pod id can be specified by:
++
++    .. code-block:: yaml
+ 
+         env:
+         - name: POD_ID
+diff --git a/kopf/_core/intents/registries.py b/kopf/_core/intents/registries.py
+index f9632ca..88c7489 100644
+--- a/kopf/_core/intents/registries.py
++++ b/kopf/_core/intents/registries.py
+@@ -365,7 +365,11 @@ def _deduplicated(
+     single event/cause, even if it is registered with multiple decorators
+     (e.g. different filtering criteria or different but same-effect causes).
+ 
+-    One of the ways how this could happen::
++    One of the ways how this could happen:
++
++    .. code-block:: python
++
++        import kopf
+ 
+         @kopf.on.create(...)
+         @kopf.on.resume(...)
+diff --git a/kopf/_kits/runner.py b/kopf/_kits/runner.py
+index b675199..63a0bc6 100644
+--- a/kopf/_kits/runner.py
++++ b/kopf/_kits/runner.py
+@@ -28,17 +28,20 @@ class KopfRunner(_AbstractKopfRunner):
+     """
+     A context manager to run a Kopf-based operator in parallel with the tests.
+ 
+-    Usage::
++    Usage:
++
++    .. code-block:: python
+ 
+         from kopf.testing import KopfRunner
+ 
+-        with KopfRunner(['run', '-A', '--verbose', 'examples/01-minimal/example.py']) as runner:
+-            # do something while the operator is running.
+-            time.sleep(3)
++        def test_operator():
++            with KopfRunner(['run', '-A', '--verbose', 'examples/01-minimal/example.py']) as runner:
++                # do something while the operator is running.
++                time.sleep(3)
+ 
+-        assert runner.exit_code == 0
+-        assert runner.exception is None
+-        assert 'And here we are!' in runner.output
++            assert runner.exit_code == 0
++            assert runner.exception is None
++            assert 'And here we are!' in runner.output
+ 
+     All the args & kwargs are passed directly to Click's invocation method.
+     See: `click.testing.CliRunner`.
+diff --git a/kopf/on.py b/kopf/on.py
+index 7601061..f8aee59 100644
+--- a/kopf/on.py
++++ b/kopf/on.py
+@@ -1,5 +1,7 @@
+ """
+-The decorators for the event handlers. Usually used as::
++The decorators for the event handlers. Usually used as:
++
++.. code-block:: python
+ 
+     import kopf
+ 
+@@ -792,7 +794,11 @@ def subhandler(  # lgtm[py/similar-function]
+     ``@kopf.subhandler()`` decorator for the dynamically generated sub-handlers.
+ 
+     Can be used only inside of the handler function.
+-    It is efficiently a syntax sugar to look like all other handlers::
++    It is efficiently a syntax sugar to look like all other handlers:
++
++    .. code-block:: python
++
++        import kopf
+ 
+         @kopf.on.create('kopfexamples')
+         def create(*, spec, **kwargs):
+@@ -861,7 +867,11 @@ def register(  # lgtm[py/similar-function]
+     """
+     Register a function as a sub-handler of the currently executed handler.
+ 
+-    Example::
++    Example:
++
++    .. code-block:: python
++
++        import kopf
+ 
+         @kopf.on.create('kopfexamples')
+         def create_it(spec, **kwargs):
+@@ -872,7 +882,11 @@ def register(  # lgtm[py/similar-function]
+ 
+                 kopf.register(id=task, fn=create_single_task)
+ 
+-    This is efficiently an equivalent for::
++    This is efficiently an equivalent for:
++
++    .. code-block:: python
++
++        import kopf
+ 
+         @kopf.on.create('kopfexamples')
+         def create_it(spec, **kwargs):

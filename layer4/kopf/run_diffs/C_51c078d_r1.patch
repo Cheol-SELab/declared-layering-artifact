@@ -1,0 +1,38 @@
+diff --git a/kopf/_core/actions/execution.py b/kopf/_core/actions/execution.py
+index 2344324..ed3a58e 100644
+--- a/kopf/_core/actions/execution.py
++++ b/kopf/_core/actions/execution.py
+@@ -98,16 +98,14 @@ class HandlerState:
+     carried over for logging of counts/extras, and for final state purging,
+     but not participating in the current handling cycle.
+     """
++    # The narrow interface needed for the execution; the storage-specific fields are in subclasses.
+     started: datetime.datetime | None = None  # None means this information was lost.
+-    stopped: datetime.datetime | None = None  # None means it is still running (e.g. delayed).
+     delayed: datetime.datetime | None = None  # None means it is finished (succeeded/failed).
+     retries: int = 0
+-    success: bool = False
+-    failure: bool = False
+ 
+     @property
+     def finished(self) -> bool:
+-        return bool(self.success or self.failure)
++        raise NotImplementedError("Finished-ness is defined by the implementation.")
+ 
+     @property
+     def sleeping(self) -> bool:
+diff --git a/kopf/_core/actions/progression.py b/kopf/_core/actions/progression.py
+index 32c4c81..64d5f7e 100644
+--- a/kopf/_core/actions/progression.py
++++ b/kopf/_core/actions/progression.py
+@@ -52,6 +52,10 @@ class HandlerState(execution.HandlerState):
+     subrefs: Collection[ids.HandlerId] = ()  # ids of actual sub-handlers of all levels deep.
+     _origin: progress.ProgressRecord | None = None  # to check later if it has actually changed.
+ 
++    @property
++    def finished(self) -> bool:
++        return bool(self.success or self.failure)
++
+     @classmethod
+     def from_scratch(cls, *, purpose: str | None = None) -> "HandlerState":
+         return cls(

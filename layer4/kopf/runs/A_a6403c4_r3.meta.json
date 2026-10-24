@@ -1,0 +1,47 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "a6403c4",
+ "rep": "r3",
+ "commit": "a6403c42ad862faaea4c0e1e1c919cf7002ac4c2",
+ "spec": [
+  "tests/admission/test_webhook_server.py"
+ ],
+ "code_in_pr": [
+  "kopf/_kits/webhooks.py"
+ ],
+ "spec_sha": {
+  "tests/admission/test_webhook_server.py": "e227b79d3eddddda68e3c5732ad85cca60d7fe7be045c08ff21c94906c6eee5f"
+ },
+ "message": "Restart the webhook server on renewal of externally provided SSL cert/keys\n\nSigned-off-by: Sergey Vasilyev <nolar@nolar.info>",
+ "moves": {},
+ "created": "2026-10-06T00:10:04",
+ "pre_spec": {
+  "tests.admission.test_webhook_server::test_starts_as_http_ipv4": "passed",
+  "tests.admission.test_webhook_server::test_starts_as_http_ipv6": "passed",
+  "tests.admission.test_webhook_server::test_unspecified_port_allocates_a_random_port": "passed",
+  "tests.admission.test_webhook_server::test_unspecified_addr_uses_all_interfaces": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_starts_as_https_with_selfsigned_cert": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_starts_as_https_with_provided_cert": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_flavours_inject_hostnames[WebhookK3dServer-https://host.k3d.internal:22533/p1/p2]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_flavours_inject_hostnames[WebhookMinikubeServer-https://host.minikube.internal:22533/p1/p2]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_flavours_inject_hostnames[WebhookDockerDesktopServer-https://host.docker.internal:22533/p1/p2]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_serves[namespaced]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_serves[cluster]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_renews_certificate_files": "failed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[namespaced-500-Exception]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[namespaced-400-WebhookError0]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[namespaced-400-WebhookError1]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[namespaced-400-MissingDataError]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[namespaced-404-UnknownResourceError]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[namespaced-409-AmbiguousResourceError]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[namespaced-400-<lambda>]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[cluster-500-Exception]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[cluster-400-WebhookError0]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[cluster-400-WebhookError1]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[cluster-400-MissingDataError]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[cluster-404-UnknownResourceError]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[cluster-409-AmbiguousResourceError]": "passed",
+  "tests.admission.test_webhook_server::test_webhookserver_errors[cluster-400-<lambda>]": "passed"
+ }
+}

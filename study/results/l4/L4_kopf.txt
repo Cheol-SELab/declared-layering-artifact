@@ -1,0 +1,49 @@
+Layer-4 pilot: repo=kopf, conditions=['A', 'C'], runs=60, tasks=10
+
+Human replay (condition A reference):
+  017dbe0: files=1 units_own=1 ref_tests=515 lint_broken=0
+  20de08c: files=9 units_own=7 ref_tests=0 lint_broken=0
+  51c078d: files=3 units_own=2 ref_tests=60 lint_broken=0
+  624c6d2: files=1 units_own=1 ref_tests=41 lint_broken=0
+  91f7ae0: files=2 units_own=1 ref_tests=24 lint_broken=0
+  956cd65: files=2 units_own=2 ref_tests=11 lint_broken=0
+  a6403c4: files=1 units_own=1 ref_tests=26 lint_broken=0
+  bad8649: files=1 units_own=1 ref_tests=76 lint_broken=0
+  e2c7056: files=4 units_own=4 ref_tests=32 lint_broken=0
+  f325f02: files=4 units_own=3 ref_tests=12 lint_broken=0
+
+Per condition (all runs):
+  A: n=30 strict_pass=28/30 lint_ok=30/30 units_own=1.50 units_Aframe=1.50 changed_code_files=1.70 lines_changed=380.13 bottom_own=18/30 bottom_A=18/30
+  C: n=30 strict_pass=26/30 lint_ok=30/30 units_own=1.47 units_Aframe=1.47 changed_code_files=1.77 lines_changed=193.50 bottom_own=14/30 bottom_A=17/30
+
+Paired by task (all runs); d_z = mean(diff)/sd(diff), 95% bootstrap CI over tasks:
+  units_own          C-A: tasks=10 mean diff=-0.033 d_z=-0.32 CI[-0.62,+0.00] Wilcoxon p=0.317
+  units_Aframe       C-A: tasks=10 mean diff=-0.033 d_z=-0.32 CI[-0.62,+0.00] Wilcoxon p=0.317
+  changed_code_files C-A: tasks=10 mean diff=+0.067 d_z=+0.32 CI[-0.32,+1.16] Wilcoxon p=0.577
+  lines_changed      C-A: tasks=10 mean diff=-186.633 d_z=-0.24 CI[-0.62,+0.70] Wilcoxon p=0.674
+
+Paired by task (strict-pass runs only); d_z = mean(diff)/sd(diff), 95% bootstrap CI over tasks:
+  units_own          C-A: tasks=9 mean diff=-0.037 d_z=-0.33 CI[-0.67,+0.00] Wilcoxon p=0.317
+  units_Aframe       C-A: tasks=9 mean diff=-0.037 d_z=-0.33 CI[-0.67,+0.00] Wilcoxon p=0.317
+  changed_code_files C-A: tasks=9 mean diff=+0.093 d_z=+0.37 CI[-0.33,+1.26] Wilcoxon p=0.461
+  lines_changed      C-A: tasks=9 mean diff=-110.333 d_z=-0.19 CI[-0.65,+0.86] Wilcoxon p=1.000
+
+Mixed model units_own ~ condition + (1|task):
+                               Coef. Std.Err.       z  P>|z|  [0.025 0.975]
+Intercept                      1.500    0.376   3.991  0.000   0.763  2.237
+C(cond, Treatment('A'))[T.C]  -0.033    0.033  -1.000  0.317  -0.099  0.032
+Group Var                      1.407    5.601                              
+
+H3 decision (pre-registered): C < A on units_own with d >= 0.3 -> supported; d < 0.1 or C >= A -> disconfirmed.
+  C-A units_own: mean diff -0.033, d_z -0.32 -> H3 supported (pilot, 10 tasks)
+
+Human change replayed on each base (units touched by the same PR):
+  units_own          C-A: tasks=10 sum diff=+0 per task=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  units_Aframe       C-A: tasks=10 sum diff=+0 per task=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  changed_code_files C-A: tasks=10 sum diff=+0 per task=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Agent cost (sub-agent tokens, tool uses, minutes; last logged entry per run):
+  A: n=30 tokens mean=57749 median=54364 tools mean=9.8 minutes mean=7.6
+  C: n=30 tokens mean=58406 median=53984 tools mean=10.7 minutes mean=7.5
+Runs editing non-specification test files: A_017dbe0_r1, A_017dbe0_r2, A_017dbe0_r3, C_017dbe0_r1, C_017dbe0_r2, C_017dbe0_r3
+Stop rule check: C strict acceptance 26/30

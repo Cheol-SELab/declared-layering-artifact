@@ -1,0 +1,103 @@
+window 2025-02-04..2026-02-04: 47 commits touching tracked units
+
+unit               commits
+  backup_restore       23
+  publishing           22
+  units                11
+  components            9
+  tagging               8
+  sections              7
+  subsections           7
+  api                   5
+  lib                   4
+  contrib               2
+  collections           1
+  contents              1
+
+== co-change pairs (support = commits touching both; conf = support/min(n_a,n_b)) ==
+pair                                      sup  conf  static-import  
+publishing ~ units                         10  0.91  units->publishing:4
+components ~ publishing                     7  0.78  components->publishing:4
+publishing ~ subsections                    6  0.86  subsections->publishing:4
+sections ~ subsections                      6  0.86  sections->subsections:1
+sections ~ units                            6  0.86  NONE  <-- co-change without static dependency
+subsections ~ units                         6  0.86  subsections->units:1
+backup_restore ~ publishing                 6  0.27  backup_restore->publishing:6
+components ~ units                          5  0.56  units->components:1
+publishing ~ sections                       5  0.71  sections->publishing:4
+api ~ publishing                            4  0.80  api->publishing:2
+lib ~ publishing                            4  1.00  publishing->lib:7
+components ~ sections                       3  0.43  NONE  <-- co-change without static dependency
+components ~ subsections                    3  0.43  NONE  <-- co-change without static dependency
+lib ~ units                                 3  0.75  units->lib:1
+api ~ components                            2  0.40  api->components:2
+api ~ sections                              2  0.40  api->sections:2
+api ~ subsections                           2  0.40  api->subsections:2
+api ~ units                                 2  0.40  api->units:2
+components ~ contrib                        2  1.00  contrib->components:1
+contrib ~ publishing                        2  1.00  NONE
+backup_restore ~ components                 2  0.22  backup_restore->components:2
+components ~ lib                            2  0.50  components->lib:3
+components ~ tagging                        2  0.25  NONE
+lib ~ tagging                               2  0.50  tagging->lib:1
+publishing ~ tagging                        2  0.25  NONE
+api ~ contrib                               1  0.50  NONE
+contrib ~ sections                          1  0.50  NONE
+contrib ~ subsections                       1  0.50  NONE
+contrib ~ units                             1  0.50  NONE
+backup_restore ~ sections                   1  0.14  backup_restore->sections:1
+backup_restore ~ subsections                1  0.14  backup_restore->subsections:1
+backup_restore ~ units                      1  0.09  backup_restore->units:1
+backup_restore ~ tagging                    1  0.12  NONE
+api ~ backup_restore                        1  0.20  api->backup_restore:1 backup_restore->api:1
+lib ~ sections                              1  0.25  sections->lib:1
+lib ~ subsections                           1  0.25  subsections->lib:1
+collections ~ components                    1  1.00  NONE
+collections ~ publishing                    1  1.00  collections->publishing:3
+api ~ lib                                   1  0.25  NONE
+api ~ tagging                               1  0.20  NONE
+tagging ~ units                             1  0.12  NONE
+components ~ contents                       1  1.00  components->contents:2
+contents ~ contrib                          1  1.00  NONE
+contents ~ lib                              1  1.00  contents->lib:4
+contents ~ publishing                       1  1.00  contents->publishing:1
+contents ~ tagging                          1  1.00  NONE
+contrib ~ lib                               1  0.50  NONE
+contrib ~ tagging                           1  0.50  NONE
+
+== static import edges between units (count of import statements) ==
+  publishing         -> lib                7
+  backup_restore     -> publishing         6
+  components         -> publishing         4
+  sections           -> publishing         4
+  units              -> publishing         4
+  subsections        -> publishing         4
+  contents           -> lib                4
+  components         -> lib                3
+  collections        -> publishing         3
+  api                -> collections        2
+  api                -> components         2
+  api                -> contents           2
+  api                -> publishing         2
+  api                -> sections           2
+  api                -> subsections        2
+  api                -> units              2
+  backup_restore     -> components         2
+  backup_restore     -> collections        2
+  components         -> contents           2
+  collections        -> lib                2
+  api                -> backup_restore     1
+  contrib            -> components         1
+  backup_restore     -> api                1
+  backup_restore     -> contents           1
+  backup_restore     -> sections           1
+  backup_restore     -> subsections        1
+  backup_restore     -> units              1
+  sections           -> subsections        1
+  sections           -> lib                1
+  units              -> components         1
+  units              -> lib                1
+  subsections        -> units              1
+  subsections        -> lib                1
+  contents           -> publishing         1
+  tagging            -> lib                1

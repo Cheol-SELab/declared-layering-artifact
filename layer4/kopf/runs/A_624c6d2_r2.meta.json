@@ -1,0 +1,62 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "624c6d2",
+ "rep": "r2",
+ "commit": "624c6d2e9b07a54cce3fff7bc2c9c29f9e6eb5ee",
+ "spec": [
+  "tests/apis/test_api_requests.py"
+ ],
+ "code_in_pr": [
+  "kopf/_cogs/clients/api.py"
+ ],
+ "spec_sha": {
+  "tests/apis/test_api_requests.py": "33710691c9c915179f621fcda897b83ce47bf89137b8d6fe2dd8eb148b07164d"
+ },
+ "message": "Avoid streaming if stopped at the request handshake\n\nDepending on the server behaviour, the very initial handshake of the stream can be slow too: before the headers are sent. Some clients, such as aiohttp, do not consider the request as ready to be consumed until at least the headers are received. As a result, Kopf's internal API machinery does not finish the `session.request()` call yet.\n\nAs such, depending on circumstances, the stopper can be triggered either when actually streaming the content, or when waiting for the initial headers. The former case was already covered. The latter case was not. Now, it is covered: the stopper will also terminate the pending request handshake if the headers are not yet received from the server.\n\nDetected while refactoring the tests to KMock, where there was a clear distinction between timeouts before and after the first useful payload is sent.\n\nSigned-off-by: Sergey Vasilyev <nolar@nolar.info>",
+ "moves": {},
+ "created": "2026-10-06T00:04:20",
+ "pre_spec": {
+  "tests.apis.test_api_requests::test_raw_requests_work[get]": "passed",
+  "tests.apis.test_api_requests::test_raw_requests_work[post]": "passed",
+  "tests.apis.test_api_requests::test_raw_requests_work[patch]": "passed",
+  "tests.apis.test_api_requests::test_raw_requests_work[delete]": "passed",
+  "tests.apis.test_api_requests::test_raw_requests_are_not_parsed[get]": "passed",
+  "tests.apis.test_api_requests::test_raw_requests_are_not_parsed[post]": "passed",
+  "tests.apis.test_api_requests::test_raw_requests_are_not_parsed[patch]": "passed",
+  "tests.apis.test_api_requests::test_raw_requests_are_not_parsed[delete]": "passed",
+  "tests.apis.test_api_requests::test_server_errors_escalate[get]": "passed",
+  "tests.apis.test_api_requests::test_server_errors_escalate[post]": "passed",
+  "tests.apis.test_api_requests::test_server_errors_escalate[patch]": "passed",
+  "tests.apis.test_api_requests::test_server_errors_escalate[delete]": "passed",
+  "tests.apis.test_api_requests::test_relative_urls_are_prepended_with_server[get]": "passed",
+  "tests.apis.test_api_requests::test_relative_urls_are_prepended_with_server[post]": "passed",
+  "tests.apis.test_api_requests::test_relative_urls_are_prepended_with_server[patch]": "passed",
+  "tests.apis.test_api_requests::test_relative_urls_are_prepended_with_server[delete]": "passed",
+  "tests.apis.test_api_requests::test_absolute_urls_are_passed_through[get]": "passed",
+  "tests.apis.test_api_requests::test_absolute_urls_are_passed_through[post]": "passed",
+  "tests.apis.test_api_requests::test_absolute_urls_are_passed_through[patch]": "passed",
+  "tests.apis.test_api_requests::test_absolute_urls_are_passed_through[delete]": "passed",
+  "tests.apis.test_api_requests::test_parsing_in_requests[get-get]": "passed",
+  "tests.apis.test_api_requests::test_parsing_in_requests[post-post]": "passed",
+  "tests.apis.test_api_requests::test_parsing_in_requests[patch-patch]": "passed",
+  "tests.apis.test_api_requests::test_parsing_in_requests[delete-delete]": "passed",
+  "tests.apis.test_api_requests::test_parsing_in_streams[get]": "passed",
+  "tests.apis.test_api_requests::test_direct_timeout_in_requests[get-get]": "passed",
+  "tests.apis.test_api_requests::test_direct_timeout_in_requests[post-post]": "passed",
+  "tests.apis.test_api_requests::test_direct_timeout_in_requests[patch-patch]": "passed",
+  "tests.apis.test_api_requests::test_direct_timeout_in_requests[delete-delete]": "passed",
+  "tests.apis.test_api_requests::test_settings_timeout_in_requests[get-get]": "passed",
+  "tests.apis.test_api_requests::test_settings_timeout_in_requests[post-post]": "passed",
+  "tests.apis.test_api_requests::test_settings_timeout_in_requests[patch-patch]": "passed",
+  "tests.apis.test_api_requests::test_settings_timeout_in_requests[delete-delete]": "passed",
+  "tests.apis.test_api_requests::test_direct_timeout_in_streams[get]": "passed",
+  "tests.apis.test_api_requests::test_settings_timeout_in_streams[get]": "passed",
+  "tests.apis.test_api_requests::test_stopper_in_streams[get-slow-headers-instant-none]": "failed",
+  "tests.apis.test_api_requests::test_stopper_in_streams[get-slow-headers-fast-single]": "passed",
+  "tests.apis.test_api_requests::test_stopper_in_streams[get-slow-headers-inf-double]": "passed",
+  "tests.apis.test_api_requests::test_stopper_in_streams[get-fast-headers-instant-none]": "passed",
+  "tests.apis.test_api_requests::test_stopper_in_streams[get-fast-headers-fast-single]": "passed",
+  "tests.apis.test_api_requests::test_stopper_in_streams[get-fast-headers-inf-double]": "passed"
+ }
+}

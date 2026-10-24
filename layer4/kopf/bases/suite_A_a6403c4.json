@@ -1,0 +1,10 @@
+{
+ "cond": "A",
+ "task": "a6403c4",
+ "lint_broken": 0,
+ "n": 7010,
+ "failed": [
+  "tests.posting.test_threadsafety::test_nonthreadsafe_indeed_fails",
+  "tests.posting.test_threadsafety::test_queueing_is_threadsafe"
+ ]
+}

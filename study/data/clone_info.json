@@ -1,0 +1,392 @@
+{
+ "BrainPad/cliboa": {
+  "commits": 1070,
+  "decl": ".importlinter",
+  "decl_first": "2025-08-14",
+  "decl_touch": 1
+ },
+ "meaningfy-ws/rdf-differ-ws": {
+  "commits": 678,
+  "decl": ".importlinter",
+  "decl_first": "2026-06-18",
+  "decl_touch": 3
+ },
+ "aSel1x/Backend_Template": {
+  "commits": 71,
+  "decl": ".importlinter",
+  "decl_first": "2026-09-05",
+  "decl_touch": 1
+ },
+ "AustralianCancerDataNetwork/omop-alchemy": {
+  "commits": 154,
+  "decl": ".importlinter",
+  "decl_first": "2026-08-12",
+  "decl_touch": 1
+ },
+ "unicef/hope-dedup-engine": {
+  "commits": 741,
+  "decl": ".importlinter",
+  "decl_first": "2026-01-16",
+  "decl_touch": 1
+ },
+ "openedx/openedx-core": {
+  "commits": 587,
+  "decl": ".importlinter",
+  "decl_first": "2022-08-07",
+  "decl_touch": 1
+ },
+ "unicef/hope-payment-gateway": {
+  "commits": 876,
+  "decl": ".importlinter",
+  "decl_first": "2025-10-30",
+  "decl_touch": 1
+ },
+ "usethis-python/usethis-python": {
+  "commits": 863,
+  "decl": ".importlinter",
+  "decl_first": "2026-01-06",
+  "decl_touch": 4
+ },
+ "meaningfy-ws/eds4jinja2": {
+  "commits": 295,
+  "decl": ".importlinter",
+  "decl_first": "2026-06-19",
+  "decl_touch": 1
+ },
+ "kartverket/automatisk-generalisering": {
+  "commits": 1289,
+  "decl": ".importlinter",
+  "decl_first": "2026-10-02",
+  "decl_touch": 1
+ },
+ "walterfan/lazy-rabbit-agent": {
+  "commits": 42,
+  "decl": "backend/.importlinter",
+  "decl_first": "2026-08-01",
+  "decl_touch": 1
+ },
+ "ekolvah/kinozal_scraper": {
+  "commits": 444,
+  "decl": ".importlinter",
+  "decl_first": "2026-07-01",
+  "decl_touch": 1
+ },
+ "C3EQUALZz/DSTU_VKB": {
+  "commits": 2749,
+  "decl": "development_of_secure_web_resources/2026/1/.importlinter",
+  "decl_first": "2026-09-11",
+  "decl_touch": 1
+ },
+ "eventcally/eventcally": {
+  "commits": 1134,
+  "decl": ".importlinter",
+  "decl_first": "2026-06-06",
+  "decl_touch": 1
+ },
+ "AustralianCancerDataNetwork/hemonc-alchemy": {
+  "commits": 42,
+  "decl": ".importlinter",
+  "decl_first": "2026-08-16",
+  "decl_touch": 1
+ },
+ "rafailmdzdv/ssaem": {
+  "commits": 202,
+  "decl": ".importlinter",
+  "decl_first": "2026-08-08",
+  "decl_touch": 1
+ },
+ "LgbtBsod/AI-EVOLVE": {
+  "commits": 119,
+  "decl": ".importlinter",
+  "decl_first": "2026-09-24",
+  "decl_touch": 1
+ },
+ "shalomb/terrapyne": {
+  "commits": 129,
+  "decl": ".importlinter",
+  "decl_first": "2026-04-16",
+  "decl_touch": 3
+ },
+ "fardeenes7/mohajon-server": {
+  "commits": 12,
+  "decl": ".importlinter",
+  "decl_first": "2026-04-18",
+  "decl_touch": 1
+ },
+ "davidheryanto/etc": {
+  "commits": 3339,
+  "decl": "layered-architecture-python/.importlinter",
+  "decl_first": "2026-06-16",
+  "decl_touch": 1
+ },
+ "openedx/openedx-platform": {
+  "commits": 68775,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-01-20",
+  "decl_touch": 1
+ },
+ "bluesky/ophyd-async": {
+  "commits": 1034,
+  "decl": "pyproject.toml",
+  "decl_first": "2024-11-25",
+  "decl_touch": 4
+ },
+ "cds-snc/sre-bot": {
+  "commits": 1273,
+  "decl": "app/pyproject.toml",
+  "decl_first": "2026-09-28",
+  "decl_touch": 3
+ },
+ "tcprescott/sahasrahbot": {
+  "commits": 2391,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-06-25",
+  "decl_touch": 3
+ },
+ "DiamondLightSource/dodal": {
+  "commits": 3045,
+  "decl": "pyproject.toml",
+  "decl_first": "2025-01-15",
+  "decl_touch": 1
+ },
+ "fubinf/sedrila": {
+  "commits": 1265,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-10-02",
+  "decl_touch": 1
+ },
+ "dfetch-org/dfetch": {
+  "commits": 2817,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-03-22",
+  "decl_touch": 1
+ },
+ "bitranox/lib_shopware6_api_base": {
+  "commits": 159,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-02-03",
+  "decl_touch": 1
+ },
+ "mathmed/py-awesome-template": {
+  "commits": 47,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-09-30",
+  "decl_touch": 1
+ },
+ "psiexperiment/psiexperiment": {
+  "commits": 2018,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-07-10",
+  "decl_touch": 1
+ },
+ "EBI-Metabolights/metabolights-utils": {
+  "commits": 187,
+  "decl": "pyproject.toml",
+  "decl_first": "2025-09-26",
+  "decl_touch": 1
+ },
+ "cpp-lln-lab/bidsMReye": {
+  "commits": 461,
+  "decl": "pyproject.toml",
+  "decl_first": "2024-03-15",
+  "decl_touch": 1
+ },
+ "Mattral/FlashSpec": {
+  "commits": 94,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-03-06",
+  "decl_touch": 1
+ },
+ "UKHSA-Internal/data-dashboard-api": {
+  "commits": 9974,
+  "decl": "pyproject.toml",
+  "decl_first": "2023-10-09",
+  "decl_touch": 4
+ },
+ "dcceew-bdr/abis-mapping": {
+  "commits": 1639,
+  "decl": "pyproject.toml",
+  "decl_first": "2025-01-06",
+  "decl_touch": 1
+ },
+ "finecode-dev/finecode": {
+  "commits": 551,
+  "decl": "pyproject.toml",
+  "decl_first": "2025-02-15",
+  "decl_touch": 3
+ },
+ "Unique-AG/ai": {
+  "commits": 1636,
+  "decl": "unique_toolkit/pyproject.toml",
+  "decl_first": "2026-04-27",
+  "decl_touch": 1
+ },
+ "infinito-nexus/core": {
+  "commits": 12671,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-06-28",
+  "decl_touch": 1
+ },
+ "JujensGh/legadilo": {
+  "commits": 1267,
+  "decl": "pyproject.toml",
+  "decl_first": "2024-03-14",
+  "decl_touch": 1
+ },
+ "AliKHaliliT/CVAugmentor": {
+  "commits": 97,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-09-05",
+  "decl_touch": 1
+ },
+ "masrurimz/s2-thesis-kubernetes-serverless-integration": {
+  "commits": 484,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-09-12",
+  "decl_touch": 1
+ },
+ "luiznaac/environments": {
+  "commits": 63,
+  "decl": "python/pyproject.toml",
+  "decl_first": "2026-08-28",
+  "decl_touch": 1
+ },
+ "blalterman/SolarWindPy": {
+  "commits": 1824,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-09-29",
+  "decl_touch": 1
+ },
+ "sirosen/mddj": {
+  "commits": 247,
+  "decl": "pyproject.toml",
+  "decl_first": "2025-11-28",
+  "decl_touch": 1
+ },
+ "brunns/rss-agg": {
+  "commits": 421,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-09-16",
+  "decl_touch": 2
+ },
+ "connorads/dotfiles": {
+  "commits": 3590,
+  "decl": "src/handoff/pyproject.toml",
+  "decl_first": "2026-09-02",
+  "decl_touch": 1
+ },
+ "skarzi/drf-exception-dispatcher": {
+  "commits": 103,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-09-07",
+  "decl_touch": 1
+ },
+ "mrKazzila/shortener-url-api": {
+  "commits": 445,
+  "decl": "backend/pyproject.toml",
+  "decl_first": "2026-01-26",
+  "decl_touch": 3
+ },
+ "HyperLEDA/db-app": {
+  "commits": 411,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-07-27",
+  "decl_touch": 3
+ },
+ "vakasyanov81/priceformation": {
+  "commits": 669,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-10-02",
+  "decl_touch": 1
+ },
+ "wojciechpolak/glifestream": {
+  "commits": 506,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-09-23",
+  "decl_touch": 1
+ },
+ "VilnaCRM-Org/infrastructure-template": {
+  "commits": 43,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-04-10",
+  "decl_touch": 1
+ },
+ "thekaveh/LinguAI": {
+  "commits": 529,
+  "decl": "frontend/pyproject.toml",
+  "decl_first": "2026-05-31",
+  "decl_touch": 1
+ },
+ "Zumud/Zumud": {
+  "commits": 446,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-07-11",
+  "decl_touch": 1
+ },
+ "hoelzl/clm": {
+  "commits": 2653,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-08-06",
+  "decl_touch": 1
+ },
+ "pedrocr83/biotapy": {
+  "commits": 312,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-09-26",
+  "decl_touch": 1
+ },
+ "bitranox/lib_detect_testenv": {
+  "commits": 130,
+  "decl": "pyproject.toml",
+  "decl_first": "2025-11-04",
+  "decl_touch": 1
+ },
+ "MattJColes/macols-ai-coding-setup": {
+  "commits": 42,
+  "decl": "config/personas/quality/references/python-pyproject.toml",
+  "decl_first": "2026-09-28",
+  "decl_touch": 1
+ },
+ "bitranox/fake_winreg": {
+  "commits": 156,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-03-31",
+  "decl_touch": 1
+ },
+ "tilde-lab/yascheduler": {
+  "commits": 887,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-06-19",
+  "decl_touch": 3
+ },
+ "hasansezertasan/hwid": {
+  "commits": 275,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-08-03",
+  "decl_touch": 2
+ },
+ "KinjiKawaguchi/text2manim": {
+  "commits": 230,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-07-14",
+  "decl_touch": 1
+ },
+ "gbouvignies/PeakFit": {
+  "commits": 124,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-05-06",
+  "decl_touch": 1
+ },
+ "DariuszMak/fullstack-python-app": {
+  "commits": 1928,
+  "decl": "pyproject.toml",
+  "decl_first": "2026-05-07",
+  "decl_touch": 8
+ },
+ "Addrick/agent-orchestrator": {
+  "commits": 1359,
+  "decl": "setup.cfg",
+  "decl_first": "2026-03-19",
+  "decl_touch": 2
+ }
+}

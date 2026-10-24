@@ -1,0 +1,74 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2023-10-01     371    21   0  0.33  1.13   0   0  -
+2024-01-01     363    21   6  0.31  0.90   0   0  -
+2024-04-01     359    21   6  0.29  0.86   0   0  -
+2024-07-01     286    21   6  0.33  0.97   0   0  -
+2024-10-01     164    21   6  0.34  0.99   0   0  -
+2025-01-01     162    21   2  0.35  1.01   0   0  YES 2025-01-03
+2025-04-01     143    17   1  0.40  0.88   0   0  -
+2025-07-01     114    17   0  0.38  0.85   0   0  -
+2025-10-01      93    17   0  0.38  0.85   0   0  -
+2026-01-01      68    17   0  0.45  1.01   0   0  YES 2026-02-02,2026-04-01
+2026-04-01     100    18   0  0.49  1.11   0   0  YES 2026-04-07,2026-04-01,2026-04-15,2026-04-16,2026-06-02,2026-06-24
+2026-07-01     194    22   1  0.32  0.76   0   0  -
+2026-10-01     290    22   1  0.30  0.76   0   0  -
+
+== details ==
+
+2023-10-01 (9b1b45c)  top changed: [('core', 139), ('utils', 80), ('iac', 80)]
+
+2024-01-01 (a986b06)  top changed: [('core', 135), ('iac', 84), ('utils', 69)]
+   hidden: quota ~ secret  sup=3 conf=0.6
+   hidden: quota ~ status  sup=4 conf=1.0
+   hidden: secret ~ status  sup=3 conf=0.75
+   hidden: iac ~ quota  sup=3 conf=0.6
+   hidden: iac ~ status  sup=3 conf=0.75
+   hidden: quota ~ utils  sup=3 conf=0.6
+
+2024-04-01 (038405f)  top changed: [('core', 125), ('iac', 86), ('utils', 66)]
+   hidden: quota ~ secret  sup=3 conf=0.6
+   hidden: quota ~ status  sup=4 conf=1.0
+   hidden: secret ~ status  sup=3 conf=0.75
+   hidden: iac ~ quota  sup=3 conf=0.6
+   hidden: iac ~ status  sup=3 conf=0.75
+   hidden: quota ~ utils  sup=3 conf=0.6
+
+2024-07-01 (ef2a491)  top changed: [('core', 127), ('iac', 57), ('utils', 47)]
+   hidden: quota ~ utils  sup=3 conf=0.75
+   hidden: iac ~ quota  sup=3 conf=0.75
+   hidden: iac ~ status  sup=3 conf=1.0
+   hidden: quota ~ sca  sup=3 conf=0.75
+   hidden: quota ~ status  sup=3 conf=1.0
+   hidden: sca ~ status  sup=3 conf=1.0
+
+2024-10-01 (804e3a3)  top changed: [('core', 83), ('secret', 41), ('secret', 34)]
+   hidden: iac ~ sca  sup=13 conf=0.65
+   hidden: iac ~ quota  sup=3 conf=1.0
+   hidden: iac ~ status  sup=3 conf=1.0
+   hidden: quota ~ sca  sup=3 conf=1.0
+   hidden: quota ~ status  sup=3 conf=1.0
+   hidden: sca ~ status  sup=3 conf=1.0
+
+2025-01-01 (7d85eb1)  top changed: [('core', 82), ('secret', 56), ('secret', 36)]
+   hidden: iac ~ sca  sup=7 conf=0.58
+   hidden: quota ~ status  sup=3 conf=1.0
+
+2025-04-01 (be76873)  top changed: [('core', 76), ('secret', 58), ('secret', 39)]
+   hidden: quota ~ status  sup=3 conf=1.0
+
+2025-07-01 (917c935)  top changed: [('core', 51), ('secret', 44), ('secret', 30)]
+
+2025-10-01 (359f4b3)  top changed: [('core', 40), ('secret', 39), ('secret', 17)]
+
+2026-01-01 (03efce7)  top changed: [('core', 31), ('secret', 21), ('utils', 10)]
+
+2026-04-01 (9728dc2)  top changed: [('core', 50), ('secret', 25), ('utils', 13)]
+
+2026-07-01 (c2e3c4e)  top changed: [('core', 79), ('ai', 46), ('secret', 17)]
+   hidden: install ~ ai  sup=4 conf=0.5
+
+2026-10-01 (d2bf5b0)  top changed: [('core', 113), ('ai', 101), ('secret', 22)]
+   hidden: __main__ ~ core  sup=9 conf=0.5
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=1 FP=4 FN=2 TN=6  precision=0.20 recall=0.33  base rate=0.23

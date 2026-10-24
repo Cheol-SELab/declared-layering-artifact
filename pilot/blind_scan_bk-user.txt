@@ -1,0 +1,86 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2023-10-01      29    19   1  0.58  1.24   1   0  YES 2023-10-23,2023-11-01,2023-11-13,2023-12-29
+2024-01-01      93    28   6  0.69  2.08   2   0  -
+2024-04-01     116    27   8  0.69  2.08   1   0  YES 2024-04-17
+2024-07-01     156    27   8  0.64  1.91   1   0  -
+2024-10-01     166    29   4  0.56  1.12   1   0  -
+2025-01-01     123    30   1  0.52  1.04   2   0  -
+2025-04-01     125    30   1  0.52  1.04   2   0  -
+2025-07-01     119    30   0  0.50  1.00   2   0  -
+2025-10-01     109    31   0  0.50  1.00   2   0  -
+2026-01-01     110    31   0  0.67  1.33   2   0  -
+2026-04-01      92    31   0  0.75  1.50   2   0  -
+2026-07-01      63    31   0  0.75  1.50   1   0  -
+2026-10-01      44    31   0  1.00  2.00   0   0  -
+
+== details ==
+
+2023-10-01 (e5fb0be)  top changed: [('apis', 13), ('common', 11), ('tenant', 7)]
+   hidden: common ~ monitoring  sup=6 conf=0.86
+   uncovered: ['natural_user']
+
+2024-01-01 (b58fd5b)  top changed: [('apis', 54), ('common', 28), ('monitoring', 23)]
+   hidden: common ~ monitoring  sup=17 conf=0.74
+   hidden: biz ~ plugins  sup=4 conf=0.57
+   hidden: exporters ~ plugins  sup=3 conf=0.75
+   hidden: permission ~ monitoring  sup=3 conf=0.6
+   hidden: permission ~ common  sup=3 conf=0.6
+   hidden: sync ~ exporters  sup=3 conf=0.75
+   uncovered: ['global_setting', 'natural_user']
+
+2024-04-01 (3fa6dfc)  top changed: [('apis', 72), ('common', 36), ('monitoring', 27)]
+   hidden: data_source ~ tenant  sup=7 conf=0.78
+   hidden: common ~ monitoring  sup=19 conf=0.7
+   hidden: data_source_organization ~ validators  sup=4 conf=0.57
+   hidden: biz ~ plugins  sup=4 conf=0.57
+   hidden: exporters ~ plugins  sup=3 conf=0.75
+   hidden: permission ~ monitoring  sup=3 conf=0.6
+   hidden: permission ~ common  sup=3 conf=0.6
+   hidden: sync ~ exporters  sup=3 conf=0.75
+   uncovered: ['natural_user']
+
+2024-07-01 (f6c758b)  top changed: [('apis', 108), ('common', 45), ('monitoring', 31)]
+   hidden: data_source ~ tenant  sup=7 conf=0.7
+   hidden: apis ~ monitoring  sup=16 conf=0.52
+   hidden: common ~ monitoring  sup=21 conf=0.68
+   hidden: biz ~ validators  sup=5 conf=0.56
+   hidden: exporters ~ plugins  sup=3 conf=0.75
+   hidden: permission ~ monitoring  sup=3 conf=0.6
+   hidden: permission ~ common  sup=3 conf=0.6
+   hidden: sync ~ exporters  sup=3 conf=0.75
+   uncovered: ['natural_user']
+
+2024-10-01 (6a10e3c)  top changed: [('apis', 129), ('common', 35), ('data_source', 24)]
+   hidden: biz ~ tenant  sup=7 conf=0.5
+   hidden: exporters ~ plugins  sup=3 conf=0.75
+   hidden: apis ~ monitoring  sup=3 conf=0.5
+   hidden: sync ~ exporters  sup=3 conf=0.75
+   uncovered: ['contexts']
+
+2025-01-01 (b301ee4)  top changed: [('apis', 93), ('common', 26), ('tenant', 18)]
+   hidden: data_source ~ idp  sup=4 conf=0.8
+   uncovered: ['audit', 'contexts']
+
+2025-04-01 (f9f400e)  top changed: [('apis', 98), ('common', 23), ('tenant', 16)]
+   hidden: data_source ~ idp  sup=4 conf=1.0
+   uncovered: ['audit', 'contexts']
+
+2025-07-01 (0cf1f98)  top changed: [('apis', 89), ('tenant', 22), ('common', 17)]
+   uncovered: ['audit', 'contexts']
+
+2025-10-01 (f4ee5f9)  top changed: [('apis', 82), ('tenant', 23), ('plugins', 8)]
+   uncovered: ['audit', 'weixin']
+
+2026-01-01 (7485d39)  top changed: [('apis', 84), ('tenant', 22), ('common', 13)]
+   uncovered: ['audit', 'weixin']
+
+2026-04-01 (8826772)  top changed: [('apis', 65), ('tenant', 20), ('common', 13)]
+   uncovered: ['audit', 'weixin']
+
+2026-07-01 (f74f0e4)  top changed: [('apis', 44), ('common', 12), ('tenant', 9)]
+   uncovered: ['weixin']
+
+2026-10-01 (bd80464)  top changed: [('apis', 32), ('common', 9), ('tenant', 4)]
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=2 FP=11 FN=0 TN=0  precision=0.15 recall=1.00  base rate=0.15

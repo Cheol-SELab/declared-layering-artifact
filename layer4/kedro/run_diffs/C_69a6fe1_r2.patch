@@ -1,0 +1,144 @@
+diff --git a/RELEASE.md b/RELEASE.md
+index f2f12b3..e7ea25e 100644
+--- a/RELEASE.md
++++ b/RELEASE.md
+@@ -3,6 +3,7 @@
+ ## Major features and improvements
+ * Dropped Python 3.7 support.
+ * Introduced add-ons to the `kedro new` CLI flow.
++* Added new spaceflights starters (`spaceflights-pandas`, `spaceflights-pandas-viz`, `spaceflights-pyspark`, `spaceflights-pyspark-viz`) to `kedro new --starter`, replacing `spaceflights`.
+ 
+ ## Bug fixes and other changes
+ 
+diff --git a/docs/source/deployment/aws_step_functions.md b/docs/source/deployment/aws_step_functions.md
+index f5b2d63..8a3d70d 100644
+--- a/docs/source/deployment/aws_step_functions.md
++++ b/docs/source/deployment/aws_step_functions.md
+@@ -23,7 +23,7 @@ To use AWS Step Functions, ensure you have the following:
+ 
+ - An [AWS account set up](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
+ - [Configured AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) on your local machine
+-- Generated Kedro project called **Spaceflights Step Functions** using [Kedro Spaceflights starter](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights/).
++- Generated Kedro project called **Spaceflights Step Functions** using [Kedro Spaceflights starter](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas/).
+   - The final project directory's name should be `spaceflights-step-functions`.
+   - You should complete the [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) to understand the project's structure.
+ 
+diff --git a/docs/source/kedro_project_setup/starters.md b/docs/source/kedro_project_setup/starters.md
+index 99fd9ee..0c75589 100644
+--- a/docs/source/kedro_project_setup/starters.md
++++ b/docs/source/kedro_project_setup/starters.md
+@@ -51,7 +51,10 @@ The Kedro team maintains the following starters for a range of Kedro projects:
+ * [`pandas-iris`](https://github.com/kedro-org/kedro-starters/tree/main/pandas-iris): The [Kedro Iris dataset example project](../get_started/new_project.md)
+ * [`pyspark-iris`](https://github.com/kedro-org/kedro-starters/tree/main/pyspark-iris): An alternative Kedro Iris dataset example, using [PySpark](../integrations/pyspark_integration.md)
+ * [`pyspark`](https://github.com/kedro-org/kedro-starters/tree/main/pyspark): The configuration and initialisation code for a [Kedro pipeline using PySpark](../integrations/pyspark_integration.md)
+-* [`spaceflights`](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights): The [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) example code
++* [`spaceflights-pandas`](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas): The [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) example code, using pandas
++* [`spaceflights-pandas-viz`](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas-viz): The spaceflights tutorial example code with Kedro-Viz additions, using pandas
++* [`spaceflights-pyspark`](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pyspark): The spaceflights tutorial example code, using PySpark
++* [`spaceflights-pyspark-viz`](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pyspark-viz): The spaceflights tutorial example code with Kedro-Viz additions, using PySpark
+ 
+ ## Starter versioning
+ 
+diff --git a/docs/source/tutorial/tutorial_template.md b/docs/source/tutorial/tutorial_template.md
+index 52d0a75..a69dbec 100644
+--- a/docs/source/tutorial/tutorial_template.md
++++ b/docs/source/tutorial/tutorial_template.md
+@@ -1,6 +1,6 @@
+ # Set up the spaceflights project
+ 
+-This section shows how to create a new project (with `kedro new` using the [Kedro spaceflights starter](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights)) and install project dependencies (with `pip install -r requirements.txt`).
++This section shows how to create a new project (with `kedro new` using the [Kedro spaceflights starter](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas)) and install project dependencies (with `pip install -r requirements.txt`).
+ 
+ ## Create a new project
+ 
+@@ -10,7 +10,7 @@ This section shows how to create a new project (with `kedro new` using the [Kedr
+ We recommend that you use the same version of Kedro that was most recently used to test this tutorial (0.18.6). To check the version installed, type `kedro -V` in your terminal window.
+ ```
+ 
+-In your terminal, navigate to the folder you want to store the project. Type the following to generate the project from the [Kedro spaceflights starter](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights). The project will be populated with a complete set of working example code:
++In your terminal, navigate to the folder you want to store the project. Type the following to generate the project from the [Kedro spaceflights starter](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas). The project will be populated with a complete set of working example code:
+ 
+ ```bash
+ kedro new --starter=spaceflights
+diff --git a/docs/source/visualisation/kedro-viz_visualisation.md b/docs/source/visualisation/kedro-viz_visualisation.md
+index d42b385..d075f8e 100644
+--- a/docs/source/visualisation/kedro-viz_visualisation.md
++++ b/docs/source/visualisation/kedro-viz_visualisation.md
+@@ -7,7 +7,7 @@ If you haven't installed Kedro [follow the documentation to get set up](../get_s
+ 
+ Then, in your terminal window, navigate to the folder you want to store the project.
+ 
+-Generate a copy of the spaceflights tutorial project with all the code in place by using the [Kedro starter for the spaceflights tutorial](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights):
++Generate a copy of the spaceflights tutorial project with all the code in place by using the [Kedro starter for the spaceflights tutorial](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas):
+ 
+ ```bash
+ kedro new --starter=spaceflights
+diff --git a/docs/source/visualisation/preview_datasets.md b/docs/source/visualisation/preview_datasets.md
+index 85f7a8f..ade2edc 100644
+--- a/docs/source/visualisation/preview_datasets.md
++++ b/docs/source/visualisation/preview_datasets.md
+@@ -2,13 +2,13 @@
+ 
+ This page describes how to preview data from different datasets in a Kedro project with Kedro-Viz. Dataset preview was introduced in Kedro-Viz version 6.3.0, which offers preview for `CSVDatasets` and `ExcelDatasets`.
+ 
+-We use the [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) to demonstrate how to add data preview for the `customer`, `shuttle` and `reviews` datasets. Even if you have not yet worked through the tutorial, you can still follow this example; you'll need to use the [Kedro starter for the spaceflights tutorial](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights) to generate a copy of the project with working code in place.
++We use the [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) to demonstrate how to add data preview for the `customer`, `shuttle` and `reviews` datasets. Even if you have not yet worked through the tutorial, you can still follow this example; you'll need to use the [Kedro starter for the spaceflights tutorial](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas) to generate a copy of the project with working code in place.
+ 
+ If you haven't installed Kedro [follow the documentation to get set up](../get_started/install.md).
+ 
+ Then, in your terminal window, navigate to the folder you want to store the project.
+ 
+-Generate a copy of the spaceflights tutorial project with all the code in place by using the [Kedro starter for the spaceflights tutorial](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights):
++Generate a copy of the spaceflights tutorial project with all the code in place by using the [Kedro starter for the spaceflights tutorial](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas):
+ 
+ ```bash
+ kedro new --starter=spaceflights
+diff --git a/docs/source/visualisation/share_kedro_viz.md b/docs/source/visualisation/share_kedro_viz.md
+index 85a1a5b..de58553 100644
+--- a/docs/source/visualisation/share_kedro_viz.md
++++ b/docs/source/visualisation/share_kedro_viz.md
+@@ -8,7 +8,7 @@ This page describes how to publish Kedro-Viz so you can share it with others. It
+ 
+ If you haven't installed Kedro [follow the documentation to get set up](../get_started/install.md). In your terminal window, navigate to the folder you want to store the project.
+ 
+-If you have not yet worked through the tutorial, use the [Kedro starter for spaceflights](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights) to generate the project with working code in place. Type the following in your terminal:
++If you have not yet worked through the tutorial, use the [Kedro starter for spaceflights](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas) to generate the project with working code in place. Type the following in your terminal:
+ 
+ ```bash
+ kedro new --starter=spaceflights
+diff --git a/docs/source/visualisation/visualise_charts_with_plotly.md b/docs/source/visualisation/visualise_charts_with_plotly.md
+index 324cf78..b15b44a 100644
+--- a/docs/source/visualisation/visualise_charts_with_plotly.md
++++ b/docs/source/visualisation/visualise_charts_with_plotly.md
+@@ -4,13 +4,13 @@ This page describes how to make interactive visualisations of a Kedro project wi
+ 
+ ## Visualisation with Plotly
+ 
+-We use the [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) and add a reporting pipeline that uses Plotly. Even if you have not yet worked through the tutorial, you can still follow this example; you'll need to use the [Kedro starter for the spaceflights tutorial](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights) to generate a copy of the project with working code in place.
++We use the [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) and add a reporting pipeline that uses Plotly. Even if you have not yet worked through the tutorial, you can still follow this example; you'll need to use the [Kedro starter for the spaceflights tutorial](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas) to generate a copy of the project with working code in place.
+ 
+ If you haven't installed Kedro [follow the documentation to get set up](../get_started/install.md).
+ 
+ Then, in your terminal window, navigate to the folder you want to store the project.
+ 
+-Generate a copy of the spaceflights tutorial project with all the code in place by using the [Kedro starter for the spaceflights tutorial](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights):
++Generate a copy of the spaceflights tutorial project with all the code in place by using the [Kedro starter for the spaceflights tutorial](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas):
+ 
+ ```bash
+ kedro new --starter=spaceflights
+diff --git a/kedro/framework/cli/starters.py b/kedro/framework/cli/starters.py
+index b7401bb..4f8ba5c 100644
+--- a/kedro/framework/cli/starters.py
++++ b/kedro/framework/cli/starters.py
+@@ -78,7 +78,10 @@ _OFFICIAL_STARTER_SPECS = [
+     KedroStarterSpec("pandas-iris", _STARTERS_REPO, "pandas-iris"),
+     KedroStarterSpec("pyspark", _STARTERS_REPO, "pyspark"),
+     KedroStarterSpec("pyspark-iris", _STARTERS_REPO, "pyspark-iris"),
+-    KedroStarterSpec("spaceflights", _STARTERS_REPO, "spaceflights"),
++    KedroStarterSpec("spaceflights-pandas", _STARTERS_REPO, "spaceflights-pandas"),
++    KedroStarterSpec("spaceflights-pandas-viz", _STARTERS_REPO, "spaceflights-pandas-viz"),
++    KedroStarterSpec("spaceflights-pyspark", _STARTERS_REPO, "spaceflights-pyspark"),
++    KedroStarterSpec("spaceflights-pyspark-viz", _STARTERS_REPO, "spaceflights-pyspark-viz"),
+     KedroStarterSpec("databricks-iris", _STARTERS_REPO, "databricks-iris"),
+ ]
+ # Set the origin for official starters

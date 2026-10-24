@@ -1,0 +1,35 @@
+{
+ "U": "kopf._core.actions",
+ "U_commits": 5,
+ "bottom_units": [
+  "kopf._cogs",
+  "kopf._cogs.aiokits",
+  "kopf._cogs.configs.conventions",
+  "kopf._cogs.helpers",
+  "kopf._core",
+  "kopf._core.actions",
+  "kopf._core.intents"
+ ],
+ "decision": "EXTRACT",
+ "fallback": null,
+ "mean_r": 0.67,
+ "repo": "kopf",
+ "snapshot": "51b664fa12087cacd62a46b6bcdf8daf3dbc64fc",
+ "snapshot_date": "2026-01-01",
+ "submodules": {
+  "invocation": {
+   "n": 3,
+   "r": 0.67,
+   "with_higher": 2
+  },
+  "loggers": {
+   "n": 3,
+   "r": 0.67,
+   "with_higher": 2
+  }
+ },
+ "table_decision": "EXTRACT",
+ "target": "kopf._core.actions.invocation",
+ "window_commits": 25,
+ "window_since": "2025-01-06"
+}

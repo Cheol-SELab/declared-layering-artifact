@@ -1,0 +1,9 @@
+{
+ "repo": "kopf",
+ "cond": "C",
+ "task": "91f7ae0",
+ "parent": "51c078de92f148f2e60cb35772060ed2abb0d28c",
+ "refactor_commit": "ba62a8e3e9a001375d5cf345d437ca37a281ee0c",
+ "cherry_pick_rc": 0,
+ "cherry_pick_out": "Auto-merging kopf/_core/engines/daemons.py\nAuto-merging tests/conftest.py\n[detached HEAD 7b3e442a] vdm condition C refactoring\n Date: Mon Oct 5 23:55:07 2026 +0000\n 15 files changed, 17 insertions(+), 14 deletions(-)\n rename kopf/_core/{actions => }/loggers.py (100%)\n"
+}

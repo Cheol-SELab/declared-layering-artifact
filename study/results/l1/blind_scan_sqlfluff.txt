@@ -1,0 +1,45 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2023-10-01  no declaration
+2024-01-01     129     5   0  0.08  1.04   0   0  -
+2024-04-01     108     5   0  0.10  0.98   0   0  -
+2024-07-01     112     5   0  0.09  0.96   0   0  YES 2024-09-28
+2024-10-01      60     6   0  0.11  1.20   0   0  -
+2025-01-01      46     6   0  0.17  1.82   0   0  -
+2025-04-01      41     6   1  0.21  2.18   0   0  -
+2025-07-01      35     6   1  0.24  2.46   0   0  -
+2025-10-01      19     6   0  0.19  2.01   0   0  -
+2026-01-01      17     6   0  0.15  1.54   0   0  -
+2026-04-01      30     6   0  0.07  0.79   0   0  -
+2026-07-01      43     6   0  0.07  0.63   0   0  -
+2026-10-01      64     6   0  0.07  0.68   0   0  -
+
+== details ==
+
+2024-01-01 (ee9a5b8)  top changed: [('parser', 91), ('rules', 42), ('linter', 32)]
+
+2024-04-01 (1e65dcd)  top changed: [('parser', 81), ('linter', 31), ('rules', 29)]
+
+2024-07-01 (8552291)  top changed: [('parser', 82), ('rules', 32), ('linter', 31)]
+
+2024-10-01 (885d50d)  top changed: [('parser', 28), ('linter', 26), ('rules', 18)]
+
+2025-01-01 (b4f0a1b)  top changed: [('linter', 25), ('rules', 13), ('parser', 11)]
+
+2025-04-01 (9259c4b)  top changed: [('linter', 22), ('rules', 13), ('parser', 11)]
+   hidden: helpers ~ types  sup=3 conf=0.75
+
+2025-07-01 (b17ad00)  top changed: [('linter', 19), ('rules', 10), ('parser', 10)]
+   hidden: helpers ~ types  sup=3 conf=0.75
+
+2025-10-01 (114b2fa)  top changed: [('linter', 9), ('parser', 9), ('helpers', 5)]
+
+2026-01-01 (4db9337)  top changed: [('parser', 10), ('linter', 7), ('rules', 4)]
+
+2026-04-01 (1485d37)  top changed: [('parser', 17), ('linter', 13), ('rules', 5)]
+
+2026-07-01 (2a6b2f2)  top changed: [('parser', 23), ('linter', 22), ('rules', 6)]
+
+2026-10-01 (2e22757)  top changed: [('parser', 37), ('linter', 26), ('rules', 9)]
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=0 FP=0 FN=1 TN=11  precision=0.00 recall=0.00  base rate=0.08

@@ -1,0 +1,42 @@
+snapshot   commits units  S1    S2  S3  up  decl-change next Q
+2024-01-01     182     3   0  0.00   0   0  YES 2024-03-04
+2024-04-01     201     3   0  0.00   0   0  -
+2024-07-01     190     3   0  0.00   0   0  -
+2024-10-01     176     3   0  0.00   0   0  -
+2025-01-01     159     3   0  0.00   0   0  -
+2025-04-01     141     3   0  0.00   0   0  -
+2025-07-01     145     3   0  0.00   0   0  -
+2025-10-01     144     3   0  0.00   0   0  -
+2026-01-01     146     3   0  0.00   0   0  -
+2026-04-01     147     3   0  0.00   0   0  -
+2026-07-01     133     3   0  0.00   0   0  -
+2026-10-01     168     3   0  0.00   0   0  -
+
+== details ==
+
+2024-01-01 (0e54d85)  top changed: [('layers', 145), ('components', 69), ('qt', 1)]
+
+2024-04-01 (3f2e58a)  top changed: [('layers', 162), ('components', 68), ('qt', 1)]
+
+2024-07-01 (21d4c29)  top changed: [('layers', 155), ('components', 60), ('qt', 1)]
+
+2024-10-01 (c73e9d5)  top changed: [('layers', 150), ('components', 52)]
+
+2025-01-01 (e94bdf1)  top changed: [('layers', 137), ('components', 47), ('qt', 1)]
+
+2025-04-01 (8a958c9)  top changed: [('layers', 113), ('components', 51), ('qt', 1)]
+
+2025-07-01 (eb7a00f)  top changed: [('layers', 115), ('components', 51), ('qt', 2)]
+
+2025-10-01 (4d44acc)  top changed: [('layers', 115), ('components', 46), ('qt', 2)]
+
+2026-01-01 (894944e)  top changed: [('layers', 113), ('components', 50), ('qt', 1)]
+
+2026-04-01 (57392ce)  top changed: [('layers', 115), ('components', 50), ('qt', 1)]
+
+2026-07-01 (f97c9ae)  top changed: [('layers', 100), ('components', 50)]
+
+2026-10-01 (26e0eda)  top changed: [('layers', 122), ('components', 78)]
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=0 FP=0 FN=1 TN=11  precision=0.00 recall=0.00  base rate=0.08

@@ -1,0 +1,1 @@
+for f in /tmp/vdm_62f5de0b3557438d857cdd7e7d988410 /tmp/vdm_c7d4ef0a6f2d4405ae17849b17c8871e /tmp/vdm_2098def80dc845beae8e6b76f2bc54e9; do echo "== $f rc=$(cat $f.rc 2>/dev/null) size=$(wc -c < $f.log)"; grep -v -i "deprecat\|hookimpl\|trylast\|configure the hooks\|docs.pytest" $f.log | head -30; done

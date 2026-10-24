@@ -1,0 +1,9 @@
+{
+ "repo": "kopf",
+ "cond": "C",
+ "task": "bad8649",
+ "parent": "5cc253df83ad38c3de87f98441f9904ed7842416",
+ "refactor_commit": "ba62a8e3e9a001375d5cf345d437ca37a281ee0c",
+ "cherry_pick_rc": 0,
+ "cherry_pick_out": "[detached HEAD 4b365c76] vdm condition C refactoring\n Date: Mon Oct 5 23:55:07 2026 +0000\n 15 files changed, 17 insertions(+), 14 deletions(-)\n rename kopf/_core/{actions => }/loggers.py (100%)\n"
+}

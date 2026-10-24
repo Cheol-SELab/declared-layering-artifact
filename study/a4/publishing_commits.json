@@ -1,0 +1,399 @@
+[
+ {
+  "id": "c01",
+  "commit": "91fc5486e",
+  "date": "2026-04-07",
+  "message": "chore: Upgrade Python requirements (#532)\n\n* chore: Upgrade Python requirements\n\n* style: Fix py 3.12 quality fixes\n\n---------\n\nCo-authored-by: farhan <farhan.khan@arbisoft.com>",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py"
+  ],
+  "diffstat": [
+   "requirements/base.txt                         | 12 ++++++------",
+   " requirements/ci.txt                           |  2 +-",
+   " requirements/dev.txt                          | 26 +++++++++++++-------------",
+   " requirements/doc.txt                          | 22 +++++++++++-----------",
+   " requirements/pip-tools.txt                    |  2 +-",
+   " requirements/quality.txt                      | 24 ++++++++++++------------",
+   " requirements/test.txt                         | 22 +++++++++++-----------",
+   " src/openedx_content/applets/publishing/api.py | 10 ++++++----",
+   " src/openedx_django_lib/fields.py              |  8 +++++---",
+   " 9 files changed, 66 insertions(+), 62 deletions(-)"
+  ]
+ },
+ {
+  "id": "c02",
+  "commit": "54ef87348",
+  "date": "2026-04-13",
+  "message": "feat: add typed primary keys for core models like PublishableEntity (#534)\n\nfeat: added typed primary keys for Container\nfeat: added typed primary keys for Component\nfeat: added typed primary keys for PublishableEntity\nfeat: added typed primary keys for LearningPackage\nfeat: added typed primary keys for CatalogCourse and CourseRun\nfeat: added typed primary keys for Units/Subsections/Sections\nrefactor: change typed ID fields to use 'id' instead of 'pk'\nfeat: add a default 'id' accessor to PublishableEntityMixin",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py",
+   "src/openedx_content/applets/publishing/contextmanagers.py",
+   "src/openedx_content/applets/publishing/models/learning_package.py",
+   "src/openedx_content/applets/publishing/models/publishable_entity.py"
+  ],
+  "diffstat": [
+   " src/openedx_content/applets/sections/models.py                      |   9 +++-",
+   " src/openedx_content/applets/subsections/api.py                      |   7 +--",
+   " src/openedx_content/applets/subsections/models.py                   |   9 +++-",
+   " src/openedx_content/applets/units/api.py                            |   7 +--",
+   " src/openedx_content/applets/units/models.py                         |   9 +++-",
+   " src/openedx_content/management/commands/add_assets_to_component.py  |   2 +-",
+   " src/openedx_content/migrations/0006_typed_ids.py                    |  29 +++++++++++",
+   " src/openedx_core/__init__.py                                        |   2 +-",
+   " src/openedx_django_lib/fields.py                                    |   3 ++",
+   " src/openedx_django_lib/id_fields.py                                 |  57 ++++++++++++++++++++",
+   " src/openedx_django_lib/id_fields.pyi                                |  17 ++++++",
+   " tests/openedx_catalog/test_api.py                                   |  22 ++++----",
+   " tests/openedx_catalog/test_models.py                                |  12 ++---",
+   " tests/openedx_content/applets/backup_restore/test_backup.py         |   6 +--",
+   " tests/openedx_content/applets/collections/test_api.py               |  44 ++++++++--------",
+   " tests/openedx_content/applets/components/test_api.py                |  38 +++++++-------",
+   " tests/openedx_content/applets/components/test_models.py             |  12 ++---",
+   " tests/openedx_content/applets/containers/test_api.py                | 124 +++++++++++++++++++++++++-------------------",
+   " tests/openedx_content/applets/publishing/test_api.py                |  28 +++++-----",
+   " tests/openedx_content/applets/publishing/test_models.py             |  12 ++++-",
+   " tests/openedx_content/applets/sections/test_api.py                  |  21 ++++----",
+   " tests/openedx_content/applets/subsections/test_api.py               |  15 +++---",
+   " tests/openedx_content/applets/units/test_api.py                     |  19 ++++---",
+   " tox.ini                                                             |   2 +",
+   " 39 files changed, 545 insertions(+), 267 deletions(-)"
+  ]
+ },
+ {
+  "id": "c03",
+  "commit": "10eae2da8",
+  "date": "2026-04-16",
+  "message": "feat: track direct vs. indirect publish records [FC-0123] (#539)\n\nPrior to this commit, a PublishLog and its PublishLogRecords tracked\nwhat was published, but not what the user requested to be published.\nFor instance, say we have a Unit with no draft changes, and that Unit\nhas a Component that does have draft changes. The user can click the\n\"Publish Changes\" button at either the Unit level or the Component\nlevel, and both scenarios would have given the exact same PublishLog:\n- Component was published (version changed)\n- Unit was affected by the publish (version unchanged)\n\nWhen displaying the history log to the user, the UX requires that we\ndifferentiate between these two things. To do this, we're adding a\n\"direct\" field to PublishLogRecord.\n\nWe say that something is a \"direct publish\" (direct=True) if that\nPublishLogRecord was explicitly requested by the author, i.e. they\nclicked \"Publish Changes\" on that exact entity. Any child elements\nthat are published are considered to be \"indirectly published\", and\nany parents are \"indirectly affected\"—both of these would have\ndirect=False.\n\nMore details and examples are in the comments for the\nPublishLogRecord.direct field.\n\nPre-existing PublishLogRecords get direct=None since intent cannot be\ndetermined retroactively in many cases.",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/admin.py",
+   "src/openedx_content/applets/publishing/api.py",
+   "src/openedx_content/applets/publishing/models/publish_log.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/applets/publishing/admin.py                |   1 +",
+   " src/openedx_content/applets/publishing/api.py                  |   4 +",
+   " src/openedx_content/applets/publishing/models/publish_log.py   |  71 +++++++++++++++++",
+   " src/openedx_content/migrations/0007_publishlogrecord_direct.py |  32 ++++++++",
+   " tests/openedx_content/applets/containers/test_api.py           |   8 +-",
+   " tests/openedx_content/applets/publishing/test_api.py           | 203 +++++++++++++++++++++++++++++++++++++++++++++++++",
+   " tests/openedx_content/applets/sections/test_api.py             |   2 +-",
+   " tests/openedx_content/applets/subsections/test_api.py          |   2 +-",
+   " tests/openedx_content/applets/units/test_api.py                |   2 +-",
+   " 9 files changed, 318 insertions(+), 7 deletions(-)"
+  ]
+ },
+ {
+  "id": "c04",
+  "commit": "cbc344b9f",
+  "date": "2026-04-20",
+  "message": "feat!: Component.local_key -> Component.component_code (#544)\n\nBREAKING CHANGE: Component.local_key has been renamed to\nComponent.component_code.\n\nBREAKING CHANGE: Component.component_code now validates against\n[A-Za-z0-9\\-\\_\\.]+  and has a max_length of 255. Previously local_key used\nkey_field() (no regex validation, max_length=500).\n\nBREAKING CHANGE: Function parameters renamed from local_key to component_code\nin create_component(...) and create_component_and_version(...).\n\nBREAKING CHANGE: Functions\nget_component_by_key(...)/component_exists_by_key(...), renamed to\nget_component_by_code(...)/component_exists_by_code(...), and parameters\nrenamed from local_key to component_code.\n\nBackup-restore format is unchanged. component_type and component_code\nwill continue to be parsed from the entity key. This may change in\na future \"v2\" backup format.\n\nBumps version to 0.41.0.\n\nPart of: https://github.com/openedx/openedx-core/issues/322",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/models/publishable_entity.py"
+  ],
+  "diffstat": [
+   "olx_importer/management/commands/load_components.py                         |  4 +-",
+   " src/openedx_content/applets/backup_restore/serializers.py                   | 40 ++++++++++++++++++--",
+   " src/openedx_content/applets/backup_restore/zipper.py                        |  2 +-",
+   " src/openedx_content/applets/components/api.py                               | 42 ++++++++++-----------",
+   " src/openedx_content/applets/components/models.py                            | 38 ++++++++++---------",
+   " src/openedx_content/applets/publishing/models/publishable_entity.py         |  2 +-",
+   " src/openedx_content/management/commands/add_assets_to_component.py          | 16 ++++----",
+   " .../migrations/0009_rename_component_local_key_to_component_code.py         | 74 +++++++++++++++++++++++++++++++++++++",
+   " src/openedx_core/__init__.py                                                |  2 +-",
+   " tests/openedx_content/applets/backup_restore/test_backup.py                 |  8 ++--",
+   " tests/openedx_content/applets/collections/test_api.py                       |  4 +-",
+   " tests/openedx_content/applets/components/test_api.py                        | 58 ++++++++++++++---------------",
+   " tests/openedx_content/applets/components/test_assets.py                     |  2 +-",
+   " tests/openedx_content/applets/components/test_models.py                     |  6 +--",
+   " tests/openedx_content/applets/sections/test_api.py                          |  4 +-",
+   " tests/openedx_content/applets/subsections/test_api.py                       |  8 ++--",
+   " tests/openedx_content/applets/units/test_api.py                             |  4 +-",
+   " 17 files changed, 211 insertions(+), 103 deletions(-)"
+  ]
+ },
+ {
+  "id": "c05",
+  "commit": "ae73faf31",
+  "date": "2026-04-21",
+  "message": "chore: Upgrade Python requirements (#553)\n\n* chore: Upgrade Python requirements\n\n* fix: fix the quality issues\n\n---------\n\nCo-authored-by: farhan <farhan.khan@arbisoft.com>",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py"
+  ],
+  "diffstat": [
+   "requirements/base.txt                         | 14 +++++++-------",
+   " requirements/ci.txt                           |  8 ++++----",
+   " requirements/dev.txt                          | 44 +++++++++++++++++++++++++++-----------------",
+   " requirements/doc.txt                          | 24 ++++++++++++------------",
+   " requirements/pip-tools.txt                    |  4 ++--",
+   " requirements/pip.txt                          |  2 +-",
+   " requirements/quality.txt                      | 31 +++++++++++++++++++------------",
+   " requirements/test.txt                         | 24 ++++++++++++------------",
+   " src/openedx_content/applets/publishing/api.py |  2 +-",
+   " src/openedx_tagging/api.py                    |  6 +++---",
+   " 10 files changed, 88 insertions(+), 71 deletions(-)"
+  ]
+ },
+ {
+  "id": "c06",
+  "commit": "5d4fbf432",
+  "date": "2026-04-21",
+  "message": "feat!: Package and Entity `keys` are now opaque `refs` (#546)\n\nThe `{LearningPackage,PublishableEntity}.key` fields were always meant to be\nexternally-supplied refs whose format does not matter. However, they were\neffectively being used as parseable psuedo-keys for identifying containers and\ncomponents, with more assumptions to their structure being baked in over time,\nboth within and outside openedx-core.\n\nThis commit renames them to `{package,entity}_ref`, and removes all parsing of\nthem from the API and from the internals (except for where required for\nbackcompat with Ulmo ZIP backups). Instead, the pairings of\n(component_type,component_code) and (container_type,container_code) are used to\nidentify components and containers; their respective entity_refs are derived\nfrom those *by convention* but the publishing app has no conception of this\nconvention.\n\nBREAKING CHANGES to **openedx_django_lib**:\n* Renamed key_field(...) -> ref_field(...) in openedx_django_lib.\n\nBREAKING CHANGES to **models** API:\n* Renamed field LearningPackage.key -> LearningPackage.package_ref.\n* Renamed field PublishableEntity.key -> PublishableEntityKey.entity_ref\n* Renamed field PublishableEntityMixin.key -> PublishableEntityMixin.entity_ref\n* Renamed property PublishableEntityVersion.key -> PublishableEntityVersion.entity_ref\n\nBREAKING CHANGES to **publishing** API:\n* In create_learning_package(...), renamed param key -> package_ref\n* In update_learning_package(...), renamed param key -> package_ref\n",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/admin.py",
+   "src/openedx_content/applets/publishing/api.py",
+   "src/openedx_content/applets/publishing/models/learning_package.py",
+   "src/openedx_content/applets/publishing/models/publishable_entity.py"
+  ],
+  "diffstat": [
+   " src/openedx_content/applets/backup_restore/zipper.py                        | 213 ++++++++++++++++++++----------------",
+   " src/openedx_content/applets/collections/api.py                              |   6 +-",
+   " src/openedx_content/applets/components/admin.py                             |   6 +-",
+   " src/openedx_content/applets/components/api.py                               |  48 +++-----",
+   " src/openedx_content/applets/components/models.py                            |   8 +-",
+   " src/openedx_content/applets/containers/admin.py                             |  10 +-",
+   " src/openedx_content/applets/containers/api.py                               |  35 +++---",
+   " src/openedx_content/applets/publishing/admin.py                             |  20 ++--",
+   " src/openedx_content/applets/publishing/api.py                               |  38 +++----",
+   " src/openedx_content/applets/publishing/models/learning_package.py           |  23 ++--",
+   " src/openedx_content/applets/publishing/models/publishable_entity.py         |  27 ++---",
+   " src/openedx_content/management/commands/add_assets_to_component.py          |  20 ++--",
+   " src/openedx_content/management/commands/lp_dump.py                          |  16 +--",
+   " .../migrations/0011_rename_entity_key_and_package_key_to_refs.py            |  84 ++++++++++++++",
+   " src/openedx_django_lib/fields.py                                            |  13 +--",
+   " tests/openedx_content/applets/backup_restore/test_backup.py                 |  18 +--",
+   " tests/openedx_content/applets/backup_restore/test_restore.py                |  84 +++++++-------",
+   " tests/openedx_content/applets/collections/test_api.py                       |  12 +-",
+   " tests/openedx_content/applets/components/test_api.py                        |  28 ++---",
+   " tests/openedx_content/applets/components/test_assets.py                     |   6 +-",
+   " tests/openedx_content/applets/containers/test_api.py                        |  65 +++++------",
+   " tests/openedx_content/applets/media/test_file_storage.py                    |   2 +-",
+   " tests/openedx_content/applets/publishing/test_api.py                        |  14 +--",
+   " tests/openedx_tagging/test_system_defined_models.py                         |  14 +--",
+   " 28 files changed, 488 insertions(+), 394 deletions(-)"
+  ]
+ },
+ {
+  "id": "c07",
+  "commit": "c48445b4a",
+  "date": "2026-04-23",
+  "message": "feat: new history log API functions [FC-0123] (#501)\n\nImplements Python API functions to get and build the history log of a\nPublishableEntity:\n\nget_entity_draft_history()\n  Return DraftChangeLogRecords for a PublishableEntity since its last\n  publication.\n\nget_entity_version_contributors()\n  Returns the users who authored changes between two published\n  versions of an entity.\n\nget_entity_publish_history()\n  Return all PublishLogRecords for a PublishableEntity.\n\nget_entity_publish_history_entries()\n  Return the DraftChangeLogRecords associated with a specific\n  PublishLog.\n\nget_descendant_component_entity_ids()\n  BFS traversal of a container hierarchy, returning the IDs of all\n  descendant component entities (used to scope queries when fetching\n  history for container children).\n\nIncrements version to 0.44.0",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/applets/containers/api.py        |  47 +++++",
+   " src/openedx_content/applets/publishing/api.py        | 275 +++++++++++++++++++++++-",
+   " tests/openedx_content/applets/publishing/test_api.py | 667 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-",
+   " 3 files changed, 984 insertions(+), 5 deletions(-)"
+  ]
+ },
+ {
+  "id": "c08",
+  "commit": "c22cc1bd9",
+  "date": "2026-04-27",
+  "message": "feat: emit events when content is modified or published (#543)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py",
+   "src/openedx_content/applets/publishing/signal_handlers.py",
+   "src/openedx_content/applets/publishing/signals.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/api.py                                 |   9 +-",
+   " src/openedx_content/applets/collections/api.py             | 106 +++++++---",
+   " src/openedx_content/applets/collections/signal_handlers.py |  46 +++++",
+   " src/openedx_content/applets/collections/signals.py         |  73 +++++++",
+   " src/openedx_content/applets/collections/tasks.py           |  83 ++++++++",
+   " src/openedx_content/applets/publishing/api.py              |  80 +++++++-",
+   " src/openedx_content/applets/publishing/signal_handlers.py  |  41 ++++",
+   " src/openedx_content/applets/publishing/signals.py          | 238 +++++++++++++++++++++++",
+   " src/openedx_content/apps.py                                |   7 +-",
+   " src/openedx_content/signals.py                             |  20 ++",
+   " src/openedx_core/__init__.py                               |   2 +-",
+   " tests/openedx_content/applets/collections/test_signals.py  | 562 +++++++++++++++++++++++++++++++++++++++++++++++++++++",
+   " tests/openedx_content/applets/containers/test_api.py       |  12 +-",
+   " tests/openedx_content/applets/publishing/test_models.py    |   4 +-",
+   " tests/openedx_content/applets/publishing/test_signals.py   | 502 +++++++++++++++++++++++++++++++++++++++++++++++",
+   " tests/openedx_content/applets/sections/test_api.py         |   4 +-",
+   " tests/openedx_content/applets/subsections/test_api.py      |   4 +-",
+   " tests/openedx_content/applets/units/test_api.py            |   4 +-",
+   " tests/openedx_content/conftest.py                          |  15 ++",
+   " tests/utils.py                                             | 104 ++++++++++",
+   " 20 files changed, 1872 insertions(+), 44 deletions(-)"
+  ]
+ },
+ {
+  "id": "c09",
+  "commit": "5409c7e38",
+  "date": "2026-04-29",
+  "message": "fix: validation when publishing with publish_dependencies=False (#569)\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/applets/publishing/api.py        |  8 +++++++-",
+   " tests/openedx_content/applets/containers/test_api.py | 55 +++++++++++++++++++++++++++++++++++++++++++++++++++++++",
+   " 2 files changed, 62 insertions(+), 1 deletion(-)"
+  ]
+ },
+ {
+  "id": "c10",
+  "commit": "25bc5d08c",
+  "date": "2026-04-29",
+  "message": "docs: remove incorrect comment (#570)\n\nThis directly contradicts the (correct) paragraph above it, and was from\nbefore I traced through the publishing code and realized what the actual\nbehavior was.",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/models/publish_log.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/applets/publishing/models/publish_log.py | 4 ----",
+   " 1 file changed, 4 deletions(-)"
+  ]
+ },
+ {
+  "id": "c11",
+  "commit": "c3d876d0b",
+  "date": "2026-04-29",
+  "message": "fix: more validation of openedx_content to prevent corrupt states (#521)\n\nTests generated by Claude; fixes implemented by me.\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/applets/backup_restore/zipper.py  |   2 +-",
+   " src/openedx_content/applets/publishing/api.py         |  27 ++++",
+   " tests/openedx_content/applets/containers/test_api.py  |   4 +-",
+   " tests/openedx_content/applets/publishing/test_api.py  | 408 +++++++++++++++++++++++++++++++++++++++++++++-------------",
+   " tests/openedx_content/applets/sections/test_api.py    |   2 +-",
+   " tests/openedx_content/applets/subsections/test_api.py |   2 +-",
+   " tests/openedx_content/applets/units/test_api.py       |   2 +-",
+   " 7 files changed, 349 insertions(+), 98 deletions(-)"
+  ]
+ },
+ {
+  "id": "c12",
+  "commit": "560e23196",
+  "date": "2026-04-29",
+  "message": "revert: don't allow publishing within a draft change log context",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/applets/publishing/api.py        |  2 --",
+   " src/openedx_core/__init__.py                         |  2 +-",
+   " tests/openedx_content/applets/publishing/test_api.py | 36 ------------------------------------",
+   " 3 files changed, 1 insertion(+), 39 deletions(-)"
+  ]
+ },
+ {
+  "id": "c13",
+  "commit": "6d074b9a5",
+  "date": "2026-04-30",
+  "message": "build: stable v1.0 release (#559)\n\nThis removes the big warning messages about this package being\nunstable. We're happy for developers to begin using these APIs,\nexcept for the ones with big red \"UNSTABLE\" warnings in their\ndocstrings.",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py"
+  ],
+  "diffstat": [
+   "README.rst                                                                      | 16 +++++++---------",
+   " setup.py                                                                        |  2 +-",
+   " src/openedx_content/applets/backup_restore/api.py                               | 10 ++++++++++",
+   " src/openedx_content/applets/collections/api.py                                  |  2 +-",
+   " src/openedx_content/applets/components/api.py                                   |  4 ++--",
+   " src/openedx_content/applets/containers/api.py                                   | 23 ++---------------------",
+   " src/openedx_content/applets/media/api.py                                        |  4 ++--",
+   " src/openedx_content/applets/publishing/api.py                                   |  8 ++------",
+   " src/openedx_content/applets/sections/api.py                                     |  4 ----",
+   " src/openedx_content/applets/subsections/api.py                                  |  4 ----",
+   " src/openedx_content/applets/units/api.py                                        |  4 ----",
+   " src/openedx_content/migrations/0008_rename_collection_key_to_collection_code.py |  1 -",
+   " src/openedx_content/migrations/0013_unicode_container_component_codes.py        |  1 -",
+   " src/openedx_core/__init__.py                                                    |  2 +-",
+   " 14 files changed, 28 insertions(+), 57 deletions(-)"
+  ]
+ },
+ {
+  "id": "c14",
+  "commit": "cf34836df",
+  "date": "2026-05-08",
+  "message": "docs: Fix RTD block errors in docstrings",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py",
+   "src/openedx_content/applets/publishing/models/draft_log.py",
+   "src/openedx_content/applets/publishing/models/publishable_entity.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/applets/containers/api.py                       | 1 +",
+   " src/openedx_content/applets/publishing/api.py                       | 4 ++++",
+   " src/openedx_content/applets/publishing/models/draft_log.py          | 3 +++",
+   " src/openedx_content/applets/publishing/models/publishable_entity.py | 8 ++++----",
+   " 4 files changed, 12 insertions(+), 4 deletions(-)"
+  ]
+ },
+ {
+  "id": "c15",
+  "commit": "44ff4e540",
+  "date": "2026-06-02",
+  "message": "feat: improve/correct handling of events and collections (#593)\n\n* fix: don't emit COLLECTION_CHANGED when entities restored into deleted collections\n* test: add two tests for problematic collections events\n* feat: distinguish between 'restored' and 'created' entities in entities changed event\n   (Fixes a bug with duplicate events being emitted for collection changes.)\n* fix: don't allow adding entities to a deleted collection (likely mistake)\n* test: add an even more difficult edge case\n* feat!: COLLECTION_CHANGED ignores changes to entity draft state, like soft deletes\n* build: version bump to 1.1.0\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py",
+   "src/openedx_content/applets/publishing/signals.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/applets/collections/api.py             |   5 ++",
+   " src/openedx_content/applets/collections/signal_handlers.py |  46 ------------",
+   " src/openedx_content/applets/collections/signals.py         |   7 ++",
+   " src/openedx_content/applets/collections/tasks.py           |   4 +-",
+   " src/openedx_content/applets/publishing/api.py              |  24 ++++++-",
+   " src/openedx_content/applets/publishing/signals.py          |   9 +++",
+   " src/openedx_content/apps.py                                |   1 -",
+   " src/openedx_core/__init__.py                               |   6 +-",
+   " tests/openedx_content/applets/collections/test_api.py      |  31 ++++++--",
+   " tests/openedx_content/applets/collections/test_signals.py  | 207 +++++++++++++++++++++--------------------------------",
+   " tests/openedx_content/applets/containers/test_api.py       |   4 +-",
+   " tests/openedx_content/applets/sections/test_api.py         |   2 +-",
+   " tests/openedx_content/applets/subsections/test_api.py      |   2 +-",
+   " tests/openedx_content/applets/units/test_api.py            |   2 +-",
+   " 14 files changed, 156 insertions(+), 194 deletions(-)"
+  ]
+ },
+ {
+  "id": "c16",
+  "commit": "0d00d5098",
+  "date": "2026-06-03",
+  "message": "fix: don't allow publishing within a draft change log context (#580)",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/applets/publishing/api.py        |  4 ++++",
+   " tests/openedx_content/applets/publishing/test_api.py | 44 ++++++++++++++++++++++++++++++++++++++++++++",
+   " 2 files changed, 48 insertions(+)"
+  ]
+ },
+ {
+  "id": "c17",
+  "commit": "d4c14df6b",
+  "date": "2026-06-15",
+  "message": "docs: reformat model docstrings to RST conventions\n\nThis fixes a lot of formatting, including things like improperly\nspecified lists, Markdown formatting conventions, and many missing\nmodule and class references.\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>",
+  "publishing_files": [
+   "src/openedx_content/applets/publishing/api.py",
+   "src/openedx_content/applets/publishing/models/draft_log.py",
+   "src/openedx_content/applets/publishing/models/learning_package.py",
+   "src/openedx_content/applets/publishing/models/publish_log.py",
+   "src/openedx_content/applets/publishing/models/publishable_entity.py"
+  ],
+  "diffstat": [
+   "src/openedx_content/applets/collections/models.py                   | 128 ++++++------",
+   " src/openedx_content/applets/components/models.py                    | 198 +++++++++++--------",
+   " src/openedx_content/applets/containers/api.py                       |   2 +-",
+   " src/openedx_content/applets/containers/models.py                    | 162 +++++++++-------",
+   " src/openedx_content/applets/media/models.py                         | 400 +++++++++++++++++++++-----------------",
+   " src/openedx_content/applets/publishing/api.py                       |   9 +-",
+   " src/openedx_content/applets/publishing/models/draft_log.py          | 460 ++++++++++++++++++++++++--------------------",
+   " src/openedx_content/applets/publishing/models/learning_package.py   |  33 ++--",
+   " src/openedx_content/applets/publishing/models/publish_log.py        | 283 ++++++++++++++-------------",
+   " src/openedx_content/applets/publishing/models/publishable_entity.py | 306 ++++++++++++++++-------------",
+   " src/openedx_content/applets/sections/models.py                      |  14 +-",
+   " src/openedx_content/applets/subsections/models.py                   |  15 +-",
+   " src/openedx_content/applets/units/models.py                         |  13 +-",
+   " 13 files changed, 1126 insertions(+), 897 deletions(-)"
+  ]
+ }
+]

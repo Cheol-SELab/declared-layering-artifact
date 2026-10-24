@@ -1,0 +1,2 @@
+C:\vdm\l4\kopf\runs\A_017dbe0_replay 0
+{"cond": "A", "task": "017dbe0", "rep": "replay", "changed_code_files": 1, "lines_changed": 133, "units_own": 1, "units_Aframe": 1, "spec_intact": true, "lint_broken": 0, "full_counts": {"passed": 6982, "failed": 4, "skipped": 0}}

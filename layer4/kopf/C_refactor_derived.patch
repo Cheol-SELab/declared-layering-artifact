@@ -1,0 +1,196 @@
+diff --git a/A_frozen/.importlinter b/C_frozen/.importlinter
+index fd67d19..08e7999 100644
+--- a/A_frozen/.importlinter
++++ b/C_frozen/.importlinter
+@@ -23,6 +23,7 @@ layers =
+     kopf._core.reactor
+     kopf._core.engines
+     kopf._core.intents
++    kopf._core.loggers
+     kopf._core.actions
+ 
+ [importlinter:contract:cogs-layers]
+diff --git a/A_frozen/kopf/__init__.py b/C_frozen/kopf/__init__.py
+index e5d0433..7ee9fe0 100644
+--- a/A_frozen/kopf/__init__.py
++++ b/C_frozen/kopf/__init__.py
+@@ -110,7 +110,7 @@ from kopf._core.actions.lifecycles import (
+     get_default_lifecycle,
+     set_default_lifecycle,
+ )
+-from kopf._core.actions.loggers import (
++from kopf._core.loggers import (
+     configure,
+     LogFormat,
+     ObjectLogger,
+diff --git a/A_frozen/kopf/_core/actions/application.py b/C_frozen/kopf/_core/actions/application.py
+index 05e275b..250f81d 100644
+--- a/A_frozen/kopf/_core/actions/application.py
++++ b/C_frozen/kopf/_core/actions/application.py
+@@ -27,7 +27,6 @@ from kopf._cogs.clients import patching
+ from kopf._cogs.configs import configuration
+ from kopf._cogs.helpers import typedefs
+ from kopf._cogs.structs import bodies, dicts, diffs, patches, references
+-from kopf._core.actions import loggers
+ 
+ # How often to wake up from the long sleep, to show liveness in the logs.
+ WAITING_KEEPALIVE_INTERVAL = 10 * 60
+@@ -47,7 +46,7 @@ async def apply(
+         body: bodies.Body,
+         patch: patches.Patch,
+         delays: Collection[float],
+-        logger: loggers.ObjectLogger,
++        logger: typedefs.Logger,
+         stream_pressure: asyncio.Event | None = None,  # None for tests
+ ) -> bool:
+     delay = min(delays) if delays else None
+diff --git a/A_frozen/kopf/_core/engines/admission.py b/C_frozen/kopf/_core/engines/admission.py
+index 6b3572f..ef18056 100644
+--- a/A_frozen/kopf/_core/engines/admission.py
++++ b/C_frozen/kopf/_core/engines/admission.py
+@@ -13,7 +13,8 @@ from kopf._cogs.aiokits import aiovalues
+ from kopf._cogs.clients import creating, errors, patching
+ from kopf._cogs.configs import configuration
+ from kopf._cogs.structs import bodies, diffs, ephemera, ids, patches, references, reviews
+-from kopf._core.actions import execution, lifecycles, loggers, progression
++from kopf._core import loggers
++from kopf._core.actions import execution, lifecycles, progression
+ from kopf._core.intents import causes, filters, handlers, registries
+ 
+ logger = logging.getLogger(__name__)
+diff --git a/A_frozen/kopf/_core/engines/daemons.py b/C_frozen/kopf/_core/engines/daemons.py
+index ce91e9f..e31a601 100644
+--- a/A_frozen/kopf/_core/engines/daemons.py
++++ b/C_frozen/kopf/_core/engines/daemons.py
+@@ -31,7 +31,8 @@ from kopf._cogs.aiokits import aiotasks, aiotime, aiotoggles
+ from kopf._cogs.configs import configuration
+ from kopf._cogs.helpers import typedefs
+ from kopf._cogs.structs import bodies, ids, patches
+-from kopf._core.actions import application, execution, lifecycles, loggers, progression
++from kopf._core import loggers
++from kopf._core.actions import application, execution, lifecycles, progression
+ from kopf._core.intents import causes, handlers as handlers_, stoppers
+ 
+ 
+diff --git a/A_frozen/kopf/_core/engines/posting.py b/C_frozen/kopf/_core/engines/posting.py
+index 6c26fa8..dbb6c32 100644
+--- a/A_frozen/kopf/_core/engines/posting.py
++++ b/C_frozen/kopf/_core/engines/posting.py
+@@ -24,7 +24,7 @@ from typing import TYPE_CHECKING, NamedTuple, NoReturn, cast
+ from kopf._cogs.clients import events
+ from kopf._cogs.configs import configuration
+ from kopf._cogs.structs import bodies, dicts, references
+-from kopf._core.actions import loggers
++from kopf._core import loggers
+ 
+ logger = logging.getLogger(__name__)
+ 
+diff --git a/A_frozen/kopf/_core/actions/loggers.py b/C_frozen/kopf/_core/loggers.py
+similarity index 100%
+rename from A_frozen/kopf/_core/actions/loggers.py
+rename to C_frozen/kopf/_core/loggers.py
+diff --git a/A_frozen/kopf/_core/reactor/processing.py b/C_frozen/kopf/_core/reactor/processing.py
+index 5ad9b39..d80fb9e 100644
+--- a/A_frozen/kopf/_core/reactor/processing.py
++++ b/C_frozen/kopf/_core/reactor/processing.py
+@@ -20,7 +20,8 @@ from collections.abc import Collection
+ from kopf._cogs.aiokits import aiotoggles
+ from kopf._cogs.configs import configuration
+ from kopf._cogs.structs import bodies, diffs, ephemera, finalizers, patches, references
+-from kopf._core.actions import application, execution, lifecycles, loggers, progression, throttlers
++from kopf._core import loggers
++from kopf._core.actions import application, execution, lifecycles, progression, throttlers
+ from kopf._core.engines import daemons, indexing, posting
+ from kopf._core.intents import causes, registries
+ from kopf._core.reactor import inventory, subhandling
+diff --git a/A_frozen/kopf/cli.py b/C_frozen/kopf/cli.py
+index 5c17c6f..24f9a84 100644
+--- a/A_frozen/kopf/cli.py
++++ b/C_frozen/kopf/cli.py
+@@ -11,7 +11,7 @@ from kopf._cogs.aiokits import aioadapters
+ from kopf._cogs.configs import configuration
+ from kopf._cogs.helpers import loaders
+ from kopf._cogs.structs import credentials, references
+-from kopf._core.actions import loggers
++from kopf._core import loggers
+ from kopf._core.engines import peering
+ from kopf._core.intents import registries
+ from kopf._core.reactor import running
+diff --git a/A_frozen/tests/conftest.py b/C_frozen/tests/conftest.py
+index a95873f..f370c37 100644
+--- a/A_frozen/tests/conftest.py
++++ b/C_frozen/tests/conftest.py
+@@ -18,7 +18,7 @@ from kopf._cogs.clients.auth import APIContext
+ from kopf._cogs.configs.configuration import OperatorSettings
+ from kopf._cogs.structs.credentials import ConnectionInfo, Vault, VaultKey
+ from kopf._cogs.structs.references import Resource, Selector
+-from kopf._core.actions.loggers import ObjectPrefixingTextFormatter, configure
++from kopf._core.loggers import ObjectPrefixingTextFormatter, configure
+ from kopf._core.engines.posting import settings_var
+ from kopf._core.intents.registries import OperatorRegistry
+ from kopf._core.reactor.inventory import ResourceMemories
+diff --git a/A_frozen/tests/logging/test_configuration.py b/C_frozen/tests/logging/test_configuration.py
+index c4e8daa..2f44f30 100644
+--- a/A_frozen/tests/logging/test_configuration.py
++++ b/C_frozen/tests/logging/test_configuration.py
+@@ -3,7 +3,7 @@ from collections.abc import Collection
+ 
+ import pytest
+ 
+-from kopf._core.actions.loggers import LogFormat, ObjectFormatter, ObjectJsonFormatter, \
++from kopf._core.loggers import LogFormat, ObjectFormatter, ObjectJsonFormatter, \
+                                        ObjectPrefixingJsonFormatter, ObjectPrefixingTextFormatter, \
+                                        ObjectTextFormatter, configure
+ 
+diff --git a/A_frozen/tests/logging/test_formatters.py b/C_frozen/tests/logging/test_formatters.py
+index 8928015..9119928 100644
+--- a/A_frozen/tests/logging/test_formatters.py
++++ b/C_frozen/tests/logging/test_formatters.py
+@@ -4,7 +4,7 @@ import logging.handlers
+ import pytest
+ 
+ from kopf._cogs.structs.bodies import Body
+-from kopf._core.actions.loggers import LocalObjectLogger, ObjectJsonFormatter, \
++from kopf._core.loggers import LocalObjectLogger, ObjectJsonFormatter, \
+                                        ObjectPrefixingJsonFormatter, ObjectPrefixingTextFormatter, \
+                                        ObjectTextFormatter
+ 
+diff --git a/A_frozen/tests/logging/test_loggers.py b/C_frozen/tests/logging/test_loggers.py
+index a108c3c..8cfa87f 100644
+--- a/A_frozen/tests/logging/test_loggers.py
++++ b/C_frozen/tests/logging/test_loggers.py
+@@ -1,7 +1,7 @@
+ import pytest
+ 
+ from kopf._cogs.structs.bodies import Body
+-from kopf._core.actions.loggers import LocalObjectLogger, ObjectLogger
++from kopf._core.loggers import LocalObjectLogger, ObjectLogger
+ 
+ 
+ # Async -- to make the log enqueueing loop running.
+diff --git a/A_frozen/tests/posting/test_log2k8s.py b/C_frozen/tests/posting/test_log2k8s.py
+index ef66eb8..da68f98 100644
+--- a/A_frozen/tests/posting/test_log2k8s.py
++++ b/C_frozen/tests/posting/test_log2k8s.py
+@@ -2,7 +2,7 @@ import logging
+ 
+ import pytest
+ 
+-from kopf._core.actions.loggers import LocalObjectLogger, ObjectLogger
++from kopf._core.loggers import LocalObjectLogger, ObjectLogger
+ 
+ OBJ1 = {'apiVersion': 'group1/version1', 'kind': 'Kind1',
+         'metadata': {'uid': 'uid1', 'name': 'name1', 'namespace': 'ns1'}}
+diff --git a/A_frozen/tests/reactor/test_patching_inconsistencies.py b/C_frozen/tests/reactor/test_patching_inconsistencies.py
+index b6e859f..1d2c836 100644
+--- a/A_frozen/tests/reactor/test_patching_inconsistencies.py
++++ b/C_frozen/tests/reactor/test_patching_inconsistencies.py
+@@ -6,7 +6,7 @@ import pytest
+ from kopf._cogs.structs.bodies import Body
+ from kopf._cogs.structs.patches import Patch
+ from kopf._core.actions.application import patch_and_check
+-from kopf._core.actions.loggers import LocalObjectLogger
++from kopf._core.loggers import LocalObjectLogger
+ 
+ # Assume that the underlying patch_obj() is already tested with/without status as a sub-resource.
+ # Assume that the underlying diff() is already tested with left/right/full scopes and all values.

@@ -1,0 +1,2 @@
+C:\vdm\l4\kopf\runs\A_20de08c_replay 0
+{"cond": "A", "task": "20de08c", "rep": "replay", "changed_code_files": 9, "lines_changed": 81, "units_own": 7, "units_Aframe": 7, "spec_intact": true, "lint_broken": 0, "full_counts": {"passed": 7010, "failed": 1, "skipped": 0}}

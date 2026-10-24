@@ -1,0 +1,1241 @@
+diff --git a/kopf/_core/actions/progression.py b/kopf/_core/actions/progression.py
+index 560b434..48a4628 100644
+--- a/kopf/_core/actions/progression.py
++++ b/kopf/_core/actions/progression.py
+@@ -1,397 +1,450 @@
+-"""
+-The routines to manipulate the handler progression over the event cycle.
+-
+-Used to track which handlers are finished, which are not yet,
+-and how many retries were there.
+-
+-There could be more than one low-level k8s watch-events per one actual
+-high-level kopf-event (a cause). The handlers are called at different times,
+-and the overall handling routine should persist the handler status somewhere.
+-
+-The states are persisted in a state storage: see `kopf._cogs.configs.progress`.
+-"""
+-
+-import collections.abc
+-import copy
+-import dataclasses
+-import datetime
+-from collections.abc import Collection, Iterable, Iterator, Mapping
+-from typing import Any, NamedTuple, overload
+-
+-import iso8601
+-
+-from kopf._cogs.configs import progress
+-from kopf._cogs.structs import bodies, ids, patches
+-from kopf._core.actions import execution
+-
+-
+-@dataclasses.dataclass(frozen=True)
+-class HandlerState(execution.HandlerState):
+-    """
+-    A persisted state of a single handler, as stored on the resource's status.
+-
+-    Note the difference: `Outcome` is for in-memory results of handlers,
+-    which is then additionally converted before being storing as a state.
+-
+-    Active handler states are those used in .done/.delays for the current
+-    handling cycle & the current cause. Passive handler states are those
+-    carried over for logging of counts/extras, and for final state purging,
+-    but not participating in the current handling cycle.
+-    """
+-
+-    active: bool  # whether it is used in done/delays [T] or only in counters/purges [F].
+-    started: datetime.datetime
+-    stopped: datetime.datetime | None = None  # None means it is still running (e.g. delayed).
+-    delayed: datetime.datetime | None = None  # None means it is finished (succeeded/failed).
+-    purpose: str | None = None  # None is a catch-all marker for upgrades/rollbacks.
+-    retries: int = 0
+-    success: bool = False
+-    failure: bool = False
+-    message: str | None = None
+-    subrefs: Collection[ids.HandlerId] = ()  # ids of actual sub-handlers of all levels deep.
+-    _origin: progress.ProgressRecord | None = None  # to check later if it has actually changed.
+-
+-    @property
+-    def finished(self) -> bool:
+-        return bool(self.success or self.failure)
+-
+-    @property
+-    def sleeping(self) -> bool:
+-        ts = self.delayed
+-        now = datetime.datetime.now(tz=datetime.timezone.utc)
+-        return not self.finished and ts is not None and ts > now
+-
+-    @property
+-    def awakened(self) -> bool:
+-        return bool(not self.finished and not self.sleeping)
+-
+-    @property
+-    def runtime(self) -> datetime.timedelta:
+-        return datetime.datetime.now(tz=datetime.timezone.utc) - self.started
+-
+-    @classmethod
+-    def from_scratch(cls, *, purpose: str | None = None) -> "HandlerState":
+-        return cls(
+-            active=True,
+-            started=datetime.datetime.now(datetime.timezone.utc),
+-            purpose=purpose,
+-        )
+-
+-    @classmethod
+-    def from_storage(cls, __d: progress.ProgressRecord) -> "HandlerState":
+-        return cls(
+-            active=False,
+-            started=parse_iso8601(__d.get('started')) or datetime.datetime.now(datetime.timezone.utc),
+-            stopped=parse_iso8601(__d.get('stopped')),
+-            delayed=parse_iso8601(__d.get('delayed')),
+-            purpose=__d.get('purpose') if __d.get('purpose') else None,
+-            retries=__d.get('retries') or 0,
+-            success=__d.get('success') or False,
+-            failure=__d.get('failure') or False,
+-            message=__d.get('message'),
+-            subrefs=__d.get('subrefs') or (),
+-            _origin=__d,
+-        )
+-
+-    def for_storage(self) -> progress.ProgressRecord:
+-        return progress.ProgressRecord(
+-            started=None if self.started is None else format_iso8601(self.started),
+-            stopped=None if self.stopped is None else format_iso8601(self.stopped),
+-            delayed=None if self.delayed is None else format_iso8601(self.delayed),
+-            purpose=None if self.purpose is None else str(self.purpose),
+-            retries=None if self.retries is None else int(self.retries),
+-            success=None if self.success is None else bool(self.success),
+-            failure=None if self.failure is None else bool(self.failure),
+-            message=None if self.message is None else str(self.message),
+-            subrefs=None if not self.subrefs else list(sorted(self.subrefs)),
+-        )
+-
+-    def as_in_storage(self) -> Mapping[str, Any]:
+-        # Nones are not stored by Kubernetes, so we filter them out for comparison.
+-        return {key: val for key, val in self.for_storage().items() if val is not None}
+-
+-    def as_active(self) -> "HandlerState":
+-        return dataclasses.replace(self, active=True)
+-
+-    def with_purpose(
+-            self,
+-            purpose: str | None,
+-    ) -> "HandlerState":
+-        return dataclasses.replace(self, purpose=purpose)
+-
+-    def with_outcome(
+-            self,
+-            outcome: execution.Outcome,
+-    ) -> "HandlerState":
+-        now = datetime.datetime.now(datetime.timezone.utc)
+-        cls = type(self)
+-        return cls(
+-            active=self.active,
+-            purpose=self.purpose,
+-            started=self.started,
+-            stopped=self.stopped if self.stopped is not None else now if outcome.final else None,
+-            delayed=now + datetime.timedelta(seconds=outcome.delay) if outcome.delay is not None else None,
+-            success=bool(outcome.final and outcome.exception is None),
+-            failure=bool(outcome.final and outcome.exception is not None),
+-            retries=(self.retries if self.retries is not None else 0) + 1,
+-            message=None if outcome.exception is None else str(outcome.exception),
+-            subrefs=list(sorted(set(self.subrefs) | set(outcome.subrefs))),  # deduplicate
+-            _origin=self._origin,
+-        )
+-
+-
+-class StateCounters(NamedTuple):
+-    success: int
+-    failure: int
+-    running: int
+-
+-
+-class State(execution.State):
+-    """
+-    A state of selected handlers, as persisted in the object's status.
+-
+-    The state consists of simple YAML-/JSON-serializable values only:
+-    string handler ids as the keys; strings, booleans, integers as the values.
+-
+-    The state is immutable: once created, it cannot be changed, and does not
+-    reflect the changes in the object's status. A new state is created every
+-    time some changes/outcomes are merged into the current state.
+-    """
+-    _states: Mapping[ids.HandlerId, HandlerState]
+-
+-    def __init__(
+-            self,
+-            __src: Mapping[ids.HandlerId, HandlerState],
+-            *,
+-            purpose: str | None = None,
+-    ):
+-        super().__init__()
+-        self._states = dict(__src)
+-        self.purpose = purpose
+-
+-    @classmethod
+-    def from_scratch(cls) -> "State":
+-        return cls({})
+-
+-    @classmethod
+-    def from_storage(
+-            cls,
+-            *,
+-            body: bodies.Body,
+-            storage: progress.ProgressStorage,
+-            handlers: Iterable[execution.Handler],
+-    ) -> "State":
+-        handler_ids = {handler.id for handler in handlers}
+-        handler_states: dict[ids.HandlerId, HandlerState] = {}
+-        for handler_id in handler_ids:
+-            content = storage.fetch(key=handler_id, body=body)
+-            if content is not None:
+-                handler_states[handler_id] = HandlerState.from_storage(content)
+-        return cls(handler_states)
+-
+-    def with_purpose(
+-            self,
+-            purpose: str | None,
+-            handlers: Iterable[execution.Handler] = (),  # to be re-purposed
+-    ) -> "State":
+-        handler_states: dict[ids.HandlerId, HandlerState] = dict(self)
+-        for handler in handlers:
+-            handler_states[handler.id] = handler_states[handler.id].with_purpose(purpose)
+-        cls = type(self)
+-        return cls(handler_states, purpose=purpose)
+-
+-    def with_handlers(
+-            self,
+-            handlers: Iterable[execution.Handler],
+-    ) -> "State":
+-        handler_states: dict[ids.HandlerId, HandlerState] = dict(self)
+-        for handler in handlers:
+-            if handler.id not in handler_states:
+-                handler_states[handler.id] = HandlerState.from_scratch(purpose=self.purpose)
+-            else:
+-                handler_states[handler.id] = handler_states[handler.id].as_active()
+-        cls = type(self)
+-        return cls(handler_states, purpose=self.purpose)
+-
+-    def with_outcomes(
+-            self,
+-            outcomes: Mapping[ids.HandlerId, execution.Outcome],
+-    ) -> "State":
+-        unknown_ids = [handler_id for handler_id in outcomes if handler_id not in self]
+-        if unknown_ids:
+-            raise RuntimeError(f"Unexpected outcomes for unknown handlers: {unknown_ids!r}")
+-
+-        cls = type(self)
+-        return cls({
+-            handler_id: (handler_state if handler_id not in outcomes else
+-                         handler_state.with_outcome(outcomes[handler_id]))
+-            for handler_id, handler_state in self._states.items()
+-        }, purpose=self.purpose)
+-
+-    def without_successes(self) -> "State":
+-        cls = type(self)
+-        return cls({
+-            handler_id: handler_state
+-            for handler_id, handler_state in self._states.items()
+-            if not handler_state.success # i.e. failures & in-progress/retrying
+-        })
+-
+-    def store(
+-            self,
+-            body: bodies.Body,
+-            patch: patches.Patch,
+-            storage: progress.ProgressStorage,
+-    ) -> None:
+-        for handler_id, handler_state in self._states.items():
+-            full_record = handler_state.for_storage()
+-            pure_record = handler_state.as_in_storage()
+-            if pure_record != handler_state._origin:
+-                storage.store(key=handler_id, record=full_record, body=body, patch=patch)
+-        storage.flush()
+-
+-    def purge(
+-            self,
+-            *,
+-            body: bodies.Body,
+-            patch: patches.Patch,
+-            storage: progress.ProgressStorage,
+-            handlers: Iterable[execution.Handler],
+-    ) -> None:
+-        # Purge only our own handlers and their direct & indirect sub-handlers of all levels deep.
+-        # Ignore other handlers (e.g. handlers of other operators).
+-        handler_ids = {handler.id for handler in handlers}
+-        for handler_id in handler_ids:
+-            storage.purge(key=handler_id, body=body, patch=patch)
+-        for handler_id, handler_state in self._states.items():
+-            if handler_id not in handler_ids:
+-                storage.purge(key=handler_id, body=body, patch=patch)
+-            for subref in handler_state.subrefs:
+-                storage.purge(key=subref, body=body, patch=patch)
+-        storage.flush()
+-
+-    def __len__(self) -> int:
+-        return len(self._states)
+-
+-    def __iter__(self) -> Iterator[ids.HandlerId]:
+-        return iter(self._states)
+-
+-    def __getitem__(self, item: ids.HandlerId) -> HandlerState:
+-        return self._states[item]
+-
+-    @property
+-    def done(self) -> bool:
+-        # In particular, no handlers means that it is "done" even before doing.
+-        return all(
+-            handler_state.finished for handler_state in self._states.values()
+-            if handler_state.active
+-        )
+-
+-    @property
+-    def extras(self) -> Mapping[str, StateCounters]:
+-        purposes = {
+-            handler_state.purpose for handler_state in self._states.values()
+-            if handler_state.purpose is not None and handler_state.purpose != self.purpose
+-        }
+-        counters = {
+-            purpose: StateCounters(
+-                success=len([1 for handler_state in self._states.values()
+-                            if handler_state.purpose == purpose and handler_state.success]),
+-                failure=len([1 for handler_state in self._states.values()
+-                            if handler_state.purpose == purpose and handler_state.failure]),
+-                running=len([1 for handler_state in self._states.values()
+-                            if handler_state.purpose == purpose and not handler_state.finished]),
+-            )
+-            for purpose in purposes
+-        }
+-        return counters
+-
+-    @property
+-    def counts(self) -> StateCounters:
+-        purposeful_states = [
+-            handler_state for handler_state in self._states.values()
+-            if self.purpose is None or handler_state.purpose is None
+-               or handler_state.purpose == self.purpose
+-        ]
+-        return StateCounters(
+-            success=len([1 for handler_state in purposeful_states if handler_state.success]),
+-            failure=len([1 for handler_state in purposeful_states if handler_state.failure]),
+-            running=len([1 for handler_state in purposeful_states if not handler_state.finished]),
+-        )
+-
+-    @property
+-    def delay(self) -> float | None:
+-        delays = self.delays  # calculate only once, to save bit of CPU
+-        return min(delays) if delays else None
+-
+-    @property
+-    def delays(self) -> Collection[float]:
+-        """
+-        Resulting delays for the handlers (only the postponed ones).
+-
+-        The delays are then reduced to one single sleep in the top-level
+-        processing routine, based on all delays of different origin:
+-        e.g. postponed daemons, stopping daemons, temporarily failed handlers.
+-        """
+-        now = datetime.datetime.now(datetime.timezone.utc)
+-        return [
+-            max(0, (handler_state.delayed - now).total_seconds()) if handler_state.delayed else 0
+-            for handler_state in self._states.values()
+-            if handler_state.active and not handler_state.finished
+-        ]
+-
+-
+-def deliver_results(
+-        *,
+-        outcomes: Mapping[ids.HandlerId, execution.Outcome],
+-        patch: patches.Patch,
+-) -> None:
+-    """
+-    Store the results (as returned from the handlers) to the resource.
+-
+-    This is not the handlers' state persistence, but the results' persistence.
+-
+-    First, the state persistence is stored under ``.status.kopf.progress``,
+-    and can (later) be configured to be stored in different fields for different
+-    operators operating the same objects: ``.status.kopf.{somename}.progress``.
+-    The handlers' result are stored in the top-level ``.status``.
+-
+-    Second, the handler results can (also later) be delivered to other objects,
+-    e.g. to their owners or label-selected related objects. For this, another
+-    class/module will be added.
+-
+-    For now, we keep state- and result persistence in one module, but separated.
+-    """
+-    for handler_id, outcome in outcomes.items():
+-        if outcome.exception is not None:
+-            pass
+-        elif outcome.result is None:
+-            pass
+-        elif isinstance(outcome.result, collections.abc.Mapping):
+-            # TODO: merge recursively (patch-merge), do not overwrite the keys if they are present.
+-            patch.setdefault('status', {}).setdefault(handler_id, {}).update(outcome.result)
+-        else:
+-            patch.setdefault('status', {})[handler_id] = copy.deepcopy(outcome.result)
+-
+-
+-@overload
+-def format_iso8601(val: None) -> None: ...
+-
+-
+-@overload
+-def format_iso8601(val: datetime.datetime) -> str: ...
+-
+-
+-def format_iso8601(val: datetime.datetime | None) -> str | None:
+-    return None if val is None else val.isoformat(timespec='microseconds')
+-
+-
+-@overload
+-def parse_iso8601(val: None) -> None: ...
+-
+-
+-@overload
+-def parse_iso8601(val: str) -> datetime.datetime: ...
+-
+-
+-def parse_iso8601(val: str | None) -> datetime.datetime | None:
+-    return None if val is None else iso8601.parse_date(val, default_timezone=None)
++"""
++The routines to manipulate the handler progression over the event cycle.
++
++Used to track which handlers are finished, which are not yet,
++and how many retries were there.
++
++There could be more than one low-level k8s watch-events per one actual
++high-level kopf-event (a cause). The handlers are called at different times,
++and the overall handling routine should persist the handler status somewhere.
++
++The states are persisted in a state storage: see `kopf._cogs.configs.progress`.
++"""
++
++import collections.abc
++import copy
++import asyncio
++import dataclasses
++import datetime
++from collections.abc import Collection, Iterable, Iterator, Mapping
++from typing import Any, NamedTuple, overload
++
++import iso8601
++
++from kopf._cogs.configs import progress
++from kopf._cogs.structs import bodies, ids, patches
++from kopf._core.actions import execution
++
++
++@dataclasses.dataclass(frozen=True)
++class HandlerState(execution.HandlerState):
++    """
++    A persisted state of a single handler, as stored on the resource's status.
++
++    Note the difference: `Outcome` is for in-memory results of handlers,
++    which is then additionally converted before being storing as a state.
++
++    Active handler states are those used in .done/.delays for the current
++    handling cycle & the current cause. Passive handler states are those
++    carried over for logging of counts/extras, and for final state purging,
++    but not participating in the current handling cycle.
++    """
++
++    active: bool  # whether it is used in done/delays [T] or only in counters/purges [F].
++    basetime: datetime.datetime  # the wall-clock time corresponding to the zero of the loop time.
++    started_loop: float  # in the event loop's time, not in the wall-clock time.
++    stopped_loop: float | None = None  # None means it is still running (e.g. delayed).
++    delayed_loop: float | None = None  # None means it is finished (succeeded/failed).
++    purpose: str | None = None  # None is a catch-all marker for upgrades/rollbacks.
++    retries: int = 0
++    success: bool = False
++    failure: bool = False
++    message: str | None = None
++    subrefs: Collection[ids.HandlerId] = ()  # ids of actual sub-handlers of all levels deep.
++    _origin: progress.ProgressRecord | None = None  # to check later if it has actually changed.
++
++    @property
++    def started(self) -> datetime.datetime:
++        return self._to_datetime(self.started_loop)
++
++    @property
++    def stopped(self) -> datetime.datetime | None:
++        return None if self.stopped_loop is None else self._to_datetime(self.stopped_loop)
++
++    @property
++    def delayed(self) -> datetime.datetime | None:
++        return None if self.delayed_loop is None else self._to_datetime(self.delayed_loop)
++
++    def _to_datetime(self, looptime: float) -> datetime.datetime:
++        return self.basetime + datetime.timedelta(seconds=looptime)
++
++    @property
++    def finished(self) -> bool:
++        return bool(self.success or self.failure)
++
++    @property
++    def sleeping(self) -> bool:
++        ts = self.delayed_loop
++        now = asyncio.get_running_loop().time()
++        return not self.finished and ts is not None and ts > now
++
++    @property
++    def awakened(self) -> bool:
++        return bool(not self.finished and not self.sleeping)
++
++    @property
++    def runtime(self) -> datetime.timedelta:
++        return datetime.timedelta(seconds=asyncio.get_running_loop().time() - self.started_loop)
++
++    @classmethod
++    def from_scratch(
++            cls,
++            *,
++            basetime: datetime.datetime,
++            purpose: str | None = None,
++    ) -> "HandlerState":
++        return cls(
++            active=True,
++            basetime=basetime,
++            started_loop=asyncio.get_running_loop().time(),
++            purpose=purpose,
++        )
++
++    @classmethod
++    def from_storage(
++            cls,
++            __d: progress.ProgressRecord,
++            *,
++            basetime: datetime.datetime,
++    ) -> "HandlerState":
++        started = _to_looptime(parse_iso8601(__d.get('started')), basetime)
++        return cls(
++            active=False,
++            basetime=basetime,
++            started_loop=started if started is not None else asyncio.get_running_loop().time(),
++            stopped_loop=_to_looptime(parse_iso8601(__d.get('stopped')), basetime),
++            delayed_loop=_to_looptime(parse_iso8601(__d.get('delayed')), basetime),
++            purpose=__d.get('purpose') if __d.get('purpose') else None,
++            retries=__d.get('retries') or 0,
++            success=__d.get('success') or False,
++            failure=__d.get('failure') or False,
++            message=__d.get('message'),
++            subrefs=__d.get('subrefs') or (),
++            _origin=__d,
++        )
++
++    def for_storage(self) -> progress.ProgressRecord:
++        return progress.ProgressRecord(
++            started=format_iso8601(self.started),
++            stopped=None if self.stopped is None else format_iso8601(self.stopped),
++            delayed=None if self.delayed is None else format_iso8601(self.delayed),
++            purpose=None if self.purpose is None else str(self.purpose),
++            retries=None if self.retries is None else int(self.retries),
++            success=None if self.success is None else bool(self.success),
++            failure=None if self.failure is None else bool(self.failure),
++            message=None if self.message is None else str(self.message),
++            subrefs=None if not self.subrefs else list(sorted(self.subrefs)),
++        )
++
++    def as_in_storage(self) -> Mapping[str, Any]:
++        # Nones are not stored by Kubernetes, so we filter them out for comparison.
++        return {key: val for key, val in self.for_storage().items() if val is not None}
++
++    def as_active(self) -> "HandlerState":
++        return dataclasses.replace(self, active=True)
++
++    def with_purpose(
++            self,
++            purpose: str | None,
++    ) -> "HandlerState":
++        return dataclasses.replace(self, purpose=purpose)
++
++    def with_outcome(
++            self,
++            outcome: execution.Outcome,
++    ) -> "HandlerState":
++        now = asyncio.get_running_loop().time()
++        cls = type(self)
++        return cls(
++            active=self.active,
++            basetime=self.basetime,
++            purpose=self.purpose,
++            started_loop=self.started_loop,
++            stopped_loop=self.stopped_loop if self.stopped_loop is not None else now if outcome.final else None,
++            delayed_loop=now + outcome.delay if outcome.delay is not None else None,
++            success=bool(outcome.final and outcome.exception is None),
++            failure=bool(outcome.final and outcome.exception is not None),
++            retries=(self.retries if self.retries is not None else 0) + 1,
++            message=None if outcome.exception is None else str(outcome.exception),
++            subrefs=list(sorted(set(self.subrefs) | set(outcome.subrefs))),  # deduplicate
++            _origin=self._origin,
++        )
++
++
++class StateCounters(NamedTuple):
++    success: int
++    failure: int
++    running: int
++
++
++class State(execution.State):
++    """
++    A state of selected handlers, as persisted in the object's status.
++
++    The state consists of simple YAML-/JSON-serializable values only:
++    string handler ids as the keys; strings, booleans, integers as the values.
++
++    The state is immutable: once created, it cannot be changed, and does not
++    reflect the changes in the object's status. A new state is created every
++    time some changes/outcomes are merged into the current state.
++    """
++    _states: Mapping[ids.HandlerId, HandlerState]
++
++    def __init__(
++            self,
++            __src: Mapping[ids.HandlerId, HandlerState],
++            *,
++            basetime: datetime.datetime | None = None,
++            purpose: str | None = None,
++    ):
++        super().__init__()
++        self._states = dict(__src)
++        self.basetime = basetime if basetime is not None else _get_basetime()
++        self.purpose = purpose
++
++    @classmethod
++    def from_scratch(cls) -> "State":
++        return cls({})
++
++    @classmethod
++    def from_storage(
++            cls,
++            *,
++            body: bodies.Body,
++            storage: progress.ProgressStorage,
++            handlers: Iterable[execution.Handler],
++    ) -> "State":
++        basetime = _get_basetime()
++        handler_ids = {handler.id for handler in handlers}
++        handler_states: dict[ids.HandlerId, HandlerState] = {}
++        for handler_id in handler_ids:
++            content = storage.fetch(key=handler_id, body=body)
++            if content is not None:
++                handler_states[handler_id] = HandlerState.from_storage(content, basetime=basetime)
++        return cls(handler_states, basetime=basetime)
++
++    def with_purpose(
++            self,
++            purpose: str | None,
++            handlers: Iterable[execution.Handler] = (),  # to be re-purposed
++    ) -> "State":
++        handler_states: dict[ids.HandlerId, HandlerState] = dict(self)
++        for handler in handlers:
++            handler_states[handler.id] = handler_states[handler.id].with_purpose(purpose)
++        cls = type(self)
++        return cls(handler_states, basetime=self.basetime, purpose=purpose)
++
++    def with_handlers(
++            self,
++            handlers: Iterable[execution.Handler],
++    ) -> "State":
++        handler_states: dict[ids.HandlerId, HandlerState] = dict(self)
++        for handler in handlers:
++            if handler.id not in handler_states:
++                handler_states[handler.id] = HandlerState.from_scratch(basetime=self.basetime, purpose=self.purpose)
++            else:
++                handler_states[handler.id] = handler_states[handler.id].as_active()
++        cls = type(self)
++        return cls(handler_states, basetime=self.basetime, purpose=self.purpose)
++
++    def with_outcomes(
++            self,
++            outcomes: Mapping[ids.HandlerId, execution.Outcome],
++    ) -> "State":
++        unknown_ids = [handler_id for handler_id in outcomes if handler_id not in self]
++        if unknown_ids:
++            raise RuntimeError(f"Unexpected outcomes for unknown handlers: {unknown_ids!r}")
++
++        cls = type(self)
++        return cls({
++            handler_id: (handler_state if handler_id not in outcomes else
++                         handler_state.with_outcome(outcomes[handler_id]))
++            for handler_id, handler_state in self._states.items()
++        }, basetime=self.basetime, purpose=self.purpose)
++
++    def without_successes(self) -> "State":
++        cls = type(self)
++        return cls({
++            handler_id: handler_state
++            for handler_id, handler_state in self._states.items()
++            if not handler_state.success # i.e. failures & in-progress/retrying
++        }, basetime=self.basetime)
++
++    def store(
++            self,
++            body: bodies.Body,
++            patch: patches.Patch,
++            storage: progress.ProgressStorage,
++    ) -> None:
++        for handler_id, handler_state in self._states.items():
++            full_record = handler_state.for_storage()
++            pure_record = handler_state.as_in_storage()
++            if pure_record != handler_state._origin:
++                storage.store(key=handler_id, record=full_record, body=body, patch=patch)
++        storage.flush()
++
++    def purge(
++            self,
++            *,
++            body: bodies.Body,
++            patch: patches.Patch,
++            storage: progress.ProgressStorage,
++            handlers: Iterable[execution.Handler],
++    ) -> None:
++        # Purge only our own handlers and their direct & indirect sub-handlers of all levels deep.
++        # Ignore other handlers (e.g. handlers of other operators).
++        handler_ids = {handler.id for handler in handlers}
++        for handler_id in handler_ids:
++            storage.purge(key=handler_id, body=body, patch=patch)
++        for handler_id, handler_state in self._states.items():
++            if handler_id not in handler_ids:
++                storage.purge(key=handler_id, body=body, patch=patch)
++            for subref in handler_state.subrefs:
++                storage.purge(key=subref, body=body, patch=patch)
++        storage.flush()
++
++    def __len__(self) -> int:
++        return len(self._states)
++
++    def __iter__(self) -> Iterator[ids.HandlerId]:
++        return iter(self._states)
++
++    def __getitem__(self, item: ids.HandlerId) -> HandlerState:
++        return self._states[item]
++
++    @property
++    def done(self) -> bool:
++        # In particular, no handlers means that it is "done" even before doing.
++        return all(
++            handler_state.finished for handler_state in self._states.values()
++            if handler_state.active
++        )
++
++    @property
++    def extras(self) -> Mapping[str, StateCounters]:
++        purposes = {
++            handler_state.purpose for handler_state in self._states.values()
++            if handler_state.purpose is not None and handler_state.purpose != self.purpose
++        }
++        counters = {
++            purpose: StateCounters(
++                success=len([1 for handler_state in self._states.values()
++                            if handler_state.purpose == purpose and handler_state.success]),
++                failure=len([1 for handler_state in self._states.values()
++                            if handler_state.purpose == purpose and handler_state.failure]),
++                running=len([1 for handler_state in self._states.values()
++                            if handler_state.purpose == purpose and not handler_state.finished]),
++            )
++            for purpose in purposes
++        }
++        return counters
++
++    @property
++    def counts(self) -> StateCounters:
++        purposeful_states = [
++            handler_state for handler_state in self._states.values()
++            if self.purpose is None or handler_state.purpose is None
++               or handler_state.purpose == self.purpose
++        ]
++        return StateCounters(
++            success=len([1 for handler_state in purposeful_states if handler_state.success]),
++            failure=len([1 for handler_state in purposeful_states if handler_state.failure]),
++            running=len([1 for handler_state in purposeful_states if not handler_state.finished]),
++        )
++
++    @property
++    def delay(self) -> float | None:
++        delays = self.delays  # calculate only once, to save bit of CPU
++        return min(delays) if delays else None
++
++    @property
++    def delays(self) -> Collection[float]:
++        """
++        Resulting delays for the handlers (only the postponed ones).
++
++        The delays are then reduced to one single sleep in the top-level
++        processing routine, based on all delays of different origin:
++        e.g. postponed daemons, stopping daemons, temporarily failed handlers.
++        """
++        now = asyncio.get_running_loop().time()
++        return [
++            max(0, handler_state.delayed_loop - now) if handler_state.delayed_loop is not None else 0
++            for handler_state in self._states.values()
++            if handler_state.active and not handler_state.finished
++        ]
++
++
++def deliver_results(
++        *,
++        outcomes: Mapping[ids.HandlerId, execution.Outcome],
++        patch: patches.Patch,
++) -> None:
++    """
++    Store the results (as returned from the handlers) to the resource.
++
++    This is not the handlers' state persistence, but the results' persistence.
++
++    First, the state persistence is stored under ``.status.kopf.progress``,
++    and can (later) be configured to be stored in different fields for different
++    operators operating the same objects: ``.status.kopf.{somename}.progress``.
++    The handlers' result are stored in the top-level ``.status``.
++
++    Second, the handler results can (also later) be delivered to other objects,
++    e.g. to their owners or label-selected related objects. For this, another
++    class/module will be added.
++
++    For now, we keep state- and result persistence in one module, but separated.
++    """
++    for handler_id, outcome in outcomes.items():
++        if outcome.exception is not None:
++            pass
++        elif outcome.result is None:
++            pass
++        elif isinstance(outcome.result, collections.abc.Mapping):
++            # TODO: merge recursively (patch-merge), do not overwrite the keys if they are present.
++            patch.setdefault('status', {}).setdefault(handler_id, {}).update(outcome.result)
++        else:
++            patch.setdefault('status', {})[handler_id] = copy.deepcopy(outcome.result)
++
++
++def _get_basetime() -> datetime.datetime:
++    """
++    The wall-clock time corresponding to the zero of the event loop's time.
++
++    The handler states are tracked in the loop time (monotonic), and are
++    converted to/from the wall-clock time only for persistence.
++    """
++    looptime = asyncio.get_running_loop().time()
++    return datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(seconds=looptime)
++
++
++def _to_looptime(val: datetime.datetime | None, basetime: datetime.datetime) -> float | None:
++    if val is None:
++        return None
++    if val.tzinfo is None:
++        val = val.replace(tzinfo=datetime.timezone.utc)
++    return (val - basetime).total_seconds()
++
++
++@overload
++def format_iso8601(val: None) -> None: ...
++
++
++@overload
++def format_iso8601(val: datetime.datetime) -> str: ...
++
++
++def format_iso8601(val: datetime.datetime | None) -> str | None:
++    return None if val is None else val.isoformat(timespec='microseconds')
++
++
++@overload
++def parse_iso8601(val: None) -> None: ...
++
++
++@overload
++def parse_iso8601(val: str) -> datetime.datetime: ...
++
++
++def parse_iso8601(val: str | None) -> datetime.datetime | None:
++    return None if val is None else iso8601.parse_date(val, default_timezone=None)
+diff --git a/tests/handling/test_activity_triggering.py b/tests/handling/test_activity_triggering.py
+index f703361..95cf2a9 100644
+--- a/tests/handling/test_activity_triggering.py
++++ b/tests/handling/test_activity_triggering.py
+@@ -1,188 +1,196 @@
+-from collections.abc import Mapping
+-
+-import freezegun
+-import pytest
+-
+-from kopf._cogs.structs.ephemera import Memo
+-from kopf._cogs.structs.ids import HandlerId
+-from kopf._core.actions.execution import Outcome, PermanentError, TemporaryError
+-from kopf._core.actions.lifecycles import all_at_once
+-from kopf._core.engines.activities import ActivityError, run_activity
+-from kopf._core.engines.indexing import OperatorIndexers
+-from kopf._core.intents.causes import Activity
+-from kopf._core.intents.handlers import ActivityHandler
+-from kopf._core.intents.registries import OperatorRegistry
+-
+-
+-def test_activity_error_exception():
+-    outcome = Outcome(final=True)
+-    outcomes: Mapping[HandlerId, Outcome]
+-    outcomes = {HandlerId('id'): outcome}
+-    error = ActivityError("message", outcomes=outcomes)
+-    assert str(error) == "message"
+-    assert error.outcomes == outcomes
+-
+-
+-@pytest.mark.parametrize('activity', list(Activity))
+-async def test_results_are_returned_on_success(settings, activity):
+-
+-    def sample_fn1(**_):
+-        return 123
+-
+-    def sample_fn2(**_):
+-        return 456
+-
+-    registry = OperatorRegistry()
+-    registry._activities.append(ActivityHandler(
+-        fn=sample_fn1, id='id1', activity=activity,
+-        param=None, errors=None, timeout=None, retries=None, backoff=None,
+-    ))
+-    registry._activities.append(ActivityHandler(
+-        fn=sample_fn2, id='id2', activity=activity,
+-        param=None, errors=None, timeout=None, retries=None, backoff=None,
+-    ))
+-
+-    results = await run_activity(
+-        registry=registry,
+-        settings=settings,
+-        activity=activity,
+-        lifecycle=all_at_once,
+-        indices=OperatorIndexers().indices,
+-        memo=Memo(),
+-    )
+-
+-    assert set(results.keys()) == {'id1', 'id2'}
+-    assert results['id1'] == 123
+-    assert results['id2'] == 456
+-
+-
+-@pytest.mark.parametrize('activity', list(Activity))
+-async def test_errors_are_raised_aggregated(settings, activity):
+-
+-    def sample_fn1(**_):
+-        raise PermanentError("boo!123")
+-
+-    def sample_fn2(**_):
+-        raise PermanentError("boo!456")
+-
+-    registry = OperatorRegistry()
+-    registry._activities.append(ActivityHandler(
+-        fn=sample_fn1, id='id1', activity=activity,
+-        param=None, errors=None, timeout=None, retries=None, backoff=None,
+-    ))
+-    registry._activities.append(ActivityHandler(
+-        fn=sample_fn2, id='id2', activity=activity,
+-        param=None, errors=None, timeout=None, retries=None, backoff=None,
+-    ))
+-
+-    with pytest.raises(ActivityError) as e:
+-        await run_activity(
+-            registry=registry,
+-            settings=settings,
+-            activity=activity,
+-            lifecycle=all_at_once,
+-            indices=OperatorIndexers().indices,
+-            memo=Memo(),
+-        )
+-
+-    assert set(e.value.outcomes.keys()) == {'id1', 'id2'}
+-    assert e.value.outcomes['id1'].final
+-    assert e.value.outcomes['id1'].delay is None
+-    assert e.value.outcomes['id1'].result is None
+-    assert e.value.outcomes['id1'].exception is not None
+-    assert e.value.outcomes['id2'].final
+-    assert e.value.outcomes['id2'].delay is None
+-    assert e.value.outcomes['id2'].result is None
+-    assert e.value.outcomes['id2'].exception is not None
+-    assert str(e.value.outcomes['id1'].exception) == "boo!123"
+-    assert str(e.value.outcomes['id2'].exception) == "boo!456"
+-
+-
+-@pytest.mark.parametrize('activity', list(Activity))
+-async def test_errors_are_cascaded_from_one_of_the_originals(settings, activity):
+-
+-    def sample_fn(**_):
+-        raise PermanentError("boo!")
+-
+-    registry = OperatorRegistry()
+-    registry._activities.append(ActivityHandler(
+-        fn=sample_fn, id='id', activity=activity,
+-        param=None, errors=None, timeout=None, retries=None, backoff=None,
+-    ))
+-
+-    with pytest.raises(ActivityError) as e:
+-        await run_activity(
+-            registry=registry,
+-            settings=settings,
+-            activity=activity,
+-            lifecycle=all_at_once,
+-            indices=OperatorIndexers().indices,
+-            memo=Memo(),
+-        )
+-
+-    assert e.value.__cause__
+-    assert type(e.value.__cause__) is PermanentError
+-    assert str(e.value.__cause__) == "boo!"
+-
+-
+-@pytest.mark.parametrize('activity', list(Activity))
+-async def test_retries_are_simulated(settings, activity, mocker):
+-    mock = mocker.MagicMock()
+-
+-    def sample_fn(**_):
+-        mock()
+-        raise TemporaryError('to be retried', delay=0)
+-
+-    registry = OperatorRegistry()
+-    registry._activities.append(ActivityHandler(
+-        fn=sample_fn, id='id', activity=activity,
+-        param=None, errors=None, timeout=None, retries=3, backoff=None,
+-    ))
+-
+-    with pytest.raises(ActivityError) as e:
+-        await run_activity(
+-            registry=registry,
+-            settings=settings,
+-            activity=activity,
+-            lifecycle=all_at_once,
+-            indices=OperatorIndexers().indices,
+-            memo=Memo(),
+-        )
+-
+-    assert isinstance(e.value.outcomes['id'].exception, PermanentError)
+-    assert mock.call_count == 3
+-
+-
+-@pytest.mark.parametrize('activity', list(Activity))
+-async def test_delays_are_simulated(settings, activity, mocker):
+-
+-    def sample_fn(**_):
+-        raise TemporaryError('to be retried', delay=123)
+-
+-    registry = OperatorRegistry()
+-    registry._activities.append(ActivityHandler(
+-        fn=sample_fn, id='id', activity=activity,
+-        param=None, errors=None, timeout=None, retries=3, backoff=None,
+-    ))
+-
+-    with freezegun.freeze_time() as frozen:
+-
+-        async def sleep_substitute(*_, **__):
+-            frozen.tick(123)
+-
+-        sleep = mocker.patch('kopf._cogs.aiokits.aiotime.sleep', wraps=sleep_substitute)
+-
+-        with pytest.raises(ActivityError) as e:
+-            await run_activity(
+-                registry=registry,
+-                settings=settings,
+-                activity=activity,
+-                lifecycle=all_at_once,
+-                indices=OperatorIndexers().indices,
+-                memo=Memo(),
+-            )
+-
+-    assert sleep.call_count >= 3  # 3 retries, 1 sleep each
+-    assert sleep.call_count <= 4  # 3 retries, 1 final success (delay=None), not more
+-    if sleep.call_count > 3:
+-        sleep.call_args_list[-1][0][0] is None
++import asyncio
++from collections.abc import Mapping
++
++import freezegun
++import pytest
++
++from kopf._cogs.structs.ephemera import Memo
++from kopf._cogs.structs.ids import HandlerId
++from kopf._core.actions.execution import Outcome, PermanentError, TemporaryError
++from kopf._core.actions.lifecycles import all_at_once
++from kopf._core.engines.activities import ActivityError, run_activity
++from kopf._core.engines.indexing import OperatorIndexers
++from kopf._core.intents.causes import Activity
++from kopf._core.intents.handlers import ActivityHandler
++from kopf._core.intents.registries import OperatorRegistry
++
++
++def test_activity_error_exception():
++    outcome = Outcome(final=True)
++    outcomes: Mapping[HandlerId, Outcome]
++    outcomes = {HandlerId('id'): outcome}
++    error = ActivityError("message", outcomes=outcomes)
++    assert str(error) == "message"
++    assert error.outcomes == outcomes
++
++
++@pytest.mark.parametrize('activity', list(Activity))
++async def test_results_are_returned_on_success(settings, activity):
++
++    def sample_fn1(**_):
++        return 123
++
++    def sample_fn2(**_):
++        return 456
++
++    registry = OperatorRegistry()
++    registry._activities.append(ActivityHandler(
++        fn=sample_fn1, id='id1', activity=activity,
++        param=None, errors=None, timeout=None, retries=None, backoff=None,
++    ))
++    registry._activities.append(ActivityHandler(
++        fn=sample_fn2, id='id2', activity=activity,
++        param=None, errors=None, timeout=None, retries=None, backoff=None,
++    ))
++
++    results = await run_activity(
++        registry=registry,
++        settings=settings,
++        activity=activity,
++        lifecycle=all_at_once,
++        indices=OperatorIndexers().indices,
++        memo=Memo(),
++    )
++
++    assert set(results.keys()) == {'id1', 'id2'}
++    assert results['id1'] == 123
++    assert results['id2'] == 456
++
++
++@pytest.mark.parametrize('activity', list(Activity))
++async def test_errors_are_raised_aggregated(settings, activity):
++
++    def sample_fn1(**_):
++        raise PermanentError("boo!123")
++
++    def sample_fn2(**_):
++        raise PermanentError("boo!456")
++
++    registry = OperatorRegistry()
++    registry._activities.append(ActivityHandler(
++        fn=sample_fn1, id='id1', activity=activity,
++        param=None, errors=None, timeout=None, retries=None, backoff=None,
++    ))
++    registry._activities.append(ActivityHandler(
++        fn=sample_fn2, id='id2', activity=activity,
++        param=None, errors=None, timeout=None, retries=None, backoff=None,
++    ))
++
++    with pytest.raises(ActivityError) as e:
++        await run_activity(
++            registry=registry,
++            settings=settings,
++            activity=activity,
++            lifecycle=all_at_once,
++            indices=OperatorIndexers().indices,
++            memo=Memo(),
++        )
++
++    assert set(e.value.outcomes.keys()) == {'id1', 'id2'}
++    assert e.value.outcomes['id1'].final
++    assert e.value.outcomes['id1'].delay is None
++    assert e.value.outcomes['id1'].result is None
++    assert e.value.outcomes['id1'].exception is not None
++    assert e.value.outcomes['id2'].final
++    assert e.value.outcomes['id2'].delay is None
++    assert e.value.outcomes['id2'].result is None
++    assert e.value.outcomes['id2'].exception is not None
++    assert str(e.value.outcomes['id1'].exception) == "boo!123"
++    assert str(e.value.outcomes['id2'].exception) == "boo!456"
++
++
++@pytest.mark.parametrize('activity', list(Activity))
++async def test_errors_are_cascaded_from_one_of_the_originals(settings, activity):
++
++    def sample_fn(**_):
++        raise PermanentError("boo!")
++
++    registry = OperatorRegistry()
++    registry._activities.append(ActivityHandler(
++        fn=sample_fn, id='id', activity=activity,
++        param=None, errors=None, timeout=None, retries=None, backoff=None,
++    ))
++
++    with pytest.raises(ActivityError) as e:
++        await run_activity(
++            registry=registry,
++            settings=settings,
++            activity=activity,
++            lifecycle=all_at_once,
++            indices=OperatorIndexers().indices,
++            memo=Memo(),
++        )
++
++    assert e.value.__cause__
++    assert type(e.value.__cause__) is PermanentError
++    assert str(e.value.__cause__) == "boo!"
++
++
++@pytest.mark.parametrize('activity', list(Activity))
++async def test_retries_are_simulated(settings, activity, mocker):
++    mock = mocker.MagicMock()
++
++    def sample_fn(**_):
++        mock()
++        raise TemporaryError('to be retried', delay=0)
++
++    registry = OperatorRegistry()
++    registry._activities.append(ActivityHandler(
++        fn=sample_fn, id='id', activity=activity,
++        param=None, errors=None, timeout=None, retries=3, backoff=None,
++    ))
++
++    with pytest.raises(ActivityError) as e:
++        await run_activity(
++            registry=registry,
++            settings=settings,
++            activity=activity,
++            lifecycle=all_at_once,
++            indices=OperatorIndexers().indices,
++            memo=Memo(),
++        )
++
++    assert isinstance(e.value.outcomes['id'].exception, PermanentError)
++    assert mock.call_count == 3
++
++
++@pytest.mark.parametrize('activity', list(Activity))
++async def test_delays_are_simulated(settings, activity, mocker):
++
++    def sample_fn(**_):
++        raise TemporaryError('to be retried', delay=123)
++
++    registry = OperatorRegistry()
++    registry._activities.append(ActivityHandler(
++        fn=sample_fn, id='id', activity=activity,
++        param=None, errors=None, timeout=None, retries=3, backoff=None,
++    ))
++
++    # The handler states use the loop time, which freezegun does not control: shift it manually.
++    loop = asyncio.get_running_loop()
++    original_time = loop.time
++    shift = 0.0
++    mocker.patch.object(loop, 'time', lambda: original_time() + shift)
++
++    with freezegun.freeze_time():
++
++        async def sleep_substitute(*_, **__):
++            nonlocal shift
++            shift += 123
++
++        sleep = mocker.patch('kopf._cogs.aiokits.aiotime.sleep', wraps=sleep_substitute)
++
++        with pytest.raises(ActivityError) as e:
++            await run_activity(
++                registry=registry,
++                settings=settings,
++                activity=activity,
++                lifecycle=all_at_once,
++                indices=OperatorIndexers().indices,
++                memo=Memo(),
++            )
++
++    assert sleep.call_count >= 3  # 3 retries, 1 sleep each
++    assert sleep.call_count <= 4  # 3 retries, 1 final success (delay=None), not more
++    if sleep.call_count > 3:
++        sleep.call_args_list[-1][0][0] is None

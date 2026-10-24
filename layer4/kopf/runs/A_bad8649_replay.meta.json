@@ -1,0 +1,30 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "bad8649",
+ "rep": "replay",
+ "commit": "bad86490bf2c5f6e133a380c998fa4c16d9133fe",
+ "spec": [
+  "tests/e2e/test_examples.py",
+  "tests/handling/daemons/test_daemon_errors.py",
+  "tests/handling/daemons/test_timer_errors.py",
+  "tests/handling/test_error_handling.py",
+  "tests/handling/test_event_handling.py"
+ ],
+ "code_in_pr": [
+  "kopf/_core/actions/execution.py"
+ ],
+ "spec_sha": {
+  "tests/e2e/test_examples.py": "8650216e53212a4c132db4d0d2df8dca369ffb95c584787b5999000027ea103f",
+  "tests/handling/daemons/test_daemon_errors.py": "795b15fdc677230806f09435d80a9a9dd4f6c7ea3396c28de5f4f555cf9f6b8a",
+  "tests/handling/daemons/test_timer_errors.py": "c9ee9cd300fcff354ef63cf4fdb179ea02cc09e0776bb60887965d13f1b63a6b",
+  "tests/handling/test_error_handling.py": "4473d895269a94e8cbbeed78ce16cf628a45f5f77052396f3a040fbed493e108",
+  "tests/handling/test_event_handling.py": "aa52b343cba36e898151af552a3526077c87d34835d72260cdd0510023442e0b"
+ },
+ "message": "Prevent handler retries if they are doomed to fail on the next run\n\nSigned-off-by: Sergey Vasilyev <nolar@nolar.info>",
+ "moves": {},
+ "created": "2026-10-06T01:00:04",
+ "pre_spec": {},
+ "replay_apply_rc": 0,
+ "replay_apply_out": "Applied patch to 'kopf/_core/actions/execution.py' cleanly.\n"
+}

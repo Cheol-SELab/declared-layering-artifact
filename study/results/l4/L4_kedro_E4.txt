@@ -1,0 +1,45 @@
+Layer-4 pilot: repo=kedro, conditions=['A', 'C'], runs=36, tasks=6
+
+Human replay (condition A reference):
+  2297d23: files=10 units_own=3 ref_tests=536 lint_broken=0
+  2f526b6: files=6 units_own=1 ref_tests=35 lint_broken=0
+  3f2a226: files=13 units_own=5 ref_tests=365 lint_broken=0
+  60f676e: files=2 units_own=1 ref_tests=74 lint_broken=0
+  69a6fe1: files=1 units_own=1 ref_tests=77 lint_broken=0
+  ab576bc: files=4 units_own=1 ref_tests=38 lint_broken=0
+
+Per condition (all runs):
+  A: n=18 strict_pass=17/18 lint_ok=18/18 units_own=1.83 units_Aframe=1.83 changed_code_files=4.94 lines_changed=604.94 bottom_own=9/18 bottom_A=9/18
+  C: n=18 strict_pass=16/18 lint_ok=18/18 units_own=2.28 units_Aframe=1.83 changed_code_files=5.17 lines_changed=322.11 bottom_own=9/18 bottom_A=9/18
+
+Paired by task (all runs); d_z = mean(diff)/sd(diff), 95% bootstrap CI over tasks:
+  units_own          C-A: tasks=6 mean diff=+0.444 d_z=+0.89 CI[+0.41,+2.04] Wilcoxon p=0.102
+  units_Aframe       C-A: tasks=6 mean diff=+0.000 d_z=+0.00 CI[+0.00,+0.00] Wilcoxon p=1.000
+  changed_code_files C-A: tasks=6 mean diff=+0.222 d_z=+0.24 CI[-0.52,+1.55] Wilcoxon p=0.715
+  lines_changed      C-A: tasks=6 mean diff=-282.833 d_z=-0.38 CI[-1.05,+0.61] Wilcoxon p=0.688
+
+Paired by task (strict-pass runs only); d_z = mean(diff)/sd(diff), 95% bootstrap CI over tasks:
+  units_own          C-A: tasks=6 mean diff=+0.444 d_z=+0.89 CI[+0.41,+2.04] Wilcoxon p=0.102
+  units_Aframe       C-A: tasks=6 mean diff=+0.000 d_z=+0.00 CI[+0.00,+0.00] Wilcoxon p=1.000
+  changed_code_files C-A: tasks=6 mean diff=+0.222 d_z=+0.24 CI[-0.52,+1.55] Wilcoxon p=0.715
+  lines_changed      C-A: tasks=6 mean diff=-247.083 d_z=-0.31 CI[-1.03,+0.62] Wilcoxon p=0.688
+
+Mixed model units_own ~ condition + (1|task):
+                              Coef. Std.Err.      z  P>|z| [0.025 0.975]
+Intercept                     1.833    0.699  2.622  0.009  0.463  3.204
+C(cond, Treatment('A'))[T.C]  0.444    0.099  4.491  0.000  0.251  0.638
+Group Var                     2.904    6.731                            
+
+H3 decision (pre-registered): C < A on units_own with d >= 0.3 -> supported; d < 0.1 or C >= A -> disconfirmed.
+  C-A units_own: mean diff +0.444, d_z +0.89 -> H3 disconfirmed (pilot, 6 tasks)
+
+Human change replayed on each base (units touched by the same PR):
+  units_own          C-A: tasks=6 sum diff=-3 per task=[-3, 0, 1, -1, 0, 0]
+  units_Aframe       C-A: tasks=6 sum diff=-4 per task=[-3, 0, 0, -1, 0, 0]
+  changed_code_files C-A: tasks=6 sum diff=-12 per task=[-10, 0, 0, -2, 0, 0]
+
+Agent cost (sub-agent tokens, tool uses, minutes; last logged entry per run):
+  A: n=18 tokens mean=63851 median=54259 tools mean=13.0 minutes mean=6.8
+  C: n=18 tokens mean=65626 median=54449 tools mean=14.8 minutes mean=10.6
+Runs editing non-specification test files: A_60f676e_r1, A_60f676e_r2, A_60f676e_r3, C_60f676e_r1, C_60f676e_r2, C_60f676e_r3
+Stop rule check: C strict acceptance 16/18

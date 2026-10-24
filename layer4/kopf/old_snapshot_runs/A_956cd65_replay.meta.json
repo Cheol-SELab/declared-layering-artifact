@@ -1,0 +1,35 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "956cd65",
+ "rep": "replay",
+ "commit": "956cd65e9c246ed485bdc8d988935280cf177165",
+ "spec": [
+  "tests/posting/test_loggers_setting.py"
+ ],
+ "code_in_pr": [
+  "kopf/_cogs/configs/configuration.py",
+  "kopf/_core/engines/posting.py"
+ ],
+ "spec_sha": {
+  "tests/posting/test_loggers_setting.py": "9d43aec98d43445290a89605736546619e74c70bb2ec4a81ca57693f6fa337ad"
+ },
+ "message": "Configure the posting from loggers separately from the explicit routines\n\nSigned-off-by: Sergey Vasilyev <nolar@nolar.info>",
+ "moves": {},
+ "created": "2026-10-05T23:36:10",
+ "pre_spec": {
+  "tests.posting.test_loggers_setting::test_loggers_setting_default_is_true": "failed",
+  "tests.posting.test_loggers_setting::test_loggers_setting_true_posts_loggers": "passed",
+  "tests.posting.test_loggers_setting::test_loggers_setting_false_skips_loggers": "failed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-routine0]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-info]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-warn]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[on-exception]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-routine0]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-info]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-warn]": "passed",
+  "tests.posting.test_loggers_setting::test_explicit_events_posted_regardless_of_settings[off-exception]": "passed"
+ },
+ "replay_apply_rc": 0,
+ "replay_apply_out": "Applied patch to 'kopf/_cogs/configs/configuration.py' cleanly.\nerror: repository lacks the necessary blob to perform 3-way merge.\nFalling back to direct application...\n"
+}

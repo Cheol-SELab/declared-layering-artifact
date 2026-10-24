@@ -1,0 +1,22 @@
+snapshot   commits units  S1    S2  S3  up  decl-change next Q
+2026-01-01      90     8   1  0.10   0   3  YES 2026-01-20
+2026-04-01      90     8   1  0.13   0   3  -
+2026-07-01      90     8   0  0.14   0   3  -
+2026-10-01      84     8   2  0.14   0   3  -
+
+== details ==
+
+2026-01-01 (c1bfbcf)  top changed: [('content_libraries', 53), ('search', 23), ('upstream_sync', 17)]
+   hidden: upstream_sync ~ xblock_serializer  sup=3 conf=0.5
+
+2026-04-01 (e3ab634)  top changed: [('content_libraries', 54), ('search', 22), ('upstream_sync', 17)]
+   hidden: upstream_sync ~ xblock_serializer  sup=5 conf=0.5
+
+2026-07-01 (5aa8bb2)  top changed: [('content_libraries', 50), ('search', 23), ('xblock', 16)]
+
+2026-10-01 (b91a89e)  top changed: [('content_libraries', 48), ('search', 23), ('xblock', 14)]
+   hidden: search ~ content_staging  sup=4 conf=0.57
+   hidden: search ~ xblock_serializer  sup=3 conf=0.5
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=0 FP=1 FN=1 TN=2  precision=0.00 recall=0.00  base rate=0.25

@@ -1,0 +1,30 @@
+snapshot   commits units  S1    S2  S3  up  decl-change next Q
+2023-01-01  no declaration
+2023-04-01  no declaration
+2023-07-01  no declaration
+2023-10-01  no declaration
+2024-01-01  no declaration
+2024-04-01  no declaration
+2024-07-01  no declaration
+2024-10-01  no declaration
+2025-01-01  no declaration
+2025-04-01  no declaration
+2025-07-01  no declaration
+2025-10-01  no declaration
+2026-01-01  no declaration
+2026-04-01  no declaration
+2026-07-01  no declaration
+2026-10-01      55    13   5  0.33   1   0  -
+
+== details ==
+
+2026-10-01 (dab72ac)  top changed: [('parsers', 30), ('api', 16), ('config', 15)]
+   hidden: api ~ main  sup=7 conf=0.5
+   hidden: config ~ main  sup=8 conf=0.57
+   hidden: ports ~ main  sup=3 conf=0.6
+   hidden: main ~ monitoring  sup=3 conf=0.75
+   hidden: config ~ ports  sup=3 conf=0.6
+   uncovered: ['utils']
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=0 FP=1 FN=0 TN=0  precision=0.00 recall=0.00  base rate=0.00

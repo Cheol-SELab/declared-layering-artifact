@@ -1,0 +1,9 @@
+{
+ "cond": "A",
+ "task": "017dbe0",
+ "lint_broken": 0,
+ "n": 6986,
+ "failed": [
+  "tests.timing.test_sleeping::test_negative_delays_skip_sleeping[alone]"
+ ]
+}

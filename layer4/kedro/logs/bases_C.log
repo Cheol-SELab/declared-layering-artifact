@@ -1,0 +1,21 @@
+refactor commit 7afc1db98
+ kedro/io/__init__.py                             | 10 ----------
+ kedro/io/core.py                                 |  2 +-
+ kedro/partitioned/__init__.py                    | 18 ++++++++++++++++++
+ kedro/{io => partitioned}/partitioned_dataset.py |  0
+ pyproject.toml                                   |  3 +++
+ tests/io/test_data_catalog.py                    |  2 +-
+ tests/io/test_incremental_dataset.py             |  3 ++-
+ tests/io/test_partitioned_dataset.py             |  5 +++--
+ 8 files changed, 28 insertions(+), 15 deletions(-)
+
+2f526b6 ok 145f91fef
+3f2a226 ok 247f6cfd6
+2297d23 ok bb61b17b9
+ab576bc ok 2297d2315
+cd83bad CHERRY-PICK FAILED
+0cd8ecc CHERRY-PICK FAILED
+69a6fe1 ok ad6d68d8c
+60f676e ok bc12aa011
+00f035a CHERRY-PICK FAILED
+5752f68 CHERRY-PICK FAILED

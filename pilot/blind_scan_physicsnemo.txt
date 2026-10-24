@@ -1,0 +1,39 @@
+<unknown>:76: SyntaxWarning: invalid escape sequence '\w'
+<unknown>:99: SyntaxWarning: invalid escape sequence '\m'
+<unknown>:69: SyntaxWarning: invalid escape sequence '\('
+<unknown>:92: SyntaxWarning: invalid escape sequence '\('
+<unknown>:327: SyntaxWarning: invalid escape sequence '\.'
+<unknown>:344: SyntaxWarning: invalid escape sequence '\m'
+<unknown>:69: SyntaxWarning: invalid escape sequence '\('
+<unknown>:92: SyntaxWarning: invalid escape sequence '\('
+<unknown>:327: SyntaxWarning: invalid escape sequence '\.'
+<unknown>:344: SyntaxWarning: invalid escape sequence '\m'
+<unknown>:344: SyntaxWarning: invalid escape sequence '\m'
+snapshot   commits units  S1    S2  S3  up  decl-change next Q
+2026-01-01     107    82   2  1.00   0   0  YES 2026-01-08,2026-01-23,2026-01-28,2026-02-08,2026-02-12,2026-02-17,2026-02-17,2026-03-10,2026-03-20
+2026-04-01     155    91   2  1.00   1   0  YES 2026-04-21
+2026-07-01     216    97   0  1.00   1   0  YES 2026-08-31,2026-09-17,2026-09-22
+2026-10-01     260   111   4  1.00   0   1  -
+
+== details ==
+
+2026-01-01 (e78ff1a)  top changed: [('diffusion', 32), ('domino', 18), ('core', 14)]
+   hidden: domino ~ ball_query  sup=3 conf=1.0
+   hidden: domino ~ utils  sup=4 conf=0.5
+
+2026-04-01 (44ccfdd)  top changed: [('diffusion_unets', 24), ('experimental', 21), ('core', 18)]
+   hidden: domino ~ ball_query  sup=3 conf=1.0
+   hidden: domino ~ utils  sup=4 conf=0.5
+   uncovered: ['module']
+
+2026-07-01 (b95d299)  top changed: [('experimental', 43), ('mesh', 41), ('functional', 24)]
+   uncovered: ['module']
+
+2026-10-01 (b08dd3f)  top changed: [('mesh', 85), ('experimental', 53), ('functional', 38)]
+   hidden: metrics ~ preconditioners  sup=4 conf=0.8
+   hidden: noise_schedulers ~ preconditioners  sup=4 conf=0.5
+   hidden: guidance ~ multi_diffusion  sup=4 conf=0.67
+   hidden: flare ~ geotransolver  sup=3 conf=1.0
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=3 FP=1 FN=0 TN=0  precision=0.75 recall=1.00  base rate=0.75

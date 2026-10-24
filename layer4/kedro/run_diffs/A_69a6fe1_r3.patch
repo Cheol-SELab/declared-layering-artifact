@@ -1,0 +1,48 @@
+diff --git a/RELEASE.md b/RELEASE.md
+index f2f12b3..4aa529a 100644
+--- a/RELEASE.md
++++ b/RELEASE.md
+@@ -3,6 +3,7 @@
+ ## Major features and improvements
+ * Dropped Python 3.7 support.
+ * Introduced add-ons to the `kedro new` CLI flow.
++* Added new spaceflights starters `spaceflights-pandas`, `spaceflights-pandas-viz`, `spaceflights-pyspark` and `spaceflights-pyspark-viz` to `kedro new --starter`.
+ 
+ ## Bug fixes and other changes
+ 
+diff --git a/docs/source/kedro_project_setup/starters.md b/docs/source/kedro_project_setup/starters.md
+index 99fd9ee..06f59e3 100644
+--- a/docs/source/kedro_project_setup/starters.md
++++ b/docs/source/kedro_project_setup/starters.md
+@@ -51,7 +51,10 @@ The Kedro team maintains the following starters for a range of Kedro projects:
+ * [`pandas-iris`](https://github.com/kedro-org/kedro-starters/tree/main/pandas-iris): The [Kedro Iris dataset example project](../get_started/new_project.md)
+ * [`pyspark-iris`](https://github.com/kedro-org/kedro-starters/tree/main/pyspark-iris): An alternative Kedro Iris dataset example, using [PySpark](../integrations/pyspark_integration.md)
+ * [`pyspark`](https://github.com/kedro-org/kedro-starters/tree/main/pyspark): The configuration and initialisation code for a [Kedro pipeline using PySpark](../integrations/pyspark_integration.md)
+-* [`spaceflights`](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights): The [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) example code
++* [`spaceflights-pandas`](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas): The [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) example code
++* [`spaceflights-pandas-viz`](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas-viz): The [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) example code with Kedro-Viz setup
++* [`spaceflights-pyspark`](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pyspark): The [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) example code using PySpark
++* [`spaceflights-pyspark-viz`](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pyspark-viz): The [spaceflights tutorial](../tutorial/spaceflights_tutorial.md) example code using PySpark with Kedro-Viz setup
+ 
+ ## Starter versioning
+ 
+diff --git a/kedro/framework/cli/starters.py b/kedro/framework/cli/starters.py
+index b7401bb..358c7ac 100644
+--- a/kedro/framework/cli/starters.py
++++ b/kedro/framework/cli/starters.py
+@@ -78,7 +78,14 @@ _OFFICIAL_STARTER_SPECS = [
+     KedroStarterSpec("pandas-iris", _STARTERS_REPO, "pandas-iris"),
+     KedroStarterSpec("pyspark", _STARTERS_REPO, "pyspark"),
+     KedroStarterSpec("pyspark-iris", _STARTERS_REPO, "pyspark-iris"),
+-    KedroStarterSpec("spaceflights", _STARTERS_REPO, "spaceflights"),
++    KedroStarterSpec("spaceflights-pandas", _STARTERS_REPO, "spaceflights-pandas"),
++    KedroStarterSpec(
++        "spaceflights-pandas-viz", _STARTERS_REPO, "spaceflights-pandas-viz"
++    ),
++    KedroStarterSpec("spaceflights-pyspark", _STARTERS_REPO, "spaceflights-pyspark"),
++    KedroStarterSpec(
++        "spaceflights-pyspark-viz", _STARTERS_REPO, "spaceflights-pyspark-viz"
++    ),
+     KedroStarterSpec("databricks-iris", _STARTERS_REPO, "databricks-iris"),
+ ]
+ # Set the origin for official starters

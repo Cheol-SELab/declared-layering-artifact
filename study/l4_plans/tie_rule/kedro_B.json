@@ -1,0 +1,76 @@
+{
+ "candidates": [
+  {
+   "file": "kedro/framework/session/session.py",
+   "file_commits": 16,
+   "from_unit": "kedro.framework.session",
+   "support_own": 1,
+   "support_to": 7,
+   "to_unit": "kedro.framework.cli"
+  },
+  {
+   "file": "kedro/runner/parallel_runner.py",
+   "file_commits": 9,
+   "from_unit": "kedro.runner",
+   "support_own": 5,
+   "support_to": 7,
+   "to_unit": "kedro.io"
+  },
+  {
+   "file": "kedro/framework/session/session.py",
+   "file_commits": 16,
+   "from_unit": "kedro.framework.session",
+   "support_own": 1,
+   "support_to": 5,
+   "to_unit": "kedro.config"
+  },
+  {
+   "file": "kedro/runner/runner.py",
+   "file_commits": 8,
+   "from_unit": "kedro.runner",
+   "support_own": 3,
+   "support_to": 4,
+   "to_unit": "kedro.io"
+  },
+  {
+   "file": "kedro/framework/cli/catalog.py",
+   "file_commits": 9,
+   "from_unit": "kedro.framework.cli",
+   "support_own": 0,
+   "support_to": 3,
+   "to_unit": "kedro.io"
+  }
+ ],
+ "recommendations": [
+  {
+   "file": "kedro/framework/session/session.py",
+   "file_commits": 16,
+   "from_unit": "kedro.framework.session",
+   "support_own": 1,
+   "support_to": 7,
+   "to_unit": "kedro.framework.cli"
+  },
+  {
+   "file": "kedro/runner/parallel_runner.py",
+   "file_commits": 9,
+   "from_unit": "kedro.runner",
+   "support_own": 5,
+   "support_to": 7,
+   "to_unit": "kedro.io"
+  },
+  {
+   "file": "kedro/framework/session/session.py",
+   "file_commits": 16,
+   "from_unit": "kedro.framework.session",
+   "support_own": 1,
+   "support_to": 5,
+   "to_unit": "kedro.config"
+  }
+ ],
+ "repo": "kedro",
+ "rule": "move f to unit V if support(f,V) > support(f, own unit) and support(f,V) >= 3; files with >= 4 commits; top 3",
+ "snapshot": "e9a07bb7344fa9b1b7cad1e50bbca5ae4aea9ca0",
+ "snapshot_date": "2023-10-01",
+ "window_commits": 102,
+ "window_since": "2022-10-06"
+}

@@ -1,0 +1,4 @@
+Pooled AUC (within-repo z-scored S2n, A2 labels): 0.722  quarters=70 positives=14
+Leave-one-repository-out: bk-user 0.736, ggshield 0.672, kedro 0.773, legadilo 0.681, openedx-learning 0.759  (range 0.67-0.77)
+Repository-cluster bootstrap (B=10000, seed 20261005): 95% CI 0.59-0.86
+S2n at the Layer-4 snapshots: kedro 2023-10-01 S2n=1.06 (n=102), kopf 2026-01-01 S2n=1.29 (n=25)

@@ -1,0 +1,1514 @@
+{
+ "Addrick/agent-orchestrator": {
+  "created": "2023-07-10",
+  "decl": "setup.cfg",
+  "decl_file_commits": 5,
+  "decl_first": "2026-03-19",
+  "decl_first_commit": "a3f3026ac",
+  "layer_revisions": [
+   "2026-04-25",
+   "2026-07-27",
+   "2026-08-20"
+  ],
+  "max_layers": 23,
+  "n_commits": 1359,
+  "pushed": "2026-10-02",
+  "stars": 2
+ },
+ "AliKHaliliT/CVAugmentor": {
+  "created": "2023-04-30",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 8,
+  "decl_first": "2026-09-05",
+  "decl_first_commit": "fad66c83c",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 97,
+  "pushed": "2026-09-09",
+  "stars": 1
+ },
+ "Alimento-Team/chalix-ed": {
+  "created": "2024-09-14",
+  "decl": "setup.cfg",
+  "decl_file_commits": 2,
+  "decl_first": "2025-07-17",
+  "decl_first_commit": "59235463c",
+  "layer_revisions": [],
+  "max_layers": 6,
+  "n_commits": 269,
+  "pushed": "2026-08-05",
+  "stars": 0
+ },
+ "AustralianCancerDataNetwork/hemonc-alchemy": {
+  "created": "2024-09-02",
+  "decl": ".importlinter",
+  "decl_file_commits": 4,
+  "decl_first": "2026-08-16",
+  "decl_first_commit": "5c73f7f12",
+  "layer_revisions": [
+   "2026-08-16",
+   "2026-09-05",
+   "2026-09-05"
+  ],
+  "max_layers": 5,
+  "n_commits": 42,
+  "pushed": "2026-10-05",
+  "stars": 0
+ },
+ "AustralianCancerDataNetwork/omop-alchemy": {
+  "created": "2024-02-02",
+  "decl": ".importlinter",
+  "decl_file_commits": 2,
+  "decl_first": "2026-08-12",
+  "decl_first_commit": "cb5750844",
+  "layer_revisions": [
+   "2026-09-18"
+  ],
+  "max_layers": 6,
+  "n_commits": 154,
+  "pushed": "2026-09-24",
+  "stars": 13
+ },
+ "BrainPad/cliboa": {
+  "created": "2019-11-11",
+  "decl": ".importlinter",
+  "decl_file_commits": 2,
+  "decl_first": "2025-08-14",
+  "decl_first_commit": "b68986fe5",
+  "layer_revisions": [
+   "2025-10-31"
+  ],
+  "max_layers": 7,
+  "n_commits": 1070,
+  "pushed": "2026-10-01",
+  "stars": 22
+ },
+ "C3EQUALZz/DSTU_VKB": {
+  "created": "2023-09-10",
+  "decl": "development_of_secure_web_resources/2026/1/.importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-09-11",
+  "decl_first_commit": "8e5c35d2d",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 2749,
+  "pushed": "2026-10-03",
+  "stars": 15
+ },
+ "DOI-USGS/dataretrieval-python": {
+  "created": "2018-09-27",
+  "decl": ".importlinter",
+  "decl_file_commits": 12,
+  "decl_first": "2026-08-08",
+  "decl_first_commit": "d1345eb1f",
+  "layer_revisions": [
+   "2026-08-08",
+   "2026-08-09",
+   "2026-08-09",
+   "2026-08-09",
+   "2026-08-14",
+   "2026-08-14",
+   "2026-08-15",
+   "2026-09-09",
+   "2026-09-09"
+  ],
+  "max_layers": 14,
+  "n_commits": 551,
+  "pushed": "2026-10-02",
+  "stars": 268
+ },
+ "DariuszMak/fullstack-python-app": {
+  "created": "2023-04-30",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 62,
+  "decl_first": "2026-05-07",
+  "decl_first_commit": "62618896c",
+  "layer_revisions": [
+   "2026-05-07",
+   "2026-05-07",
+   "2026-05-07",
+   "2026-05-07",
+   "2026-05-07",
+   "2026-05-21",
+   "2026-05-21",
+   "2026-05-22",
+   "2026-05-22"
+  ],
+  "max_layers": 3,
+  "n_commits": 1928,
+  "pushed": "2026-09-29",
+  "stars": 0
+ },
+ "DiamondLightSource/dodal": {
+  "created": "2022-08-30",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 184,
+  "decl_first": "2025-01-15",
+  "decl_first_commit": "a44bce1c1",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 3045,
+  "pushed": "2026-10-05",
+  "stars": 5
+ },
+ "EBI-Metabolights/metabolights-utils": {
+  "created": "2023-07-11",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 93,
+  "decl_first": "2025-09-26",
+  "decl_first_commit": "60a6bfb6c",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 187,
+  "pushed": "2026-06-05",
+  "stars": 7
+ },
+ "GitGuardian/ggshield": {
+  "created": "2020-04-20",
+  "decl": ".importlinter",
+  "decl_file_commits": 12,
+  "decl_first": "2023-08-24",
+  "decl_first_commit": "25b11f9a2",
+  "layer_revisions": [
+   "2023-08-24",
+   "2023-08-24",
+   "2025-01-10",
+   "2026-02-14",
+   "2026-04-07",
+   "2026-04-23",
+   "2026-06-03",
+   "2026-06-24"
+  ],
+  "max_layers": 5,
+  "n_commits": 3302,
+  "pushed": "2026-10-05",
+  "stars": 2000
+ },
+ "HyperLEDA/db-app": {
+  "created": "2024-03-03",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 56,
+  "decl_first": "2026-07-27",
+  "decl_first_commit": "32a7d2577",
+  "layer_revisions": [
+   "2026-08-28",
+   "2026-08-28",
+   "2026-08-29",
+   "2026-08-29"
+  ],
+  "max_layers": 3,
+  "n_commits": 411,
+  "pushed": "2026-10-04",
+  "stars": 0
+ },
+ "ISA-tools/isa-api": {
+  "created": "2015-03-12",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 14,
+  "decl_first": "2025-10-18",
+  "decl_first_commit": "d26af145a",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 3759,
+  "pushed": "2026-09-01",
+  "stars": 48
+ },
+ "Jason-Clark-FG/OpenMetadata-FG": {
+  "created": "2023-07-18",
+  "decl": "ingestion/.importlinter",
+  "decl_file_commits": 3,
+  "decl_first": "2026-08-03",
+  "decl_first_commit": "8a5106e2e",
+  "layer_revisions": [
+   "2026-09-21"
+  ],
+  "max_layers": 6,
+  "n_commits": 19408,
+  "pushed": "2026-10-05",
+  "stars": 0
+ },
+ "Jason-Clark-FG/OpenMetadata-Mirror": {
+  "created": "2023-07-13",
+  "decl": "ingestion/.importlinter",
+  "decl_file_commits": 3,
+  "decl_first": "2026-08-03",
+  "decl_first_commit": "8a5106e2e",
+  "layer_revisions": [
+   "2026-09-21"
+  ],
+  "max_layers": 6,
+  "n_commits": 19407,
+  "pushed": "2026-10-05",
+  "stars": 0
+ },
+ "JavaPioneer/dockerImagesBuild": {
+  "created": "2023-08-22",
+  "decl": "dify-1.10.1-fix.1/api/.importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2025-12-08",
+  "decl_first_commit": "475733339",
+  "layer_revisions": [],
+  "max_layers": 9,
+  "n_commits": 32,
+  "pushed": "2026-01-14",
+  "stars": 0
+ },
+ "JujensGh/legadilo": {
+  "created": "2023-12-17",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 178,
+  "decl_first": "2024-03-14",
+  "decl_first_commit": "3544ae797",
+  "layer_revisions": [
+   "2024-05-09",
+   "2024-05-10",
+   "2024-08-04",
+   "2024-08-10",
+   "2025-12-04"
+  ],
+  "max_layers": 5,
+  "n_commits": 1267,
+  "pushed": "2026-10-04",
+  "stars": 3
+ },
+ "KinjiKawaguchi/text2manim": {
+  "created": "2024-08-02",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 7,
+  "decl_first": "2026-07-14",
+  "decl_first_commit": "4cfacc325",
+  "layer_revisions": [],
+  "max_layers": 6,
+  "n_commits": 230,
+  "pushed": "2026-09-07",
+  "stars": 3
+ },
+ "LgbtBsod/AI-EVOLVE": {
+  "created": "2022-06-07",
+  "decl": ".importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-09-24",
+  "decl_first_commit": "4868929d6",
+  "layer_revisions": [],
+  "max_layers": 5,
+  "n_commits": 119,
+  "pushed": "2026-09-27",
+  "stars": 1
+ },
+ "MattJColes/macols-ai-coding-setup": {
+  "created": "2022-08-15",
+  "decl": "config/personas/quality/references/python-pyproject.toml",
+  "decl_file_commits": 2,
+  "decl_first": "2026-09-28",
+  "decl_first_commit": "418dceefd",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 42,
+  "pushed": "2026-10-04",
+  "stars": 0
+ },
+ "Mattral/FlashSpec": {
+  "created": "2024-02-09",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 6,
+  "decl_first": "2026-03-06",
+  "decl_first_commit": "9fa31ff8f",
+  "layer_revisions": [],
+  "max_layers": 7,
+  "n_commits": 94,
+  "pushed": "2026-07-09",
+  "stars": 16
+ },
+ "NVIDIA/physicsnemo": {
+  "created": "2023-01-26",
+  "decl": ".importlinter",
+  "decl_file_commits": 18,
+  "decl_first": "2025-12-18",
+  "decl_first_commit": "9c1105c8c",
+  "layer_revisions": [
+   "2026-01-08",
+   "2026-01-24",
+   "2026-01-28",
+   "2026-02-08",
+   "2026-02-13",
+   "2026-02-18",
+   "2026-02-18",
+   "2026-03-11",
+   "2026-03-20",
+   "2026-04-21",
+   "2026-08-31",
+   "2026-09-17",
+   "2026-09-22"
+  ],
+  "max_layers": 8,
+  "n_commits": 1182,
+  "pushed": "2026-10-05",
+  "stars": 3314
+ },
+ "SecObserve/SecObserve": {
+  "created": "2023-03-15",
+  "decl": "backend/pyproject.toml",
+  "decl_file_commits": 758,
+  "decl_first": "2026-09-25",
+  "decl_first_commit": "894db9093",
+  "layer_revisions": [],
+  "max_layers": 6,
+  "n_commits": 4600,
+  "pushed": "2026-10-05",
+  "stars": 317
+ },
+ "TeKrop/overfast-api": {
+  "created": "2021-11-17",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 325,
+  "decl_first": "2026-09-15",
+  "decl_first_commit": "67dc85484",
+  "layer_revisions": [],
+  "max_layers": 8,
+  "n_commits": 541,
+  "pushed": "2026-10-01",
+  "stars": 196
+ },
+ "TencentBlueKing/bk-iam-saas": {
+  "created": "2021-07-12",
+  "decl": "saas/pyproject.toml",
+  "decl_file_commits": 36,
+  "decl_first": "2025-06-12",
+  "decl_first_commit": "aa09e5885",
+  "layer_revisions": [],
+  "max_layers": 5,
+  "n_commits": 5187,
+  "pushed": "2026-09-21",
+  "stars": 35
+ },
+ "TencentBlueKing/bk-user": {
+  "created": "2021-08-10",
+  "decl": "src/bk-user/pyproject.toml",
+  "decl_file_commits": 50,
+  "decl_first": "2023-08-29",
+  "decl_first_commit": "a4b7d1a81",
+  "layer_revisions": [
+   "2023-09-13",
+   "2023-09-26",
+   "2023-10-22",
+   "2023-11-02",
+   "2023-11-13",
+   "2023-12-29",
+   "2024-04-17"
+  ],
+  "max_layers": 7,
+  "n_commits": 1814,
+  "pushed": "2026-09-30",
+  "stars": 74
+ },
+ "TencentBlueKing/blueking-apigateway": {
+  "created": "2023-02-06",
+  "decl": "src/dashboard/pyproject.toml",
+  "decl_file_commits": 83,
+  "decl_first": "2025-06-30",
+  "decl_first_commit": "4acd21899",
+  "layer_revisions": [],
+  "max_layers": 9,
+  "n_commits": 3498,
+  "pushed": "2026-09-24",
+  "stars": 55
+ },
+ "TencentBlueKing/blueking-paas": {
+  "created": "2022-10-26",
+  "decl": "apiserver/paasng/.importlinter",
+  "decl_file_commits": 19,
+  "decl_first": "2023-09-05",
+  "decl_first_commit": "59115b32b",
+  "layer_revisions": [
+   "2023-09-07",
+   "2023-09-07",
+   "2023-09-11",
+   "2023-09-15",
+   "2023-10-10",
+   "2023-10-10",
+   "2023-10-12",
+   "2026-05-15",
+   "2026-05-18"
+  ],
+  "max_layers": 6,
+  "n_commits": 2681,
+  "pushed": "2026-09-30",
+  "stars": 281
+ },
+ "UKHSA-Internal/data-dashboard-api": {
+  "created": "2022-11-02",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 108,
+  "decl_first": "2023-10-09",
+  "decl_first_commit": "63f16bdb9",
+  "layer_revisions": [
+   "2024-04-22",
+   "2024-04-22",
+   "2024-05-02"
+  ],
+  "max_layers": 3,
+  "n_commits": 9974,
+  "pushed": "2026-10-05",
+  "stars": 5
+ },
+ "Unique-AG/ai": {
+  "created": "2024-06-18",
+  "decl": "unique_toolkit/pyproject.toml",
+  "decl_file_commits": 527,
+  "decl_first": "2026-04-27",
+  "decl_first_commit": "17bdc9a53",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 1636,
+  "pushed": "2026-10-05",
+  "stars": 5
+ },
+ "VilnaCRM-Org/infrastructure-template": {
+  "created": "2022-12-17",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 2,
+  "decl_first": "2026-04-10",
+  "decl_first_commit": "bb1eef385",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 43,
+  "pushed": "2026-07-02",
+  "stars": 0
+ },
+ "Zumud/Zumud": {
+  "created": "2024-07-06",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 2,
+  "decl_first": "2026-07-11",
+  "decl_first_commit": "14763cafb",
+  "layer_revisions": [],
+  "max_layers": 5,
+  "n_commits": 446,
+  "pushed": "2026-09-02",
+  "stars": 5
+ },
+ "aSel1x/Backend_Template": {
+  "created": "2024-07-10",
+  "decl": ".importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-09-06",
+  "decl_first_commit": "02e856e34",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 71,
+  "pushed": "2026-09-30",
+  "stars": 21
+ },
+ "actions-marketplace-validations/wemake-services_wemake-python-styleguide": {
+  "created": "2022-11-11",
+  "decl": ".importlinter",
+  "decl_file_commits": 18,
+  "decl_first": "2019-07-28",
+  "decl_first_commit": "98d22864e",
+  "layer_revisions": [
+   "2019-12-18"
+  ],
+  "max_layers": 11,
+  "n_commits": 3207,
+  "pushed": "2026-09-24",
+  "stars": 0
+ },
+ "alan-turing-institute/AIrsenal": {
+  "created": "2018-07-25",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 132,
+  "decl_first": "2026-08-23",
+  "decl_first_commit": "5564467a5",
+  "layer_revisions": [
+   "2026-08-23",
+   "2026-08-23",
+   "2026-08-23",
+   "2026-08-24",
+   "2026-08-24",
+   "2026-08-25"
+  ],
+  "max_layers": 13,
+  "n_commits": 2761,
+  "pushed": "2026-10-05",
+  "stars": 352
+ },
+ "arenadata/adcm": {
+  "created": "2019-11-26",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 84,
+  "decl_first": "2025-12-18",
+  "decl_first_commit": "0b3f5023e",
+  "layer_revisions": [
+   "2025-12-24",
+   "2026-02-10",
+   "2026-02-24",
+   "2026-03-19",
+   "2026-08-26",
+   "2026-09-03",
+   "2026-09-16"
+  ],
+  "max_layers": 10,
+  "n_commits": 12485,
+  "pushed": "2026-10-02",
+  "stars": 35
+ },
+ "bitranox/fake_winreg": {
+  "created": "2020-07-08",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 32,
+  "decl_first": "2026-03-31",
+  "decl_first_commit": "adf3ec563",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 156,
+  "pushed": "2026-08-27",
+  "stars": 7
+ },
+ "bitranox/igittigitt": {
+  "created": "2020-08-12",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 15,
+  "decl_first": "2026-06-26",
+  "decl_first_commit": "4562e819d",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 94,
+  "pushed": "2026-09-27",
+  "stars": 29
+ },
+ "bitranox/lib_detect_testenv": {
+  "created": "2021-11-17",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 33,
+  "decl_first": "2025-11-04",
+  "decl_first_commit": "0a4b76a26",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 130,
+  "pushed": "2026-09-02",
+  "stars": 0
+ },
+ "bitranox/lib_shopware6_api_base": {
+  "created": "2021-12-26",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 46,
+  "decl_first": "2026-02-03",
+  "decl_first_commit": "9006e804c",
+  "layer_revisions": [
+   "2026-02-03"
+  ],
+  "max_layers": 3,
+  "n_commits": 159,
+  "pushed": "2026-08-04",
+  "stars": 27
+ },
+ "blalterman/SolarWindPy": {
+  "created": "2019-02-01",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 35,
+  "decl_first": "2026-09-29",
+  "decl_first_commit": "ce6f47090",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 1860,
+  "pushed": "2026-10-05",
+  "stars": 4
+ },
+ "bluesky/ophyd-async": {
+  "created": "2023-08-23",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 114,
+  "decl_first": "2024-12-10",
+  "decl_first_commit": "e08148f36",
+  "layer_revisions": [
+   "2024-12-17",
+   "2026-02-17"
+  ],
+  "max_layers": 4,
+  "n_commits": 1034,
+  "pushed": "2026-10-05",
+  "stars": 28
+ },
+ "bonnbear/codeCollection": {
+  "created": "2024-05-28",
+  "decl": "dify/api/.importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-07-06",
+  "decl_first_commit": "6019f2ee0",
+  "layer_revisions": [],
+  "max_layers": 9,
+  "n_commits": 303,
+  "pushed": "2026-09-15",
+  "stars": 0
+ },
+ "brunns/rss-agg": {
+  "created": "2024-04-18",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 117,
+  "decl_first": "2026-09-16",
+  "decl_first_commit": "ccdead40b",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 421,
+  "pushed": "2026-10-05",
+  "stars": 0
+ },
+ "ccie18643/PyTCP": {
+  "created": "2020-10-07",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 60,
+  "decl_first": "2026-06-07",
+  "decl_first_commit": "5143c51cb",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 3035,
+  "pushed": "2026-09-17",
+  "stars": 376
+ },
+ "cds-snc/sre-bot": {
+  "created": "2022-02-21",
+  "decl": "app/pyproject.toml",
+  "decl_file_commits": 39,
+  "decl_first": "2026-09-28",
+  "decl_first_commit": "96350909b",
+  "layer_revisions": [
+   "2026-09-28",
+   "2026-10-02",
+   "2026-10-02"
+  ],
+  "max_layers": 7,
+  "n_commits": 1273,
+  "pushed": "2026-10-05",
+  "stars": 12
+ },
+ "connorads/dotfiles": {
+  "created": "2023-07-09",
+  "decl": "src/handoff/pyproject.toml",
+  "decl_file_commits": 2,
+  "decl_first": "2026-09-02",
+  "decl_first_commit": "227f66d96",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 3590,
+  "pushed": "2026-10-02",
+  "stars": 16
+ },
+ "cpp-lln-lab/bidsMReye": {
+  "created": "2022-01-21",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 23,
+  "decl_first": "2024-03-15",
+  "decl_first_commit": "e7e402858",
+  "layer_revisions": [
+   "2024-08-02",
+   "2024-08-10"
+  ],
+  "max_layers": 12,
+  "n_commits": 461,
+  "pushed": "2026-07-23",
+  "stars": 8
+ },
+ "davidheryanto/etc": {
+  "created": "2018-05-22",
+  "decl": "layered-architecture-python/.importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-06-16",
+  "decl_first_commit": "ac77de4b2",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 3339,
+  "pushed": "2026-10-05",
+  "stars": 21
+ },
+ "dcceew-bdr/abis-mapping": {
+  "created": "2022-03-03",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 113,
+  "decl_first": "2025-01-06",
+  "decl_first_commit": "1f7487b67",
+  "layer_revisions": [
+   "2025-05-15"
+  ],
+  "max_layers": 5,
+  "n_commits": 1639,
+  "pushed": "2026-09-28",
+  "stars": 5
+ },
+ "dfetch-org/dfetch": {
+  "created": "2020-10-14",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 583,
+  "decl_first": "2026-03-22",
+  "decl_first_commit": "e4d4ea1e1",
+  "layer_revisions": [
+   "2026-03-29"
+  ],
+  "max_layers": 5,
+  "n_commits": 2817,
+  "pushed": "2026-10-02",
+  "stars": 13
+ },
+ "ekolvah/kinozal_scraper": {
+  "created": "2023-12-15",
+  "decl": ".importlinter",
+  "decl_file_commits": 4,
+  "decl_first": "2026-07-01",
+  "decl_first_commit": "3d8fe2d14",
+  "layer_revisions": [
+   "2026-07-04",
+   "2026-07-04"
+  ],
+  "max_layers": 3,
+  "n_commits": 444,
+  "pushed": "2026-10-05",
+  "stars": 0
+ },
+ "eventcally/eventcally": {
+  "created": "2020-09-27",
+  "decl": ".importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-06-06",
+  "decl_first_commit": "a4928ddd5",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 1134,
+  "pushed": "2026-10-05",
+  "stars": 4
+ },
+ "fardeenes7/mohajon-server": {
+  "created": "2024-03-29",
+  "decl": ".importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-04-18",
+  "decl_first_commit": "614f44072",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 12,
+  "pushed": "2026-08-05",
+  "stars": 0
+ },
+ "fccn/openedx-platform": {
+  "created": "2021-05-11",
+  "decl": "setup.cfg",
+  "decl_file_commits": 63,
+  "decl_first": "2025-04-23",
+  "decl_first_commit": "ce00b16be",
+  "layer_revisions": [],
+  "max_layers": 6,
+  "n_commits": 66819,
+  "pushed": "2026-10-01",
+  "stars": 3
+ },
+ "finecode-dev/finecode": {
+  "created": "2023-12-31",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 69,
+  "decl_first": "2025-02-15",
+  "decl_first_commit": "e02b6b5df",
+  "layer_revisions": [
+   "2025-04-28",
+   "2025-08-28",
+   "2026-07-02"
+  ],
+  "max_layers": 6,
+  "n_commits": 551,
+  "pushed": "2026-10-05",
+  "stars": 4
+ },
+ "fubinf/sedrila": {
+  "created": "2022-09-20",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 61,
+  "decl_first": "2026-10-02",
+  "decl_first_commit": "5f105bb59",
+  "layer_revisions": [],
+  "max_layers": 10,
+  "n_commits": 1265,
+  "pushed": "2026-10-03",
+  "stars": 12
+ },
+ "gbouvignies/PeakFit": {
+  "created": "2018-09-26",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 32,
+  "decl_first": "2026-05-06",
+  "decl_first_commit": "ec7b5b45e",
+  "layer_revisions": [
+   "2026-07-26"
+  ],
+  "max_layers": 10,
+  "n_commits": 124,
+  "pushed": "2026-07-27",
+  "stars": 3
+ },
+ "hasansezertasan/hwid": {
+  "created": "2023-09-30",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 102,
+  "decl_first": "2026-08-03",
+  "decl_first_commit": "1e8dd3327",
+  "layer_revisions": [
+   "2026-08-15",
+   "2026-08-15",
+   "2026-09-24"
+  ],
+  "max_layers": 4,
+  "n_commits": 275,
+  "pushed": "2026-10-05",
+  "stars": 9
+ },
+ "hoelzl/clm": {
+  "created": "2022-10-02",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 190,
+  "decl_first": "2026-08-06",
+  "decl_first_commit": "8b41e609f",
+  "layer_revisions": [
+   "2026-08-06"
+  ],
+  "max_layers": 4,
+  "n_commits": 2653,
+  "pushed": "2026-10-04",
+  "stars": 4
+ },
+ "infinito-nexus/core": {
+  "created": "2019-11-13",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 143,
+  "decl_first": "2026-06-28",
+  "decl_first_commit": "fc77d9d26",
+  "layer_revisions": [
+   "2026-07-10"
+  ],
+  "max_layers": 3,
+  "n_commits": 12699,
+  "pushed": "2026-10-05",
+  "stars": 18
+ },
+ "invana/invana": {
+  "created": "2018-07-27",
+  "decl": "engine/pyproject.toml",
+  "decl_file_commits": 23,
+  "decl_first": "2026-09-19",
+  "decl_first_commit": "2167db5c8",
+  "layer_revisions": [
+   "2026-09-23"
+  ],
+  "max_layers": 12,
+  "n_commits": 2932,
+  "pushed": "2026-10-04",
+  "stars": 180
+ },
+ "kartverket/automatisk-generalisering": {
+  "created": "2023-11-08",
+  "decl": ".importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-10-02",
+  "decl_first_commit": "998abccf4",
+  "layer_revisions": [],
+  "max_layers": 7,
+  "n_commits": 1289,
+  "pushed": "2026-10-05",
+  "stars": 3
+ },
+ "kaxiluo/fastapi-skeleton": {
+  "created": "2022-06-28",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 2,
+  "decl_first": "2026-09-20",
+  "decl_first_commit": "1915e7547",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 33,
+  "pushed": "2026-09-20",
+  "stars": 225
+ },
+ "kedro-org/kedro": {
+  "created": "2019-04-18",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 196,
+  "decl_first": "2021-10-25",
+  "decl_first_commit": "f5fa4f367",
+  "layer_revisions": [
+   "2021-11-09",
+   "2023-09-22",
+   "2023-11-04",
+   "2023-11-08",
+   "2023-11-17",
+   "2023-11-21",
+   "2023-12-07",
+   "2023-12-07"
+  ],
+  "max_layers": 8,
+  "n_commits": 4416,
+  "pushed": "2026-10-05",
+  "stars": 11012
+ },
+ "langgenius/dify": {
+  "created": "2023-04-12",
+  "decl": "api/.importlinter",
+  "decl_file_commits": 103,
+  "decl_first": "2025-09-18",
+  "decl_first_commit": "85cda47c7",
+  "layer_revisions": [
+   "2025-11-26",
+   "2026-03-02",
+   "2026-03-25",
+   "2026-08-24"
+  ],
+  "max_layers": 4,
+  "n_commits": 13866,
+  "pushed": "2026-10-05",
+  "stars": 157888
+ },
+ "luiznaac/environments": {
+  "created": "2021-05-29",
+  "decl": "python/pyproject.toml",
+  "decl_file_commits": 1,
+  "decl_first": "2026-08-28",
+  "decl_first_commit": "5dbded7fa",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 63,
+  "pushed": "2026-09-21",
+  "stars": 0
+ },
+ "masrurimz/s2-thesis-kubernetes-serverless-integration": {
+  "created": "2024-09-21",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 18,
+  "decl_first": "2026-09-12",
+  "decl_first_commit": "e3ba3e0d4",
+  "layer_revisions": [],
+  "max_layers": 5,
+  "n_commits": 484,
+  "pushed": "2026-09-20",
+  "stars": 0
+ },
+ "mathmed/py-awesome-template": {
+  "created": "2024-01-04",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 11,
+  "decl_first": "2026-09-30",
+  "decl_first_commit": "2a5aa1777",
+  "layer_revisions": [],
+  "max_layers": 5,
+  "n_commits": 47,
+  "pushed": "2026-10-04",
+  "stars": 18
+ },
+ "mceq-project/MCEq": {
+  "created": "2015-02-17",
+  "decl": ".importlinter",
+  "decl_file_commits": 33,
+  "decl_first": "2026-08-31",
+  "decl_first_commit": "0249876ae",
+  "layer_revisions": [
+   "2026-08-31",
+   "2026-09-03",
+   "2026-09-06",
+   "2026-09-06",
+   "2026-09-06",
+   "2026-09-07",
+   "2026-09-09"
+  ],
+  "max_layers": 7,
+  "n_commits": 1008,
+  "pushed": "2026-10-05",
+  "stars": 36
+ },
+ "mctinker/Map-Tasker": {
+  "created": "2022-05-24",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 150,
+  "decl_first": "2026-09-24",
+  "decl_first_commit": "61e651871",
+  "layer_revisions": [
+   "2026-09-25",
+   "2026-09-25"
+  ],
+  "max_layers": 3,
+  "n_commits": 373,
+  "pushed": "2026-09-28",
+  "stars": 69
+ },
+ "meaningfy-ws/eds4jinja2": {
+  "created": "2020-08-07",
+  "decl": ".importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-06-19",
+  "decl_first_commit": "bea8da706",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 295,
+  "pushed": "2026-06-20",
+  "stars": 2
+ },
+ "meaningfy-ws/rdf-differ-ws": {
+  "created": "2020-07-06",
+  "decl": ".importlinter",
+  "decl_file_commits": 3,
+  "decl_first": "2026-06-18",
+  "decl_first_commit": "bfe198645",
+  "layer_revisions": [
+   "2026-06-19",
+   "2026-06-19"
+  ],
+  "max_layers": 4,
+  "n_commits": 678,
+  "pushed": "2026-10-01",
+  "stars": 8
+ },
+ "mlrun/mlrun": {
+  "created": "2019-09-01",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 48,
+  "decl_first": "2023-10-02",
+  "decl_first_commit": "656aa5497",
+  "layer_revisions": [
+   "2024-11-04",
+   "2024-11-07"
+  ],
+  "max_layers": 4,
+  "n_commits": 7975,
+  "pushed": "2026-10-05",
+  "stars": 1701
+ },
+ "mrKazzila/shortener-url-api": {
+  "created": "2023-08-04",
+  "decl": "backend/pyproject.toml",
+  "decl_file_commits": 46,
+  "decl_first": "2026-01-26",
+  "decl_first_commit": "244ef8a2f",
+  "layer_revisions": [
+   "2026-01-28"
+  ],
+  "max_layers": 3,
+  "n_commits": 445,
+  "pushed": "2026-03-20",
+  "stars": 1
+ },
+ "nilearn/nilearn": {
+  "created": "2011-01-09",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 273,
+  "decl_first": "2025-09-04",
+  "decl_first_commit": "83135d389",
+  "layer_revisions": [
+   "2025-09-11",
+   "2025-09-11",
+   "2025-09-23",
+   "2025-10-28",
+   "2025-10-28",
+   "2025-11-21",
+   "2026-01-19",
+   "2026-01-27",
+   "2026-06-12"
+  ],
+  "max_layers": 7,
+  "n_commits": 11773,
+  "pushed": "2026-10-02",
+  "stars": 1443
+ },
+ "nolar/kopf": {
+  "created": "2020-08-17",
+  "decl": ".importlinter",
+  "decl_file_commits": 2,
+  "decl_first": "2021-05-11",
+  "decl_first_commit": "22a2d62bd",
+  "layer_revisions": [],
+  "max_layers": 5,
+  "n_commits": 2179,
+  "pushed": "2026-10-05",
+  "stars": 2648
+ },
+ "open-edge-platform/geti": {
+  "created": "2018-10-26",
+  "decl": "application/backend/pyproject.toml",
+  "decl_file_commits": 68,
+  "decl_first": "2026-01-06",
+  "decl_first_commit": "20ee77902",
+  "layer_revisions": [
+   "2026-01-09",
+   "2026-03-03"
+  ],
+  "max_layers": 4,
+  "n_commits": 2911,
+  "pushed": "2026-10-05",
+  "stars": 1344
+ },
+ "open-metadata/OpenMetadata": {
+  "created": "2021-08-01",
+  "decl": "ingestion/.importlinter",
+  "decl_file_commits": 3,
+  "decl_first": "2026-08-03",
+  "decl_first_commit": "8a5106e2e",
+  "layer_revisions": [
+   "2026-09-21"
+  ],
+  "max_layers": 6,
+  "n_commits": 19420,
+  "pushed": "2026-10-05",
+  "stars": 15377
+ },
+ "openedx/openedx-core": {
+  "created": "2021-12-12",
+  "decl": ".importlinter",
+  "decl_file_commits": 14,
+  "decl_first": "2022-08-08",
+  "decl_first_commit": "a814740f6",
+  "layer_revisions": [
+   "2023-02-10",
+   "2023-05-11",
+   "2024-05-21",
+   "2024-09-19",
+   "2025-07-08",
+   "2025-07-31",
+   "2026-02-04",
+   "2026-02-13",
+   "2026-02-23",
+   "2026-03-26",
+   "2026-08-27",
+   "2026-09-25"
+  ],
+  "max_layers": 6,
+  "n_commits": 587,
+  "pushed": "2026-10-05",
+  "stars": 10
+ },
+ "openedx/openedx-platform": {
+  "created": "2013-05-30",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 32,
+  "decl_first": "2026-03-03",
+  "decl_first_commit": "b81a81cbd",
+  "layer_revisions": [],
+  "max_layers": 6,
+  "n_commits": 68776,
+  "pushed": "2026-10-05",
+  "stars": 8197
+ },
+ "pedrocr83/biotapy": {
+  "created": "2020-02-08",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 32,
+  "decl_first": "2026-09-26",
+  "decl_first_commit": "26312fcc8",
+  "layer_revisions": [],
+  "max_layers": 6,
+  "n_commits": 339,
+  "pushed": "2026-10-05",
+  "stars": 0
+ },
+ "psiexperiment/psiexperiment": {
+  "created": "2016-01-28",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 27,
+  "decl_first": "2026-07-10",
+  "decl_first_commit": "ee36a02b0",
+  "layer_revisions": [
+   "2026-09-30"
+  ],
+  "max_layers": 9,
+  "n_commits": 2018,
+  "pushed": "2026-10-01",
+  "stars": 11
+ },
+ "python-grimp/grimp": {
+  "created": "2018-11-05",
+  "decl": ".importlinter",
+  "decl_file_commits": 4,
+  "decl_first": "2025-08-01",
+  "decl_first_commit": "fe5db0f45",
+  "layer_revisions": [],
+  "max_layers": 5,
+  "n_commits": 666,
+  "pushed": "2026-10-02",
+  "stars": 134
+ },
+ "rAPIdy-org/rAPIdy": {
+  "created": "2024-02-28",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 57,
+  "decl_first": "2026-08-08",
+  "decl_first_commit": "c2233e3a0",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 191,
+  "pushed": "2026-08-09",
+  "stars": 100
+ },
+ "rafailmdzdv/ssaem": {
+  "created": "2023-10-27",
+  "decl": ".importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-08-08",
+  "decl_first_commit": "cd916ebc3",
+  "layer_revisions": [],
+  "max_layers": 6,
+  "n_commits": 202,
+  "pushed": "2026-09-28",
+  "stars": 1
+ },
+ "ramses-rf/ramses_rf": {
+  "created": "2019-11-25",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 208,
+  "decl_first": "2026-06-27",
+  "decl_first_commit": "c4707358b",
+  "layer_revisions": [
+   "2026-08-05"
+  ],
+  "max_layers": 10,
+  "n_commits": 7306,
+  "pushed": "2026-10-05",
+  "stars": 83
+ },
+ "seddonym/import-linter": {
+  "created": "2019-01-27",
+  "decl": ".importlinter",
+  "decl_file_commits": 6,
+  "decl_first": "2019-04-06",
+  "decl_first_commit": "42b5ef07a",
+  "layer_revisions": [
+   "2022-08-18",
+   "2022-09-29",
+   "2026-02-06"
+  ],
+  "max_layers": 8,
+  "n_commits": 543,
+  "pushed": "2026-09-16",
+  "stars": 1207
+ },
+ "seddonym/impulse": {
+  "created": "2019-02-01",
+  "decl": ".importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2025-12-16",
+  "decl_first_commit": "f0559b269",
+  "layer_revisions": [],
+  "max_layers": 5,
+  "n_commits": 87,
+  "pushed": "2026-01-16",
+  "stars": 51
+ },
+ "shalomb/terrapyne": {
+  "created": "2024-10-05",
+  "decl": ".importlinter",
+  "decl_file_commits": 3,
+  "decl_first": "2026-04-16",
+  "decl_first_commit": "398bb6796",
+  "layer_revisions": [
+   "2026-04-25"
+  ],
+  "max_layers": 5,
+  "n_commits": 129,
+  "pushed": "2026-06-20",
+  "stars": 1
+ },
+ "sirosen/mddj": {
+  "created": "2023-08-22",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 48,
+  "decl_first": "2025-11-28",
+  "decl_first_commit": "0fd0fc220",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 247,
+  "pushed": "2026-09-30",
+  "stars": 3
+ },
+ "skarzi/drf-exception-dispatcher": {
+  "created": "2021-01-31",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 48,
+  "decl_first": "2026-09-07",
+  "decl_first_commit": "5d49bee41",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 103,
+  "pushed": "2026-10-05",
+  "stars": 0
+ },
+ "sqlfluff/sqlfluff": {
+  "created": "2018-11-01",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 89,
+  "decl_first": "2023-11-06",
+  "decl_first_commit": "ef7ac7ac2",
+  "layer_revisions": [
+   "2024-09-28"
+  ],
+  "max_layers": 6,
+  "n_commits": 7063,
+  "pushed": "2026-10-05",
+  "stars": 9935
+ },
+ "tcprescott/sahasrahbot": {
+  "created": "2019-03-29",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 31,
+  "decl_first": "2026-06-25",
+  "decl_first_commit": "161e589f7",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 2391,
+  "pushed": "2026-07-07",
+  "stars": 28
+ },
+ "thekaveh/LinguAI": {
+  "created": "2024-02-06",
+  "decl": "frontend/pyproject.toml",
+  "decl_file_commits": 18,
+  "decl_first": "2026-05-31",
+  "decl_first_commit": "67fa99cf0",
+  "layer_revisions": [],
+  "max_layers": 4,
+  "n_commits": 529,
+  "pushed": "2026-06-17",
+  "stars": 1
+ },
+ "tilde-lab/yascheduler": {
+  "created": "2019-11-20",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 77,
+  "decl_first": "2026-06-19",
+  "decl_first_commit": "de4197080",
+  "layer_revisions": [
+   "2026-06-23",
+   "2026-06-23",
+   "2026-06-24"
+  ],
+  "max_layers": 5,
+  "n_commits": 887,
+  "pushed": "2026-10-01",
+  "stars": 5
+ },
+ "truenas/middleware": {
+  "created": "2013-03-07",
+  "decl": "src/middlewared/setup.cfg",
+  "decl_file_commits": 12,
+  "decl_first": "2026-09-09",
+  "decl_first_commit": "375edfbcc",
+  "layer_revisions": [],
+  "max_layers": 5,
+  "n_commits": 41398,
+  "pushed": "2026-10-05",
+  "stars": 2602
+ },
+ "unicef/hope-dedup-engine": {
+  "created": "2024-02-05",
+  "decl": ".importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-01-19",
+  "decl_first_commit": "c1b38d1cc",
+  "layer_revisions": [],
+  "max_layers": 7,
+  "n_commits": 741,
+  "pushed": "2026-10-05",
+  "stars": 2
+ },
+ "unicef/hope-payment-gateway": {
+  "created": "2023-06-23",
+  "decl": ".importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2025-10-30",
+  "decl_first_commit": "765fb1cf3",
+  "layer_revisions": [],
+  "max_layers": 9,
+  "n_commits": 876,
+  "pushed": "2026-10-05",
+  "stars": 2
+ },
+ "usethis-python/usethis-python": {
+  "created": "2024-08-13",
+  "decl": ".importlinter",
+  "decl_file_commits": 16,
+  "decl_first": "2026-01-06",
+  "decl_first_commit": "c003b45ff",
+  "layer_revisions": [
+   "2026-02-10",
+   "2026-03-10",
+   "2026-03-13",
+   "2026-03-21",
+   "2026-03-22",
+   "2026-03-23",
+   "2026-03-23",
+   "2026-03-23",
+   "2026-03-25",
+   "2026-03-25",
+   "2026-03-25",
+   "2026-04-02",
+   "2026-04-05",
+   "2026-04-07"
+  ],
+  "max_layers": 16,
+  "n_commits": 863,
+  "pushed": "2026-09-02",
+  "stars": 19
+ },
+ "vakasyanov81/priceformation": {
+  "created": "2022-11-06",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 181,
+  "decl_first": "2026-10-02",
+  "decl_first_commit": "2378eec2f",
+  "layer_revisions": [],
+  "max_layers": 5,
+  "n_commits": 669,
+  "pushed": "2026-10-05",
+  "stars": 1
+ },
+ "vllm-project/guidellm": {
+  "created": "2024-05-29",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 94,
+  "decl_first": "2026-08-26",
+  "decl_first_commit": "8c698bede",
+  "layer_revisions": [
+   "2026-08-27"
+  ],
+  "max_layers": 9,
+  "n_commits": 1315,
+  "pushed": "2026-10-05",
+  "stars": 1660
+ },
+ "walterfan/lazy-rabbit-agent": {
+  "created": "2024-08-25",
+  "decl": "backend/.importlinter",
+  "decl_file_commits": 1,
+  "decl_first": "2026-08-01",
+  "decl_first_commit": "d2d6dd74d",
+  "layer_revisions": [],
+  "max_layers": 3,
+  "n_commits": 42,
+  "pushed": "2026-08-01",
+  "stars": 1
+ },
+ "wemake-services/wemake-python-styleguide": {
+  "created": "2018-03-09",
+  "decl": ".importlinter",
+  "decl_file_commits": 18,
+  "decl_first": "2019-07-28",
+  "decl_first_commit": "98d22864e",
+  "layer_revisions": [
+   "2019-12-18"
+  ],
+  "max_layers": 11,
+  "n_commits": 3222,
+  "pushed": "2026-10-05",
+  "stars": 2918
+ },
+ "wojciechpolak/glifestream": {
+  "created": "2011-08-20",
+  "decl": "pyproject.toml",
+  "decl_file_commits": 33,
+  "decl_first": "2026-09-23",
+  "decl_first_commit": "f7f02275c",
+  "layer_revisions": [],
+  "max_layers": 14,
+  "n_commits": 506,
+  "pushed": "2026-09-30",
+  "stars": 6
+ }
+}

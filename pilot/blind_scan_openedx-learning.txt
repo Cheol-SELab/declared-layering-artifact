@@ -1,0 +1,85 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2023-01-01       6     6   1  0.75  3.75   0   0  YES 2023-02-10
+2023-04-01       3     5   1  0.29  0.57   0   0  YES 2023-04-19
+2023-07-01       8     6   2  0.50  1.20   0   0  -
+2023-10-01       8     6   2  0.55  1.31   0   0  -
+2024-01-01      15     6   2  0.64  1.29   0   0  -
+2024-04-01      19     6   3  0.73  1.38   0   0  YES 2024-04-23
+2024-07-01      14     8   2  0.70  1.31   0   0  YES 2024-09-19
+2024-10-01      26     9   0  0.78  1.46   0   0  -
+2025-01-01      29     9   0  0.57  1.07   0   0  -
+2025-04-01      29    10   1  0.50  0.94   1   0  -
+2025-07-01      36    12   0  0.60  1.12   3   0  YES 2025-07-08,2025-07-31
+2025-10-01      38    13   2  0.60  1.12   3   0  -
+2026-01-01      41    13   2  0.80  1.50   3   0  YES 2026-02-04,2026-02-13,2026-02-18,2026-03-26
+2026-04-01      45    17   1  0.35  1.00   5   0  -
+2026-07-01      66    19   3  0.36  0.85   5   0  YES 2026-08-27,2026-09-25
+2026-10-01      53    21   2  0.38  0.91   5   0  -
+
+== details ==
+
+2023-01-01 (f8cba42)  top changed: [('publishing', 6), ('lib', 3), ('composition', 3)]
+   hidden: composition ~ publishing  sup=3 conf=1.0
+
+2023-04-01 (b7acb82)  top changed: [('core', 3), ('publishing', 3), ('contrib', 2)]
+   hidden: core ~ publishing  sup=3 conf=1.0
+
+2023-07-01 (821a53c)  top changed: [('publishing', 6), ('lib', 6), ('components', 5)]
+   hidden: contrib ~ publishing  sup=3 conf=0.75
+   hidden: contrib ~ lib  sup=4 conf=1.0
+
+2023-10-01 (0c4ca76)  top changed: [('components', 6), ('publishing', 6), ('lib', 6)]
+   hidden: contrib ~ publishing  sup=3 conf=0.75
+   hidden: contrib ~ lib  sup=4 conf=1.0
+
+2024-01-01 (0f90a7f)  top changed: [('publishing', 11), ('lib', 9), ('components', 8)]
+   hidden: contrib ~ publishing  sup=3 conf=0.75
+   hidden: contrib ~ lib  sup=4 conf=1.0
+
+2024-04-01 (a800b68)  top changed: [('publishing', 13), ('components', 12), ('lib', 11)]
+   hidden: contrib ~ lib  sup=4 conf=1.0
+   hidden: contrib ~ contents  sup=3 conf=0.75
+   hidden: contrib ~ publishing  sup=3 conf=0.75
+
+2024-07-01 (6a4cfc7)  top changed: [('publishing', 10), ('components', 9), ('lib', 7)]
+   hidden: contents ~ contrib  sup=3 conf=1.0
+   hidden: publishing ~ contrib  sup=3 conf=1.0
+
+2024-10-01 (6a72ab6)  top changed: [('publishing', 13), ('components', 12), ('lib', 7)]
+
+2025-01-01 (c24a8e1)  top changed: [('components', 15), ('publishing', 11), ('contents', 8)]
+
+2025-04-01 (98b8d15)  top changed: [('components', 13), ('publishing', 13), ('collections', 7)]
+   hidden: authoring ~ components  sup=3 conf=0.75
+   uncovered: ['units']
+
+2025-07-01 (a1f689e)  top changed: [('publishing', 18), ('components', 13), ('collections', 8)]
+   uncovered: ['sections', 'subsections', 'units']
+
+2025-10-01 (2644032)  top changed: [('publishing', 21), ('backup_restore', 15), ('components', 9)]
+   hidden: authoring ~ publishing  sup=3 conf=0.75
+   hidden: sections ~ units  sup=4 conf=0.8
+   uncovered: ['sections', 'subsections', 'units']
+
+2026-01-01 (335067d)  top changed: [('backup_restore', 23), ('publishing', 21), ('units', 10)]
+   hidden: authoring ~ publishing  sup=3 conf=0.75
+   hidden: sections ~ units  sup=5 conf=0.83
+   uncovered: ['sections', 'subsections', 'units']
+
+2026-04-01 (435f380)  top changed: [('backup_restore', 23), ('publishing', 16), ('management', 10)]
+   hidden: sections ~ units  sup=4 conf=0.8
+   uncovered: ['sections', 'subsections', 'units', 'backcompat', 'management']
+
+2026-07-01 (6d50ec1)  top changed: [('backup_restore', 32), ('publishing', 23), ('openedx_tagging', 15)]
+   hidden: sections ~ units  sup=4 conf=1.0
+   hidden: units ~ openedx_django_lib  sup=3 conf=0.5
+   hidden: collections ~ components  sup=3 conf=0.5
+   uncovered: ['sections', 'subsections', 'units', 'backcompat', 'management']
+
+2026-10-01 (da6e5f9)  top changed: [('openedx_tagging', 19), ('backup_restore', 15), ('publishing', 14)]
+   hidden: collections ~ components  sup=3 conf=0.5
+   hidden: components ~ management  sup=4 conf=0.57
+   uncovered: ['sections', 'subsections', 'units', 'backcompat', 'management']
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=6 FP=8 FN=1 TN=1  precision=0.43 recall=0.86  base rate=0.44

@@ -1,0 +1,2 @@
+C:\vdm\l4\kopf\runs\C_bad8649_replay 0
+{"cond": "C", "task": "bad8649", "rep": "replay", "changed_code_files": 1, "lines_changed": 64, "units_own": 1, "units_Aframe": 1, "spec_intact": true, "lint_broken": 0, "full_counts": {"passed": 6966, "failed": 0, "skipped": 0}}

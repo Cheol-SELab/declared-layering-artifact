@@ -1,0 +1,214 @@
+snapshot   commits units  S1    S2  S3  up  decl-change next Q
+2020-01-01     254    11   9  0.14   0   0  -
+2020-04-01     296    11   8  0.17   0   0  -
+2020-07-01     280    11   9  0.16   0   0  -
+2020-10-01     202    11   7  0.18   0   0  -
+2021-01-01     164    11   7  0.19   0   0  -
+2021-04-01     112    11   6  0.14   0   0  -
+2021-07-01     122    11   6  0.14   0   0  -
+2021-10-01      98    11   7  0.10   0   0  -
+2022-01-01      72    11   2  0.08   0   0  -
+2022-04-01      44    11   1  0.11   0   0  -
+2022-07-01      39    11   1  0.13   0   0  -
+2022-10-01      32    11   2  0.19   0   0  -
+2023-01-01      31    11   1  0.27   0   0  -
+2023-04-01      28    11   1  0.24   0   0  -
+2023-07-01      26    11   1  0.26   0   0  -
+2023-10-01      18    11   0  0.27   0   0  -
+2024-01-01       9    11   0  0.20   0   0  -
+2024-04-01      25    11   5  0.21   0   0  -
+2024-07-01      24    11   2  0.19   0   0  -
+2024-10-01      27    11   2  0.16   0   0  -
+2025-01-01     106    11   9  0.11   0   0  -
+2025-04-01      97    11  10  0.09   0   0  -
+2025-07-01     106    11   9  0.09   0   0  -
+2025-10-01     113    11  10  0.10   0   0  -
+2026-01-01      36    11   3  0.10   0   0  -
+2026-04-01      39    11   2  0.07   0   0  -
+2026-07-01      34    11   2  0.07   0   0  -
+2026-10-01      50    11   2  0.03   0   0  -
+
+== details ==
+
+2020-01-01 (02e423c)  top changed: [('visitors', 200), ('violations', 164), ('logic', 65)]
+   hidden: checker ~ violations  sup=12 conf=0.55
+   hidden: checker ~ visitors  sup=13 conf=0.59
+   hidden: options ~ visitors  sup=22 conf=0.69
+   hidden: presets ~ violations  sup=45 conf=0.9
+   hidden: constants ~ violations  sup=19 conf=0.76
+   hidden: logic ~ violations  sup=42 conf=0.65
+   hidden: transformations ~ visitors  sup=8 conf=0.73
+   hidden: types ~ violations  sup=21 conf=0.91
+   hidden: options ~ violations  sup=22 conf=0.69
+
+2020-04-01 (a0e4107)  top changed: [('visitors', 226), ('violations', 178), ('logic', 82)]
+   hidden: presets ~ violations  sup=44 conf=0.9
+   hidden: constants ~ violations  sup=20 conf=0.74
+   hidden: checker ~ violations  sup=8 conf=0.53
+   hidden: options ~ violations  sup=24 conf=0.67
+   hidden: options ~ visitors  sup=24 conf=0.67
+   hidden: types ~ violations  sup=23 conf=0.85
+   hidden: logic ~ violations  sup=48 conf=0.59
+   hidden: transformations ~ visitors  sup=11 conf=0.85
+
+2020-07-01 (a0e4107)  top changed: [('visitors', 213), ('violations', 167), ('logic', 77)]
+   hidden: logic ~ violations  sup=45 conf=0.58
+   hidden: presets ~ violations  sup=40 conf=0.89
+   hidden: transformations ~ violations  sup=6 conf=0.5
+   hidden: transformations ~ visitors  sup=11 conf=0.92
+   hidden: types ~ violations  sup=20 conf=0.83
+   hidden: options ~ violations  sup=21 conf=0.64
+   hidden: options ~ visitors  sup=21 conf=0.64
+   hidden: checker ~ violations  sup=6 conf=0.5
+   hidden: constants ~ violations  sup=16 conf=0.73
+
+2020-10-01 (a95f04d)  top changed: [('visitors', 133), ('violations', 111), ('logic', 47)]
+   hidden: constants ~ violations  sup=12 conf=0.6
+   hidden: options ~ violations  sup=10 conf=0.53
+   hidden: options ~ visitors  sup=10 conf=0.53
+   hidden: types ~ violations  sup=12 conf=0.8
+   hidden: presets ~ violations  sup=24 conf=0.89
+   hidden: formatter ~ visitors  sup=3 conf=0.75
+   hidden: transformations ~ visitors  sup=4 conf=0.67
+
+2021-01-01 (3527918)  top changed: [('visitors', 105), ('violations', 87), ('logic', 41)]
+   hidden: logic ~ options  sup=6 conf=0.6
+   hidden: logic ~ violations  sup=21 conf=0.51
+   hidden: options ~ violations  sup=7 conf=0.7
+   hidden: options ~ visitors  sup=8 conf=0.8
+   hidden: types ~ violations  sup=10 conf=0.77
+   hidden: presets ~ violations  sup=16 conf=0.89
+   hidden: transformations ~ visitors  sup=5 conf=0.71
+
+2021-04-01 (8e21514)  top changed: [('visitors', 69), ('violations', 62), ('logic', 27)]
+   hidden: types ~ violations  sup=7 conf=1.0
+   hidden: options ~ violations  sup=4 conf=1.0
+   hidden: options ~ visitors  sup=4 conf=1.0
+   hidden: presets ~ types  sup=4 conf=0.57
+   hidden: presets ~ violations  sup=14 conf=0.93
+   hidden: logic ~ violations  sup=16 conf=0.59
+
+2021-07-01 (aa04247)  top changed: [('visitors', 77), ('violations', 63), ('logic', 30)]
+   hidden: types ~ violations  sup=7 conf=0.88
+   hidden: options ~ violations  sup=4 conf=1.0
+   hidden: options ~ visitors  sup=4 conf=1.0
+   hidden: presets ~ types  sup=4 conf=0.5
+   hidden: presets ~ violations  sup=14 conf=0.93
+   hidden: logic ~ violations  sup=16 conf=0.53
+
+2021-10-01 (035c786)  top changed: [('visitors', 72), ('violations', 46), ('logic', 29)]
+   hidden: presets ~ violations  sup=13 conf=0.93
+   hidden: logic ~ violations  sup=15 conf=0.52
+   hidden: presets ~ types  sup=3 conf=0.5
+   hidden: types ~ violations  sup=5 conf=0.83
+   hidden: options ~ violations  sup=3 conf=0.75
+   hidden: options ~ visitors  sup=4 conf=1.0
+   hidden: constants ~ violations  sup=3 conf=0.75
+
+2022-01-01 (cbb1649)  top changed: [('visitors', 53), ('violations', 30), ('logic', 22)]
+   hidden: presets ~ violations  sup=7 conf=1.0
+   hidden: constants ~ violations  sup=3 conf=1.0
+
+2022-04-01 (9a3c14b)  top changed: [('visitors', 29), ('violations', 17), ('logic', 14)]
+   hidden: presets ~ violations  sup=3 conf=1.0
+
+2022-07-01 (f30f29c)  top changed: [('visitors', 24), ('violations', 17), ('logic', 12)]
+   hidden: presets ~ violations  sup=3 conf=1.0
+
+2022-10-01 (a9fba6c)  top changed: [('visitors', 18), ('violations', 17), ('logic', 10)]
+   hidden: presets ~ violations  sup=4 conf=1.0
+   hidden: constants ~ violations  sup=3 conf=0.75
+
+2023-01-01 (e4a9e63)  top changed: [('visitors', 14), ('violations', 11), ('options', 6)]
+   hidden: presets ~ violations  sup=3 conf=1.0
+
+2023-04-01 (52c7c4e)  top changed: [('visitors', 15), ('violations', 11), ('options', 5)]
+   hidden: presets ~ violations  sup=3 conf=1.0
+
+2023-07-01 (f78003b)  top changed: [('visitors', 16), ('violations', 9), ('options', 5)]
+   hidden: presets ~ violations  sup=3 conf=1.0
+
+2023-10-01 (d1d6f95)  top changed: [('visitors', 11), ('violations', 4), ('options', 3)]
+
+2024-01-01 (36425c7)  top changed: [('visitors', 6), ('logic', 3), ('violations', 2)]
+
+2024-04-01 (14b0553)  top changed: [('visitors', 20), ('violations', 12), ('logic', 9)]
+   hidden: compat ~ options  sup=3 conf=1.0
+   hidden: compat ~ violations  sup=5 conf=0.71
+   hidden: logic ~ options  sup=3 conf=1.0
+   hidden: logic ~ violations  sup=6 conf=0.67
+   hidden: options ~ visitors  sup=3 conf=1.0
+
+2024-07-01 (29b38ef)  top changed: [('visitors', 17), ('violations', 13), ('logic', 8)]
+   hidden: logic ~ violations  sup=5 conf=0.62
+   hidden: compat ~ violations  sup=4 conf=0.67
+
+2024-10-01 (ccbc6c1)  top changed: [('visitors', 19), ('violations', 14), ('logic', 7)]
+   hidden: logic ~ violations  sup=5 conf=0.71
+   hidden: compat ~ violations  sup=4 conf=0.67
+
+2025-01-01 (a927309)  top changed: [('visitors', 89), ('violations', 66), ('logic', 50)]
+   hidden: compat ~ violations  sup=6 conf=0.55
+   hidden: logic ~ violations  sup=32 conf=0.64
+   hidden: options ~ violations  sup=8 conf=0.8
+   hidden: types ~ violations  sup=5 conf=0.83
+   hidden: presets ~ violations  sup=16 conf=0.94
+   hidden: logic ~ presets  sup=9 conf=0.53
+   hidden: transformations ~ visitors  sup=3 conf=0.75
+   hidden: options ~ types  sup=4 conf=0.67
+   hidden: presets ~ types  sup=3 conf=0.5
+
+2025-04-01 (8260e0f)  top changed: [('visitors', 81), ('violations', 62), ('logic', 45)]
+   hidden: presets ~ violations  sup=18 conf=1.0
+   hidden: logic ~ presets  sup=9 conf=0.5
+   hidden: logic ~ violations  sup=29 conf=0.64
+   hidden: transformations ~ visitors  sup=3 conf=0.75
+   hidden: compat ~ violations  sup=3 conf=0.5
+   hidden: options ~ violations  sup=7 conf=0.88
+   hidden: options ~ types  sup=4 conf=0.8
+   hidden: types ~ violations  sup=4 conf=0.8
+   hidden: options ~ presets  sup=4 conf=0.5
+   hidden: presets ~ types  sup=3 conf=0.6
+
+2025-07-01 (1c4de0d)  top changed: [('visitors', 91), ('violations', 66), ('logic', 47)]
+   hidden: presets ~ violations  sup=22 conf=1.0
+   hidden: logic ~ violations  sup=29 conf=0.62
+   hidden: transformations ~ visitors  sup=3 conf=0.75
+   hidden: compat ~ violations  sup=3 conf=0.5
+   hidden: options ~ violations  sup=8 conf=0.89
+   hidden: options ~ types  sup=4 conf=0.8
+   hidden: types ~ violations  sup=4 conf=0.8
+   hidden: options ~ presets  sup=5 conf=0.56
+   hidden: presets ~ types  sup=3 conf=0.6
+
+2025-10-01 (d1e88df)  top changed: [('visitors', 98), ('violations', 74), ('logic', 51)]
+   hidden: presets ~ violations  sup=26 conf=1.0
+   hidden: logic ~ violations  sup=32 conf=0.63
+   hidden: transformations ~ visitors  sup=3 conf=0.75
+   hidden: constants ~ violations  sup=3 conf=0.6
+   hidden: compat ~ violations  sup=3 conf=0.5
+   hidden: options ~ violations  sup=11 conf=0.92
+   hidden: options ~ types  sup=4 conf=0.8
+   hidden: types ~ violations  sup=4 conf=0.8
+   hidden: options ~ presets  sup=6 conf=0.5
+   hidden: presets ~ types  sup=3 conf=0.6
+
+2026-01-01 (4053594)  top changed: [('visitors', 30), ('violations', 21), ('presets', 10)]
+   hidden: logic ~ violations  sup=4 conf=0.5
+   hidden: presets ~ violations  sup=10 conf=1.0
+   hidden: options ~ violations  sup=4 conf=1.0
+
+2026-04-01 (d8aa58d)  top changed: [('visitors', 33), ('violations', 22), ('logic', 11)]
+   hidden: presets ~ violations  sup=8 conf=1.0
+   hidden: options ~ violations  sup=4 conf=1.0
+
+2026-07-01 (cdbf0ff)  top changed: [('visitors', 28), ('violations', 20), ('logic', 11)]
+   hidden: options ~ violations  sup=3 conf=1.0
+   hidden: presets ~ violations  sup=4 conf=1.0
+
+2026-10-01 (d05a03b)  top changed: [('visitors', 38), ('violations', 28), ('logic', 17)]
+   hidden: logic ~ violations  sup=10 conf=0.59
+   hidden: compat ~ violations  sup=3 conf=1.0
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=0 FP=21 FN=0 TN=7  precision=0.00 recall=0.00  base rate=0.00

@@ -1,0 +1,10 @@
+{
+ "repo": "kedro",
+ "cond": "C",
+ "task": "0cd8ecc",
+ "parent": "61472ab8764901882f0840fe52e95ffee61963ed",
+ "refactor_commit": "7afc1db98ce6170fe6f09cf9b7a9529a7c77c996",
+ "cherry_pick_rc": 1,
+ "cherry_pick_out": "re.py\nCONFLICT (content): Merge conflict in kedro/io/core.py\nAuto-merging pyproject.toml\nCONFLICT (content): Merge conflict in pyproject.toml\nAuto-merging tests/io/test_data_catalog.py\nAuto-merging tests/io/test_incremental_dataset.py\nCONFLICT (content): Merge conflict in tests/io/test_incremental_dataset.py\nAuto-merging tests/io/test_partitioned_dataset.py\nCONFLICT (content): Merge conflict in tests/io/test_partitioned_dataset.py\nerror: could not apply 7afc1db9... vdm condition C refactoring\nhint: After resolving the conflicts, mark them with\nhint: \"git add/rm <pathspec>\", then run\nhint: \"git cherry-pick --continue\".\nhint: You can instead skip this commit with \"git cherry-pick --skip\".\nhint: To abort and get back to the state before \"git cherry-pick\",\nhint: run \"git cherry-pick --abort\".\n",
+ "resolved": "unresolvable conflicts: ['kedro/io/core.py', 'pyproject.toml', 'tests/io/test_incremental_dataset.py', 'tests/io/test_partitioned_dataset.py']"
+}

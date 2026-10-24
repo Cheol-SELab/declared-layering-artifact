@@ -1,0 +1,106 @@
+snapshot   commits units  S1    S2  S3  up  decl-change next Q
+2021-07-01     259    17   7  0.48   0   0  -
+2021-10-01     228    17   8  0.46   0   0  -
+2022-01-01     156    17   6  0.47   0   0  -
+2022-04-01      79    17   4  0.45   0   0  -
+2022-07-01      34    17   0  0.35   0   0  -
+2022-10-01      15    17   0  0.30   0   0  -
+2023-01-01       7    17   0  0.25   0   0  -
+2023-04-01      14    17   0  0.38   0   0  -
+2023-07-01      15    17   0  0.38   0   0  -
+2023-10-01      14    17   0  0.47   0   0  -
+2024-01-01      18    17   3  0.50   0   0  -
+2024-04-01      22    17   3  0.48   0   0  -
+2024-07-01      19    17   3  0.47   0   0  -
+2024-10-01      14    17   0  0.46   0   0  -
+2025-01-01      11    17   0  0.44   0   0  -
+2025-04-01      11    17   0  0.50   0   0  -
+2025-07-01      16    17   0  0.44   0   0  -
+2025-10-01      16    17   0  0.44   0   0  -
+2026-01-01      25    17   0  0.64   0   0  -
+2026-04-01     116    17   0  0.51   0   0  -
+2026-07-01     124    17   0  0.50   0   0  -
+2026-10-01     121    17   0  0.50   0   0  -
+
+== details ==
+
+2021-07-01 (0801a44)  top changed: [('reactor', 92), ('intents', 84), ('engines', 68)]
+   hidden: diffbase ~ progress  sup=6 conf=0.75
+   hidden: configuration ~ reactor  sup=7 conf=0.58
+   hidden: conventions ~ progress  sup=5 conf=0.62
+   hidden: conventions ~ diffbase  sup=4 conf=0.5
+   hidden: configuration ~ engines  sup=6 conf=0.5
+   hidden: actions ~ on  sup=14 conf=0.52
+   hidden: intents ~ on  sup=16 conf=0.59
+
+2021-10-01 (c1745b7)  top changed: [('reactor', 86), ('intents', 81), ('engines', 67)]
+   hidden: configuration ~ engines  sup=6 conf=0.6
+   hidden: configuration ~ reactor  sup=5 conf=0.5
+   hidden: progress ~ actions  sup=4 conf=0.57
+   hidden: actions ~ on  sup=14 conf=0.54
+   hidden: intents ~ on  sup=17 conf=0.65
+   hidden: conventions ~ diffbase  sup=3 conf=1.0
+   hidden: conventions ~ progress  sup=3 conf=0.6
+   hidden: diffbase ~ progress  sup=3 conf=1.0
+
+2022-01-01 (06d0094)  top changed: [('reactor', 58), ('intents', 56), ('engines', 46)]
+   hidden: actions ~ on  sup=8 conf=0.73
+   hidden: intents ~ on  sup=10 conf=0.91
+   hidden: clients ~ configuration  sup=3 conf=0.6
+   hidden: configuration ~ engines  sup=3 conf=0.6
+   hidden: configuration ~ reactor  sup=3 conf=0.6
+   hidden: reactor ~ on  sup=6 conf=0.55
+
+2022-04-01 (3ba176b)  top changed: [('reactor', 34), ('intents', 29), ('engines', 27)]
+   hidden: actions ~ on  sup=4 conf=0.8
+   hidden: engines ~ on  sup=4 conf=0.8
+   hidden: intents ~ on  sup=4 conf=0.8
+   hidden: reactor ~ on  sup=4 conf=0.8
+
+2022-07-01 (668f315)  top changed: [('structs', 11), ('engines', 10), ('reactor', 8)]
+
+2022-10-01 (5d2b9a1)  top changed: [('structs', 6), ('_kits', 5), ('engines', 5)]
+
+2023-01-01 (286b74e)  top changed: [('engines', 5), ('structs', 3), ('clients', 2)]
+
+2023-04-01 (af3863d)  top changed: [('structs', 6), ('engines', 6), ('reactor', 4)]
+
+2023-07-01 (91c289c)  top changed: [('engines', 6), ('structs', 4), ('_kits', 3)]
+
+2023-10-01 (4dacd62)  top changed: [('engines', 6), ('structs', 4), ('intents', 4)]
+
+2024-01-01 (83c5d26)  top changed: [('engines', 7), ('clients', 6), ('actions', 5)]
+   hidden: structs ~ on  sup=3 conf=1.0
+   hidden: engines ~ on  sup=3 conf=1.0
+   hidden: intents ~ on  sup=3 conf=1.0
+
+2024-04-01 (be20ea5)  top changed: [('engines', 10), ('clients', 7), ('structs', 6)]
+   hidden: structs ~ on  sup=3 conf=1.0
+   hidden: engines ~ on  sup=3 conf=1.0
+   hidden: intents ~ on  sup=3 conf=1.0
+
+2024-07-01 (073cb54)  top changed: [('engines', 9), ('clients', 6), ('structs', 6)]
+   hidden: structs ~ on  sup=3 conf=1.0
+   hidden: engines ~ on  sup=3 conf=1.0
+   hidden: intents ~ on  sup=3 conf=1.0
+
+2024-10-01 (073cb54)  top changed: [('engines', 6), ('structs', 4), ('clients', 4)]
+
+2025-01-01 (da5e5fb)  top changed: [('engines', 4), ('clients', 4), ('intents', 2)]
+
+2025-04-01 (6489127)  top changed: [('clients', 3), ('engines', 3), ('intents', 2)]
+
+2025-07-01 (ca3e0d0)  top changed: [('clients', 6), ('engines', 4), ('_kits', 3)]
+
+2025-10-01 (ca3e0d0)  top changed: [('clients', 6), ('engines', 4), ('_kits', 3)]
+
+2026-01-01 (51b664f)  top changed: [('_kits', 6), ('structs', 6), ('diffbase', 6)]
+
+2026-04-01 (e3c65ae)  top changed: [('structs', 33), ('clients', 27), ('actions', 24)]
+
+2026-07-01 (82e08b5)  top changed: [('structs', 33), ('clients', 27), ('actions', 25)]
+
+2026-10-01 (1dcddf9)  top changed: [('structs', 33), ('clients', 27), ('actions', 25)]
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=0 FP=8 FN=0 TN=14  precision=0.00 recall=0.00  base rate=0.00

@@ -1,0 +1,14 @@
+
+== declared units, own declaration (units_own); unit of analysis = task (mean of three runs per condition)
+  kopf: tasks=10 non-zero=1 mean diff=-0.033 exact Wilcoxon p=1.000 (smallest attainable 1.000) sign test p=1.000
+    per task: 017dbe0 +0.00, 20de08c +0.00, 51c078d -0.33, 624c6d2 +0.00, 91f7ae0 +0.00, 956cd65 +0.00, a6403c4 +0.00, bad8649 +0.00, e2c7056 +0.00, f325f02 +0.00
+  kedro: tasks=6 non-zero=3 mean diff=+0.444 exact Wilcoxon p=0.250 (smallest attainable 0.250) sign test p=0.250
+    per task: 2297d23 +1.00, 2f526b6 +0.00, 3f2a226 +0.67, 60f676e +1.00, 69a6fe1 +0.00, ab576bc +0.00
+  pooled: tasks=16 non-zero=4 mean diff=+0.146 exact Wilcoxon p=0.250 (smallest attainable 0.1250) sign test p=0.625
+
+== declared units, A-frame (units_Aframe); unit of analysis = task (mean of three runs per condition)
+  kopf: tasks=10 non-zero=1 mean diff=-0.033 exact Wilcoxon p=1.000 (smallest attainable 1.000) sign test p=1.000
+    per task: 017dbe0 +0.00, 20de08c +0.00, 51c078d -0.33, 624c6d2 +0.00, 91f7ae0 +0.00, 956cd65 +0.00, a6403c4 +0.00, bad8649 +0.00, e2c7056 +0.00, f325f02 +0.00
+  kedro: tasks=6 non-zero=0 mean diff=+0.000 exact Wilcoxon p=1.000 (smallest attainable 1.000) sign test p=1.000
+    per task: 2297d23 +0.00, 2f526b6 +0.00, 3f2a226 +0.00, 60f676e +0.00, 69a6fe1 +0.00, ab576bc +0.00
+  pooled: tasks=16 non-zero=1 mean diff=-0.021 exact Wilcoxon p=1.000 (smallest attainable 1.0000) sign test p=1.000

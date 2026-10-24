@@ -1,0 +1,2 @@
+C:\vdm\l4\kopf\runs\A_e2c7056_replay 0
+{"cond": "A", "task": "e2c7056", "rep": "replay", "changed_code_files": 4, "lines_changed": 32, "units_own": 4, "units_Aframe": 4, "spec_intact": true, "lint_broken": 0, "full_counts": {"passed": 6984, "failed": 2, "skipped": 0}}

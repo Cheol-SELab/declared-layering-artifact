@@ -1,0 +1,47 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2025-01-01     172     6   3  0.81  0.97   0   0  -
+2025-04-01     202     6   3  0.81  0.94   0   0  -
+2025-07-01     169     6   3  0.78  0.95   0   0  -
+2025-10-01     157     6   2  0.82  1.01   0   0  -
+2026-01-01     147     6   1  0.82  1.02   0   0  YES 2026-02-17
+2026-04-01     116     6   1  0.30  1.25   0   0  -
+2026-07-01     106     6   2  0.29  1.18   0   0  -
+2026-10-01     109     6   2  0.36  1.45   0   0  -
+
+== details ==
+
+2025-01-01 (c781e27)  top changed: [('epics', 106), ('core', 89), ('fastcs', 33)]
+   hidden: epics ~ sim  sup=18 conf=0.75
+   hidden: fastcs ~ sim  sup=12 conf=0.5
+   hidden: epics ~ tango  sup=5 conf=0.56
+
+2025-04-01 (2984ea4)  top changed: [('epics', 129), ('core', 98), ('fastcs', 41)]
+   hidden: epics ~ sim  sup=25 conf=0.74
+   hidden: fastcs ~ sim  sup=17 conf=0.5
+   hidden: epics ~ tango  sup=10 conf=0.56
+
+2025-07-01 (44332f6)  top changed: [('epics', 105), ('core', 85), ('fastcs', 45)]
+   hidden: epics ~ sim  sup=22 conf=0.71
+   hidden: fastcs ~ sim  sup=17 conf=0.55
+   hidden: epics ~ tango  sup=10 conf=0.53
+
+2025-10-01 (f0e7c33)  top changed: [('epics', 104), ('core', 68), ('fastcs', 33)]
+   hidden: epics ~ sim  sup=16 conf=0.67
+   hidden: epics ~ tango  sup=11 conf=0.55
+
+2026-01-01 (a221add)  top changed: [('epics', 95), ('core', 60), ('fastcs', 31)]
+   hidden: epics ~ sim  sup=14 conf=0.67
+
+2026-04-01 (20adc85)  top changed: [('epics', 72), ('core', 50), ('fastcs', 27)]
+   hidden: epics ~ sim  sup=9 conf=0.69
+
+2026-07-01 (c33d42a)  top changed: [('epics', 66), ('core', 44), ('fastcs', 22)]
+   hidden: epics ~ sim  sup=9 conf=0.82
+   hidden: fastcs ~ sim  sup=6 conf=0.55
+
+2026-10-01 (9fa1a0b)  top changed: [('core', 58), ('epics', 52), ('tango', 22)]
+   hidden: epics ~ sim  sup=9 conf=0.82
+   hidden: fastcs ~ sim  sup=6 conf=0.55
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=1 FP=6 FN=0 TN=1  precision=0.14 recall=1.00  base rate=0.12

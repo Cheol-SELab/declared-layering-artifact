@@ -1,0 +1,7 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "51c078d",
+ "parent": "a088ce3e1db2adaaf548f04447d628f1602ccefb",
+ "refactor_commit": null
+}

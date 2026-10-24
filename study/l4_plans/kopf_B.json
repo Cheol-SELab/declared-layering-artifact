@@ -1,0 +1,10 @@
+{
+ "candidates": [],
+ "recommendations": [],
+ "repo": "kopf",
+ "rule": "move f to unit V if support(f,V) > support(f, own unit) and support(f,V) >= 3; files with >= 4 commits; top 3",
+ "snapshot": "51b664fa12087cacd62a46b6bcdf8daf3dbc64fc",
+ "snapshot_date": "2026-01-01",
+ "window_commits": 25,
+ "window_since": "2025-01-06"
+}

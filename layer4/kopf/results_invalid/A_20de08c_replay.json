@@ -1,0 +1,62 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "20de08c",
+ "rep": "replay",
+ "commit": "20de08c",
+ "spec_files": [
+  "tests/conftest.py"
+ ],
+ "new_failures_candidates": [],
+ "new_failures_persistent": [],
+ "changed_code_files": 9,
+ "code_files": [
+  "_importlinter_conditional.py",
+  "kopf/_cogs/aiokits/aioenums.py",
+  "kopf/_cogs/clients/api.py",
+  "kopf/_cogs/structs/bodies.py",
+  "kopf/_cogs/structs/dicts.py",
+  "kopf/_core/engines/peering.py",
+  "kopf/_core/intents/registries.py",
+  "kopf/_kits/runner.py",
+  "kopf/on.py"
+ ],
+ "lines_changed": 81,
+ "other_test_files_edited": [],
+ "units_own": 7,
+ "units_own_list": [
+  "kopf._cogs.aiokits",
+  "kopf._cogs.clients",
+  "kopf._cogs.structs",
+  "kopf._core.engines",
+  "kopf._core.intents",
+  "kopf._kits",
+  "kopf.on"
+ ],
+ "units_Aframe": 7,
+ "units_Aframe_list": [
+  "kopf._cogs.aiokits",
+  "kopf._cogs.clients",
+  "kopf._cogs.structs",
+  "kopf._core.engines",
+  "kopf._core.intents",
+  "kopf._kits",
+  "kopf.on"
+ ],
+ "touches_bottom_own": true,
+ "touches_bottom_Aframe": true,
+ "spec_intact": true,
+ "spec_results": {},
+ "pre_spec": {},
+ "lint_rc": 0,
+ "lint_broken": 0,
+ "lint_tail": "----\n\nThe root framework modules must be layered KEPT\nThe internal core must be layered KEPT\nThe internal cogs must be layered KEPT\nProgress storages must be persistence settings KEPT\nDiffbase storages must be persistence settings KEPT\nStorage types must be unaware of each other KEPT\nMost asyncio kits must be unaware of each other KEPT\nThe internals must be unaware of user-facing toolkits KEPT\nThe user-facing toolkits must be unaware of each other KEPT\n3rd-party clients must be explicitly allowed KEPT\n3rd-party clients must be secured by conditional imports KEPT\n\nContracts: 11 kept, 0 broken.\n",
+ "full_counts": {
+  "passed": 0,
+  "failed": 0,
+  "skipped": 0
+ },
+ "full_failed": [],
+ "full_rc": 15,
+ "evaluated": "2026-10-06T00:27:57"
+}

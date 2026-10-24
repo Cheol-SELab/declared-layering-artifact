@@ -1,0 +1,9 @@
+{
+ "repo": "kedro",
+ "cond": "C",
+ "task": "2f526b6",
+ "parent": "145f91fef21629aa58cb79036e180dea70a22a65",
+ "refactor_commit": "7afc1db98ce6170fe6f09cf9b7a9529a7c77c996",
+ "cherry_pick_rc": 0,
+ "cherry_pick_out": "Auto-merging pyproject.toml\nAuto-merging tests/io/test_data_catalog.py\nAuto-merging tests/io/test_incremental_dataset.py\nAuto-merging tests/io/test_partitioned_dataset.py\n[detached HEAD 4209ab0d] vdm condition C refactoring\n Date: Tue Oct 6 02:00:06 2026 +0000\n 8 files changed, 28 insertions(+), 15 deletions(-)\n create mode 100644 kedro/partitioned/__init__.py\n rename kedro/{io => partitioned}/partitioned_dataset.py (100%)\n"
+}

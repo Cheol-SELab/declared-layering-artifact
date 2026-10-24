@@ -1,0 +1,432 @@
+diff --git a/features/environment.py b/features/environment.py
+index 96316cf..adaa8dd 100644
+--- a/features/environment.py
++++ b/features/environment.py
+@@ -118,6 +118,6 @@ def _install_project_requirements(context):
+         .splitlines()
+     )
+     install_reqs = [req for req in install_reqs if "{" not in req and "#" not in req]
+-    install_reqs.append("kedro-datasets[pandas.CSVDataSet]")
++    install_reqs.append("kedro-datasets[pandas.CSVDataset]")
+     call([context.pip, "install", *install_reqs], env=context.env)
+     return context
+diff --git a/kedro/config/templated_config.py b/kedro/config/templated_config.py
+index 615b75f..8a4e383 100644
+--- a/kedro/config/templated_config.py
++++ b/kedro/config/templated_config.py
+@@ -63,8 +63,8 @@ class TemplatedConfigLoader(AbstractConfigLoader):
+         environment: "dev"
+ 
+         datasets:
+-            csv: "pandas.CSVDataSet"
+-            spark: "spark.SparkDataSet"
++            csv: "pandas.CSVDataset"
++            spark: "spark.SparkDataset"
+ 
+         folders:
+             raw: "01_raw"
+diff --git a/kedro/io/__init__.py b/kedro/io/__init__.py
+index 26d4c36..ad1fc1f 100644
+--- a/kedro/io/__init__.py
++++ b/kedro/io/__init__.py
+@@ -3,7 +3,7 @@ number of data sets. At the core of the library is the ``AbstractDataset`` class
+ """
+ from __future__ import annotations
+ 
+-from .cached_dataset import CachedDataSet, CachedDataset
++from .cached_dataset import CachedDataset
+ from .core import (
+     AbstractDataset,
+     AbstractVersionedDataset,
+@@ -13,52 +13,24 @@ from .core import (
+     Version,
+ )
+ from .data_catalog import DataCatalog
+-from .lambda_dataset import LambdaDataSet, LambdaDataset
+-from .memory_dataset import MemoryDataSet, MemoryDataset
++from .lambda_dataset import LambdaDataset
++from .memory_dataset import MemoryDataset
+ from .partitioned_dataset import (
+-    IncrementalDataSet,
+     IncrementalDataset,
+-    PartitionedDataSet,
+     PartitionedDataset,
+ )
+ 
+-# https://github.com/pylint-dev/pylint/issues/4300#issuecomment-1043601901
+-DataSetError: type[DatasetError]
+-DataSetNotFoundError: type[DatasetNotFoundError]
+-DataSetAlreadyExistsError: type[DatasetAlreadyExistsError]
+-AbstractDataSet: type[AbstractDataset]
+-AbstractVersionedDataSet: type[AbstractVersionedDataset]
+-
+-
+-def __getattr__(name):
+-    import kedro.io.core  # noqa: import-outside-toplevel
+-
+-    if name in (kedro.io.core._DEPRECATED_CLASSES):  # noqa: protected-access
+-        return getattr(kedro.io.core, name)
+-    raise AttributeError(f"module {repr(__name__)} has no attribute {repr(name)}")
+-
+-
+ __all__ = [
+-    "AbstractDataSet",
+     "AbstractDataset",
+-    "AbstractVersionedDataSet",
+     "AbstractVersionedDataset",
+-    "CachedDataSet",
+     "CachedDataset",
+     "DataCatalog",
+-    "DataSetAlreadyExistsError",
+     "DatasetAlreadyExistsError",
+-    "DataSetError",
+     "DatasetError",
+-    "DataSetNotFoundError",
+     "DatasetNotFoundError",
+-    "IncrementalDataSet",
+     "IncrementalDataset",
+-    "LambdaDataSet",
+     "LambdaDataset",
+-    "MemoryDataSet",
+     "MemoryDataset",
+-    "PartitionedDataSet",
+     "PartitionedDataset",
+     "Version",
+ ]
+diff --git a/kedro/io/cached_dataset.py b/kedro/io/cached_dataset.py
+index 6ec2a59..e0935c8 100644
+--- a/kedro/io/cached_dataset.py
++++ b/kedro/io/cached_dataset.py
+@@ -5,15 +5,11 @@ so that the user avoids io operations with slow storage media
+ from __future__ import annotations
+ 
+ import logging
+-import warnings
+ from typing import Any
+ 
+ from kedro.io.core import VERSIONED_FLAG_KEY, AbstractDataset, Version
+ from kedro.io.memory_dataset import MemoryDataset
+ 
+-# https://github.com/pylint-dev/pylint/issues/4300#issuecomment-1043601901
+-CachedDataSet: type[CachedDataset]
+-
+ 
+ class CachedDataset(AbstractDataset):
+     """``CachedDataset`` is a dataset wrapper which caches in memory the data saved,
+@@ -121,16 +117,3 @@ class CachedDataset(AbstractDataset):
+         logging.getLogger(__name__).warning("%s: clearing cache to pickle.", str(self))
+         self._cache.release()
+         return self.__dict__
+-
+-
+-def __getattr__(name):
+-    if name == "CachedDataSet":
+-        alias = CachedDataset
+-        warnings.warn(
+-            f"{repr(name)} has been renamed to {repr(alias.__name__)}, "
+-            f"and the alias will be removed in Kedro 0.19.0",
+-            DeprecationWarning,
+-            stacklevel=2,
+-        )
+-        return alias
+-    raise AttributeError(f"module {repr(__name__)} has no attribute {repr(name)}")
+diff --git a/kedro/io/core.py b/kedro/io/core.py
+index 66dba46..38307f5 100644
+--- a/kedro/io/core.py
++++ b/kedro/io/core.py
+@@ -29,13 +29,6 @@ HTTP_PROTOCOLS = ("http", "https")
+ PROTOCOL_DELIMITER = "://"
+ CLOUD_PROTOCOLS = ("s3", "s3n", "s3a", "gcs", "gs", "adl", "abfs", "abfss", "gdrive")
+ 
+-# https://github.com/pylint-dev/pylint/issues/4300#issuecomment-1043601901
+-DataSetError: type[DatasetError]
+-DataSetNotFoundError: type[DatasetNotFoundError]
+-DataSetAlreadyExistsError: type[DatasetAlreadyExistsError]
+-AbstractDataSet: type[AbstractDataset]
+-AbstractVersionedDataSet: type[AbstractVersionedDataset]
+-
+ 
+ class DatasetError(Exception):
+     """``DatasetError`` raised by ``AbstractDataset`` implementations
+@@ -757,25 +750,3 @@ def validate_on_forbidden_chars(**kwargs):
+             raise DatasetError(
+                 f"Neither white-space nor semicolon are allowed in '{key}'."
+             )
+-
+-
+-_DEPRECATED_CLASSES = {
+-    "DataSetError": DatasetError,
+-    "DataSetNotFoundError": DatasetNotFoundError,
+-    "DataSetAlreadyExistsError": DatasetAlreadyExistsError,
+-    "AbstractDataSet": AbstractDataset,
+-    "AbstractVersionedDataSet": AbstractVersionedDataset,
+-}
+-
+-
+-def __getattr__(name):
+-    if name in _DEPRECATED_CLASSES:
+-        alias = _DEPRECATED_CLASSES[name]
+-        warnings.warn(
+-            f"{repr(name)} has been renamed to {repr(alias.__name__)}, "
+-            f"and the alias will be removed in Kedro 0.19.0",
+-            DeprecationWarning,
+-            stacklevel=2,
+-        )
+-        return alias
+-    raise AttributeError(f"module {repr(__name__)} has no attribute {repr(name)}")
+diff --git a/kedro/io/data_catalog.py b/kedro/io/data_catalog.py
+index 58aebfe..443d28b 100644
+--- a/kedro/io/data_catalog.py
++++ b/kedro/io/data_catalog.py
+@@ -176,9 +176,9 @@ class DataCatalog:
+         Example:
+         ::
+ 
+-            >>> from kedro_datasets.pandas import CSVDataSet
++            >>> from kedro_datasets.pandas import CSVDataset
+             >>>
+-            >>> cars = CSVDataSet(filepath="cars.csv",
++            >>> cars = CSVDataset(filepath="cars.csv",
+             >>>                   load_args=None,
+             >>>                   save_args={"index": False})
+             >>> io = DataCatalog(datasets={'cars': cars})
+@@ -246,14 +246,14 @@ class DataCatalog:
+ 
+             >>> config = {
+             >>>     "cars": {
+-            >>>         "type": "pandas.CSVDataSet",
++            >>>         "type": "pandas.CSVDataset",
+             >>>         "filepath": "cars.csv",
+             >>>         "save_args": {
+             >>>             "index": False
+             >>>         }
+             >>>     },
+             >>>     "boats": {
+-            >>>         "type": "pandas.CSVDataSet",
++            >>>         "type": "pandas.CSVDataset",
+             >>>         "filepath": "s3://aws-bucket-name/boats.csv",
+             >>>         "credentials": "boats_credentials",
+             >>>         "save_args": {
+@@ -484,9 +484,9 @@ class DataCatalog:
+         ::
+ 
+             >>> from kedro.io import DataCatalog
+-            >>> from kedro_datasets.pandas import CSVDataSet
++            >>> from kedro_datasets.pandas import CSVDataset
+             >>>
+-            >>> cars = CSVDataSet(filepath="cars.csv",
++            >>> cars = CSVDataset(filepath="cars.csv",
+             >>>                   load_args=None,
+             >>>                   save_args={"index": False})
+             >>> io = DataCatalog(datasets={'cars': cars})
+@@ -524,9 +524,9 @@ class DataCatalog:
+ 
+             >>> import pandas as pd
+             >>>
+-            >>> from kedro_datasets.pandas import CSVDataSet
++            >>> from kedro_datasets.pandas import CSVDataset
+             >>>
+-            >>> cars = CSVDataSet(filepath="cars.csv",
++            >>> cars = CSVDataset(filepath="cars.csv",
+             >>>                   load_args=None,
+             >>>                   save_args={"index": False})
+             >>> io = DataCatalog(datasets={'cars': cars})
+@@ -598,13 +598,13 @@ class DataCatalog:
+         Example:
+         ::
+ 
+-            >>> from kedro_datasets.pandas import CSVDataSet
++            >>> from kedro_datasets.pandas import CSVDataset
+             >>>
+             >>> io = DataCatalog(datasets={
+-            >>>                   'cars': CSVDataSet(filepath="cars.csv")
++            >>>                   'cars': CSVDataset(filepath="cars.csv")
+             >>>                  })
+             >>>
+-            >>> io.add("boats", CSVDataSet(filepath="boats.csv"))
++            >>> io.add("boats", CSVDataset(filepath="boats.csv"))
+         """
+         if dataset_name in self._datasets:
+             if replace:
+@@ -634,14 +634,14 @@ class DataCatalog:
+         Example:
+         ::
+ 
+-            >>> from kedro_datasets.pandas import CSVDataSet, ParquetDataSet
++            >>> from kedro_datasets.pandas import CSVDataset, ParquetDataset
+             >>>
+             >>> io = DataCatalog(datasets={
+-            >>>                   "cars": CSVDataSet(filepath="cars.csv")
++            >>>                   "cars": CSVDataset(filepath="cars.csv")
+             >>>                  })
+             >>> additional = {
+-            >>>     "planes": ParquetDataSet("planes.parq"),
+-            >>>     "boats": CSVDataSet(filepath="boats.csv")
++            >>>     "planes": ParquetDataset("planes.parq"),
++            >>>     "boats": CSVDataset(filepath="boats.csv")
+             >>> }
+             >>>
+             >>> io.add_all(additional)
+diff --git a/kedro/io/lambda_dataset.py b/kedro/io/lambda_dataset.py
+index b5ec9f6..bef5146 100644
+--- a/kedro/io/lambda_dataset.py
++++ b/kedro/io/lambda_dataset.py
+@@ -4,14 +4,10 @@ providing custom load, save, and exists methods without extending
+ """
+ from __future__ import annotations
+ 
+-import warnings
+ from typing import Any, Callable
+ 
+ from kedro.io.core import AbstractDataset, DatasetError
+ 
+-# https://github.com/pylint-dev/pylint/issues/4300#issuecomment-1043601901
+-LambdaDataSet: type[LambdaDataset]
+-
+ 
+ class LambdaDataset(AbstractDataset):
+     """``LambdaDataset`` loads and saves data to a data set.
+@@ -121,16 +117,3 @@ class LambdaDataset(AbstractDataset):
+         self.__exists = exists
+         self.__release = release
+         self.metadata = metadata
+-
+-
+-def __getattr__(name):
+-    if name == "LambdaDataSet":
+-        alias = LambdaDataset
+-        warnings.warn(
+-            f"{repr(name)} has been renamed to {repr(alias.__name__)}, "
+-            f"and the alias will be removed in Kedro 0.19.0",
+-            DeprecationWarning,
+-            stacklevel=2,
+-        )
+-        return alias
+-    raise AttributeError(f"module {repr(__name__)} has no attribute {repr(name)}")
+diff --git a/kedro/io/memory_dataset.py b/kedro/io/memory_dataset.py
+index 5e52e6e..5b1075f 100644
+--- a/kedro/io/memory_dataset.py
++++ b/kedro/io/memory_dataset.py
+@@ -3,16 +3,12 @@
+ from __future__ import annotations
+ 
+ import copy
+-import warnings
+ from typing import Any
+ 
+ from kedro.io.core import AbstractDataset, DatasetError
+ 
+ _EMPTY = object()
+ 
+-# https://github.com/pylint-dev/pylint/issues/4300#issuecomment-1043601901
+-MemoryDataSet: type[MemoryDataset]
+-
+ 
+ class MemoryDataset(AbstractDataset):
+     """``MemoryDataset`` loads and saves data from/to an in-memory
+@@ -140,16 +136,3 @@ def _copy_with_mode(data: Any, copy_mode: str) -> Any:
+         )
+ 
+     return copied_data
+-
+-
+-def __getattr__(name):
+-    if name == "MemoryDataSet":
+-        alias = MemoryDataset
+-        warnings.warn(
+-            f"{repr(name)} has been renamed to {repr(alias.__name__)}, "
+-            f"and the alias will be removed in Kedro 0.19.0",
+-            DeprecationWarning,
+-            stacklevel=2,
+-        )
+-        return alias
+-    raise AttributeError(f"module {repr(__name__)} has no attribute {repr(name)}")
+diff --git a/kedro/io/partitioned_dataset.py b/kedro/io/partitioned_dataset.py
+index 4b3e9ec..08a0a85 100644
+--- a/kedro/io/partitioned_dataset.py
++++ b/kedro/io/partitioned_dataset.py
+@@ -31,10 +31,6 @@ KEY_PROPAGATION_WARNING = (
+ 
+ S3_PROTOCOLS = ("s3", "s3a", "s3n")
+ 
+-# https://github.com/pylint-dev/pylint/issues/4300#issuecomment-1043601901
+-PartitionedDataSet: type[PartitionedDataset]
+-IncrementalDataSet: type[IncrementalDataset]
+-
+ 
+ class PartitionedDataset(AbstractDataset):
+     # noqa: too-many-instance-attributes,protected-access
+@@ -379,7 +375,7 @@ class IncrementalDataset(PartitionedDataset):
+         >>> dataset.load()
+     """
+ 
+-    DEFAULT_CHECKPOINT_TYPE = "kedro_datasets.text.TextDataSet"  # TODO: PartitionedDataset should move to kedro-datasets
++    DEFAULT_CHECKPOINT_TYPE = "kedro_datasets.text.TextDataset"
+     DEFAULT_CHECKPOINT_FILENAME = "CHECKPOINT"
+ 
+     def __init__(  # noqa: too-many-arguments
+@@ -554,22 +550,3 @@ class IncrementalDataset(PartitionedDataset):
+         partition_ids = [self._path_to_partition(p) for p in self._list_partitions()]
+         if partition_ids:
+             self._checkpoint.save(partition_ids[-1])  # checkpoint to last partition
+-
+-
+-_DEPRECATED_CLASSES = {
+-    "PartitionedDataSet": PartitionedDataset,
+-    "IncrementalDataSet": IncrementalDataset,
+-}
+-
+-
+-def __getattr__(name):
+-    if name in _DEPRECATED_CLASSES:
+-        alias = _DEPRECATED_CLASSES[name]
+-        warnings.warn(
+-            f"{repr(name)} has been renamed to {repr(alias.__name__)}, "
+-            f"and the alias will be removed in Kedro 0.19.0",
+-            DeprecationWarning,
+-            stacklevel=2,
+-        )
+-        return alias
+-    raise AttributeError(f"module {repr(__name__)} has no attribute {repr(name)}")
+diff --git a/kedro/runner/parallel_runner.py b/kedro/runner/parallel_runner.py
+index 07c8824..5f306f2 100644
+--- a/kedro/runner/parallel_runner.py
++++ b/kedro/runner/parallel_runner.py
+@@ -7,7 +7,6 @@ import multiprocessing
+ import os
+ import pickle
+ import sys
+-import warnings
+ from collections import Counter
+ from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
+ from itertools import chain
+@@ -32,9 +31,6 @@ from kedro.runner.runner import AbstractRunner, run_node
+ # see https://github.com/python/cpython/blob/master/Lib/concurrent/futures/process.py#L114
+ _MAX_WINDOWS_WORKERS = 61
+ 
+-# https://github.com/pylint-dev/pylint/issues/4300#issuecomment-1043601901
+-_SharedMemoryDataSet: type[_SharedMemoryDataset]
+-
+ 
+ class _SharedMemoryDataset:
+     """``_SharedMemoryDataset`` is a wrapper class for a shared MemoryDataset in SyncManager.
+@@ -73,19 +69,6 @@ class _SharedMemoryDataset:
+             raise exc
+ 
+ 
+-def __getattr__(name):
+-    if name == "_SharedMemoryDataSet":
+-        alias = _SharedMemoryDataset
+-        warnings.warn(
+-            f"{repr(name)} has been renamed to {repr(alias.__name__)}, "
+-            f"and the alias will be removed in Kedro 0.19.0",
+-            DeprecationWarning,
+-            stacklevel=2,
+-        )
+-        return alias
+-    raise AttributeError(f"module {repr(__name__)} has no attribute {repr(name)}")
+-
+-
+ class ParallelRunnerManager(SyncManager):
+     """``ParallelRunnerManager`` is used to create shared ``MemoryDataset``
+     objects as default data sets in a pipeline.

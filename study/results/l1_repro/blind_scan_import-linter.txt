@@ -1,0 +1,97 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2020-01-01     114     5   2  0.49  0.71   0   0  -
+2020-04-01      32     5   0  0.25  0.36   0   0  -
+2020-07-01      26     5   0  0.21  0.31   0   0  -
+2020-10-01      15     5   0  0.31  0.45   0   0  -
+2021-01-01       4     5   0  0.40  0.58   0   0  -
+2021-04-01       4     5   0  0.40  0.58   0   0  -
+2021-07-01       4     5   0  0.40  0.58   0   0  -
+2021-10-01       5     5   0  0.38  0.54   0   0  -
+2022-01-01       4     5   0  0.43  0.62   0   0  -
+2022-04-01      19     5   0  0.58  0.84   0   0  -
+2022-07-01      19     5   0  0.58  0.84   0   0  YES 2022-08-15,2022-09-28
+2022-10-01      23     7   1  0.59  0.67   0   0  -
+2023-01-01      33     7   1  0.55  0.65   0   0  -
+2023-04-01      24     7   1  0.53  0.62   0   0  -
+2023-07-01      27     7   1  0.51  0.60   0   0  -
+2023-10-01      23     7   0  0.54  0.64   0   0  -
+2024-01-01      20     7   0  0.54  0.64   0   0  -
+2024-04-01      19     7   0  0.40  0.47   0   0  -
+2024-07-01      13     7   0  0.33  0.40   0   0  -
+2024-10-01       8     7   0  0.50  0.59   0   0  -
+2025-01-01       6     7   0  0.33  0.40   0   0  -
+2025-04-01       5     7   0  0.56  0.66   0   0  -
+2025-07-01       8     7   0  0.62  0.73   0   0  -
+2025-10-01      18     7   0  0.59  0.72   0   0  YES 2025-11-12
+2026-01-01      35     7   0  0.67  0.86   0   0  YES 2026-02-06
+2026-04-01      39     8   0  0.62  0.86   0   0  -
+2026-07-01      40     8   1  0.62  0.86   0   0  -
+2026-10-01      36     8   0  0.64  0.88   0   0  -
+
+== details ==
+
+2020-01-01 (2e2bc9f)  top changed: [('contracts', 51), ('application', 48), ('domain', 42)]
+   hidden: application ~ cli  sup=12 conf=0.67
+   hidden: adapters ~ cli  sup=11 conf=0.61
+
+2020-04-01 (2e2bc9f)  top changed: [('contracts', 24), ('application', 7), ('adapters', 4)]
+
+2020-07-01 (334b4d1)  top changed: [('contracts', 18), ('application', 5), ('adapters', 3)]
+
+2020-10-01 (84b9772)  top changed: [('contracts', 10), ('application', 3), ('domain', 2)]
+
+2021-01-01 (1ac62d5)  top changed: [('contracts', 3), ('domain', 2)]
+
+2021-04-01 (afab73c)  top changed: [('contracts', 3), ('domain', 2)]
+
+2021-07-01 (5ae3e1b)  top changed: [('contracts', 3), ('domain', 2)]
+
+2021-10-01 (870f3d9)  top changed: [('contracts', 2), ('adapters', 2), ('domain', 2)]
+
+2022-01-01 (870f3d9)  top changed: [('adapters', 2), ('domain', 2), ('application', 1)]
+
+2022-04-01 (80fd3cf)  top changed: [('domain', 10), ('application', 9), ('contracts', 9)]
+
+2022-07-01 (d0b014e)  top changed: [('domain', 10), ('application', 9), ('contracts', 9)]
+
+2022-10-01 (3e176b7)  top changed: [('domain', 13), ('contracts', 12), ('application', 10)]
+   hidden: application ~ cli  sup=3 conf=1.0
+
+2023-01-01 (a993014)  top changed: [('contracts', 18), ('domain', 16), ('application', 11)]
+   hidden: application ~ cli  sup=3 conf=1.0
+
+2023-04-01 (7e32f5a)  top changed: [('contracts', 12), ('domain', 10), ('application', 7)]
+   hidden: application ~ cli  sup=4 conf=1.0
+
+2023-07-01 (a7c4079)  top changed: [('contracts', 14), ('domain', 11), ('application', 7)]
+   hidden: application ~ cli  sup=4 conf=1.0
+
+2023-10-01 (2304bf1)  top changed: [('contracts', 11), ('domain', 9), ('application', 6)]
+
+2024-01-01 (a7d09ac)  top changed: [('contracts', 10), ('application', 7), ('adapters', 6)]
+
+2024-04-01 (c06eb29)  top changed: [('contracts', 12), ('domain', 4), ('application', 4)]
+
+2024-07-01 (c06eb29)  top changed: [('contracts', 8), ('application', 3), ('cli', 2)]
+
+2024-10-01 (bb2c116)  top changed: [('contracts', 5), ('application', 4), ('adapters', 1)]
+
+2025-01-01 (890ff4f)  top changed: [('contracts', 5), ('application', 2), ('api', 1)]
+
+2025-04-01 (a115aa6)  top changed: [('contracts', 3), ('domain', 3), ('application', 2)]
+
+2025-07-01 (e17a440)  top changed: [('contracts', 4), ('domain', 4), ('application', 3)]
+
+2025-10-01 (14652d6)  top changed: [('contracts', 9), ('domain', 5), ('application', 5)]
+
+2026-01-01 (c796d51)  top changed: [('application', 17), ('contracts', 13), ('domain', 11)]
+
+2026-04-01 (fabeab7)  top changed: [('application', 17), ('contracts', 11), ('domain', 10)]
+
+2026-07-01 (ad48a96)  top changed: [('application', 19), ('contracts', 11), ('domain', 9)]
+   hidden: adapters ~ contracts  sup=3 conf=0.5
+
+2026-10-01 (31927f1)  top changed: [('application', 22), ('domain', 12), ('cli', 9)]
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=1 FP=5 FN=2 TN=20  precision=0.17 recall=0.33  base rate=0.11

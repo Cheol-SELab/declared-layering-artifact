@@ -1,0 +1,27 @@
+Layer-1 analysis (UTC snapshots, quarters with >= 10 window commits)
+
+repo                         Q pos_orig pos_A2 AUC_orig  AUC_A2  S2n range   new_pkgs range
+ggshield                    13        3      3     0.90    0.90  0.76-1.13   0-22
+bk-user                     13        2      2     0.70    0.70  0.83-2.08   1-26
+openedx-learning            12        5      5     0.67    0.67  0.85-1.50   3-13
+legadilo                    11        3      3     0.58    0.58  0.52-0.97   0-21
+kedro                       21        3      3     0.41    0.41  0.72-1.99   0-5
+kopf                        21        0      0      n/a     n/a  0.60-1.29   0-9
+wemake-python-styleguide    27        0      0      n/a     n/a  0.41-3.14   0-7
+import-linter               19        3      2     0.80    0.84  0.31-0.88   0-0
+sqlfluff                    12        1      1     0.27    0.27  0.63-2.46   0-1
+
+Pooled y_orig: quarters=70 positives=16  AUC=0.654  perm p (pooled shuffle)=0.031  perm p (within-repo)=0.030
+
+Pooled y_a2: quarters=70 positives=16  AUC=0.654  perm p (pooled shuffle)=0.031  perm p (within-repo)=0.030
+
+A3 conditional logit (A2 labels), predictors z-scored within repo:
+  beta_S2n      = +0.433  (SE 0.300)
+  beta_log_n    = -0.639  (SE 0.362)
+  beta_new_pkgs = +0.364  (SE 0.383)
+  LR statistic for S2n = 2.083; one-sided within-repo permutation p = 0.0854 (N=5000)
+  Decision (A3): ROBUST to activity
+  AUC of activity-residualised S2n (A2 labels) = 0.561; within-repo permutation p = 0.227
+
+Activity alone (A2 labels): AUC log_n = 0.337; AUC new_pkgs = 0.454
+Spearman-like: corr(zS2n, zlog_n) = -0.32; corr(zS2n, znew_pkgs) = -0.08

@@ -1,0 +1,410 @@
+diff --git a/RELEASE.md b/RELEASE.md
+index 485ebd2..d7dbe84 100644
+--- a/RELEASE.md
++++ b/RELEASE.md
+@@ -2,6 +2,7 @@
+ 
+ ## Major features and improvements
+ * Dropped Python 3.7 support.
++* Added an add-ons flow to `kedro new`: users can select Linting, Testing, Logging, Documentation and Data Structure add-ons for the default project template via the interactive prompt or the `add_ons` key of the config file.
+ 
+ ## Bug fixes and other changes
+ 
+diff --git a/features/steps/cli_steps.py b/features/steps/cli_steps.py
+index 87b796b..3db8716 100644
+--- a/features/steps/cli_steps.py
++++ b/features/steps/cli_steps.py
+@@ -151,6 +151,7 @@ def create_config_file(context):
+     context.root_project_dir = context.temp_dir / context.project_name
+     context.package_name = context.project_name.replace("-", "_")
+     config = {
++        "add_ons": "all",
+         "project_name": context.project_name,
+         "repo_name": context.project_name,
+         "output_dir": str(context.temp_dir),
+diff --git a/kedro/framework/cli/starters.py b/kedro/framework/cli/starters.py
+index a3a2a80..1cb4734 100644
+--- a/kedro/framework/cli/starters.py
++++ b/kedro/framework/cli/starters.py
+@@ -30,6 +30,7 @@ from kedro.framework.cli.utils import (
+     _safe_load_entry_point,
+     command_with_verbosity,
+ )
++from kedro.templates.project.hooks.utils import get_add_on_names, parse_add_ons_input
+ 
+ KEDRO_PATH = Path(kedro.__file__).parent
+ TEMPLATE_PATH = KEDRO_PATH / "templates" / "project"
+@@ -79,7 +80,7 @@ _OFFICIAL_STARTER_SPECS = {spec.alias: spec for spec in _OFFICIAL_STARTER_SPECS}
+ 
+ CONFIG_ARG_HELP = """Non-interactive mode, using a configuration yaml file. This file
+ must supply  the keys required by the template's prompts.yml. When not using a starter,
+-these are `project_name`, `repo_name` and `python_package`."""
++these are `add_ons`, `project_name`, `repo_name` and `python_package`."""
+ STARTER_ARG_HELP = """Specify the starter template to use when creating the project.
+ This can be the path to a local directory, a URL to a remote VCS repository supported
+ by `cookiecutter` or one of the aliases listed in ``kedro starter list``.
+@@ -232,6 +233,10 @@ def new(config_path, starter_alias, checkout, directory, **kwargs):
+     else:
+         config = _fetch_config_from_user_prompts(prompts_required, cookiecutter_context)
+ 
++    if "add_ons" in config:
++        # Exit early, before anything is generated, if the selection is invalid.
++        parse_add_ons_input(str(config["add_ons"]))
++
+     cookiecutter_args = _make_cookiecutter_args(config, checkout, directory)
+     _create_project(template_path, cookiecutter_args)
+ 
+@@ -369,6 +374,13 @@ def _create_project(template_path: str, cookiecutter_args: dict[str, Any]):
+         f"\n- The folder created for your project in {result_path} "
+         f"\n- The project's python package in {result_path}/src/{python_package}"
+     )
++    add_ons = extra_context.get("add_ons")
++    if add_ons is not None:
++        add_on_names = get_add_on_names(str(add_ons))
++        click.secho(
++            "\nThe following add-ons have been added to your project: "
++            + (", ".join(add_on_names) if add_on_names else "none")
++        )
+     click.secho(
+         "\nA best-practice setup includes initialising git and creating "
+         "a virtual environment before running 'pip install -r requirements.txt' to install "
+@@ -479,6 +491,10 @@ def _make_cookiecutter_context_for_prompts(cookiecutter_dir: Path):
+     return cookiecutter_context.get("cookiecutter", {})
+ 
+ 
++def _invalid_value_message(user_input: str, title: str) -> str:
++    return f"'{user_input}' is an invalid value for {title.lower()}."
++
++
+ class _Prompt:
+     """Represent a single CLI prompt for `kedro new`"""
+ 
+@@ -504,7 +520,7 @@ class _Prompt:
+     def validate(self, user_input: str) -> None:
+         """Validate a given prompt value against the regex validator"""
+         if self.regexp and not re.match(self.regexp, user_input):
+-            message = f"'{user_input}' is an invalid value for {self.title}."
++            message = _invalid_value_message(user_input, self.title)
+             click.secho(message, fg="red", err=True)
+             click.secho(self.error_message, fg="red", err=True)
+             raise ValueError(message, self.error_message)
+@@ -548,6 +564,15 @@ def _validate_config_file(config: dict[str, str], prompts: dict[str, Any]):
+         click.echo(yaml.dump(config, default_flow_style=False))
+         raise KedroCliError(f"{', '.join(missing_keys)} not found in config file.")
+ 
++    for variable_name, prompt_dict in prompts.items():
++        prompt = _Prompt(**prompt_dict)
++        value = str(config[variable_name])
++        if prompt.regexp and not re.match(prompt.regexp, value):
++            error_message = " ".join(prompt.error_message.split())
++            raise KedroCliError(
++                f"{_invalid_value_message(value, prompt.title)} {error_message}"
++            )
++
+     if "output_dir" in config and not Path(config["output_dir"]).exists():
+         raise KedroCliError(
+             f"'{config['output_dir']}' is not a valid output directory. "
+diff --git a/kedro/templates/project/cookiecutter.json b/kedro/templates/project/cookiecutter.json
+index 6c697e9..2b39a09 100644
+--- a/kedro/templates/project/cookiecutter.json
++++ b/kedro/templates/project/cookiecutter.json
+@@ -1,4 +1,5 @@
+ {
++    "add_ons": "none",
+     "project_name": "New Kedro Project",
+     "repo_name": "{{ cookiecutter.project_name.strip().replace(' ', '-').replace('_', '-').lower() }}",
+     "python_package": "{{ cookiecutter.project_name.strip().replace(' ', '_').replace('-', '_').lower() }}",
+diff --git a/kedro/templates/project/hooks/post_gen_project.py b/kedro/templates/project/hooks/post_gen_project.py
+new file mode 100644
+index 0000000..f69ce36
+--- /dev/null
++++ b/kedro/templates/project/hooks/post_gen_project.py
+@@ -0,0 +1,12 @@
++"""Adjust the generated project according to the selected add-ons."""
++from pathlib import Path
++
++from kedro.templates.project.hooks.utils import setup_add_ons
++
++
++def main():
++    setup_add_ons(Path.cwd(), "{{ cookiecutter.add_ons }}")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/kedro/templates/project/hooks/pre_gen_project.py b/kedro/templates/project/hooks/pre_gen_project.py
+new file mode 100644
+index 0000000..7693f62
+--- /dev/null
++++ b/kedro/templates/project/hooks/pre_gen_project.py
+@@ -0,0 +1,10 @@
++"""Validate the add-ons selection before the project is generated."""
++from kedro.templates.project.hooks.utils import parse_add_ons_input
++
++
++def main():
++    parse_add_ons_input("{{ cookiecutter.add_ons }}")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/kedro/templates/project/hooks/utils.py b/kedro/templates/project/hooks/utils.py
+new file mode 100644
+index 0000000..af6faa7
+--- /dev/null
++++ b/kedro/templates/project/hooks/utils.py
+@@ -0,0 +1,152 @@
++"""Helpers for the add-ons flow of the default ``kedro new`` project template."""
++from __future__ import annotations
++
++import shutil
++import sys
++from pathlib import Path
++
++import click
++
++ADD_ON_NAMES = {
++    "1": "Linting",
++    "2": "Testing",
++    "3": "Logging",
++    "4": "Documentation",
++    "5": "Data Structure",
++}
++VALID_ADD_ONS = list(ADD_ON_NAMES)
++
++LINT_REQUIREMENTS = "black~=22.0\nruff~=0.0.290\n"
++
++LINT_PYPROJECT = """
++[tool.ruff]
++select = [
++    "F",  # Pyflakes
++    "E",  # Pycodestyle
++    "W",  # Pycodestyle
++    "UP",  # pyupgrade
++    "I",  # isort
++    "PL", # Pylint
++]
++ignore = ["E501"]  # Black takes care of line-too-long
++"""
++
++TEST_REQUIREMENTS = "pytest-cov~=3.0\npytest-mock>=1.7.1, <2.0\npytest~=7.2\n"
++
++TEST_PYPROJECT = """
++[tool.pytest.ini_options]
++addopts = \"\"\"
++--cov-report term-missing \\
++--cov src/{{ cookiecutter.python_package }} -ra
++\"\"\"
++
++[tool.coverage.report]
++fail_under = 0
++show_missing = true
++exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
++"""
++
++DOCS_PYPROJECT = """docs = [
++    "docutils<0.18.0",
++    "sphinx~=3.4.3",
++    "sphinx_rtd_theme==0.5.1",
++    "nbsphinx==0.8.1",
++    "sphinx-autodoc-typehints==1.11.1",
++    "sphinx_copybutton==0.3.1",
++    "ipykernel>=5.3, <7.0",
++    "Jinja2<3.1.0",
++    "myst-parser~=0.17.2",
++]
++"""
++
++OPTIONAL_DEPS_HEADER = "[project.optional-dependencies]\n"
++
++# Paths (relative to the project root) that exist only when the add-on is selected.
++ADD_ON_PATHS = {
++    "2": ["tests"],
++    "3": ["conf/logging.yml"],
++    "4": ["docs"],
++    "5": ["data"],
++}
++
++
++def _exit_with_error(message: str) -> None:
++    click.secho(message, fg="red", err=True)
++    sys.exit(1)
++
++
++def parse_add_ons_input(add_ons_str: str) -> list[str]:
++    """Parse the add-ons selection ('1,3', '2-4', 'all' or 'none') into a list of
++    add-on numbers as strings. Exits with an error message on invalid input."""
++    add_ons_str = add_ons_str.strip()
++    if add_ons_str == "all":
++        return list(VALID_ADD_ONS)
++    if add_ons_str == "none":
++        return []
++
++    def _check(value: str) -> str:
++        value = value.strip()
++        if value not in VALID_ADD_ONS:
++            _exit_with_error(
++                f"'{value}' is not a valid selection.\n"
++                f"Please select from the available add-ons: {', '.join(VALID_ADD_ONS)}."
++            )
++        return value
++
++    selected: set[str] = set()
++    for token in add_ons_str.split(","):
++        token = token.strip()
++        if "-" in token:
++            start, _, end = token.partition("-")
++            start, end = _check(start), _check(end)
++            if int(start) > int(end):
++                _exit_with_error(
++                    f"'{token}' is an invalid range for project add-ons.\n"
++                    "Please ensure range values go from smaller to larger."
++                )
++            selected.update(str(i) for i in range(int(start), int(end) + 1))
++        else:
++            selected.add(_check(token))
++
++    return sorted(selected)
++
++
++def get_add_on_names(add_ons_str: str) -> list[str]:
++    """Return the display names of the selected add-ons."""
++    return [ADD_ON_NAMES[add_on] for add_on in parse_add_ons_input(add_ons_str)]
++
++
++def _append(path: Path, text: str) -> None:
++    with path.open("a", encoding="utf-8") as file:
++        file.write(text)
++
++
++def setup_add_ons(project_dir: Path, add_ons_str: str) -> None:
++    """Remove the files of unselected add-ons and add the requirements of the
++    selected ones to ``requirements.txt`` and ``pyproject.toml``."""
++    selected = parse_add_ons_input(add_ons_str)
++    requirements = project_dir / "requirements.txt"
++    pyproject = project_dir / "pyproject.toml"
++
++    if "1" in selected:
++        _append(requirements, LINT_REQUIREMENTS)
++        _append(pyproject, LINT_PYPROJECT)
++    if "2" in selected:
++        _append(requirements, TEST_REQUIREMENTS)
++        _append(pyproject, TEST_PYPROJECT)
++    if "4" in selected:
++        content = pyproject.read_text(encoding="utf-8")
++        content = content.replace(
++            OPTIONAL_DEPS_HEADER, OPTIONAL_DEPS_HEADER + DOCS_PYPROJECT, 1
++        )
++        pyproject.write_text(content, encoding="utf-8")
++
++    for add_on, relative_paths in ADD_ON_PATHS.items():
++        if add_on in selected:
++            continue
++        for relative in relative_paths:
++            path = project_dir / relative
++            if path.is_dir():
++                shutil.rmtree(path, ignore_errors=True)
++            else:
++                path.unlink(missing_ok=True)
+diff --git a/kedro/templates/project/prompts.yml b/kedro/templates/project/prompts.yml
+index 7e4bf62..7de74f7 100644
+--- a/kedro/templates/project/prompts.yml
++++ b/kedro/templates/project/prompts.yml
+@@ -1,3 +1,19 @@
++add_ons:
++  title: "Project Add-Ons"
++  text: |
++    Select which add-ons to include in your new project. Enter the numbers of the
++    add-ons you want, as comma-separated values (e.g. 1,3), as ranges (e.g. 2-4),
++    or use 'all' or 'none'.
++
++    1) Linting: Provides a basic linting setup with Black and Ruff
++    2) Testing: Provides basic test setup with Pytest
++    3) Logging: Provides more logging options
++    4) Documentation: Basic documentation setup with Sphinx
++    5) Data Structure: Provides a directory structure for storing data
++  regex_validator: "^(all|none|\\d+(-\\d+)?(,\\s*\\d+(-\\d+)?)*)$"
++  error_message: |
++    Invalid input. Please select valid options for add-ons using comma-separated values, ranges, or 'all/none'.
++
+ project_name:
+   title: "Project Name"
+   text: |
+diff --git a/kedro/templates/project/{{ cookiecutter.repo_name }}/conf/logging.yml b/kedro/templates/project/{{ cookiecutter.repo_name }}/conf/logging.yml
+new file mode 100644
+index 0000000..87fae8a
+--- /dev/null
++++ b/kedro/templates/project/{{ cookiecutter.repo_name }}/conf/logging.yml	
+@@ -0,0 +1,18 @@
++version: 1
++
++disable_existing_loggers: False
++
++handlers:
++  rich:
++    class: kedro.logging.RichHandler
++    rich_tracebacks: True
++    # Advance options for customisation.
++    # See https://docs.kedro.org/en/stable/logging/logging.html#project-side-logging-configuration
++    # tracebacks_show_locals: False
++
++loggers:
++  kedro:
++    level: INFO
++
++root:
++  handlers: [rich]
+diff --git a/kedro/templates/project/{{ cookiecutter.repo_name }}/pyproject.toml b/kedro/templates/project/{{ cookiecutter.repo_name }}/pyproject.toml
+index dc3a98b..0258a1d 100644
+--- a/kedro/templates/project/{{ cookiecutter.repo_name }}/pyproject.toml	
++++ b/kedro/templates/project/{{ cookiecutter.repo_name }}/pyproject.toml	
+@@ -13,17 +13,6 @@ dynamic = ["dependencies", "version"]
+ [project.entry-points."kedro.hooks"]
+ 
+ [project.optional-dependencies]
+-docs = [
+-    "docutils<0.18.0",
+-    "sphinx~=3.4.3",
+-    "sphinx_rtd_theme==0.5.1",
+-    "nbsphinx==0.8.1",
+-    "sphinx-autodoc-typehints==1.11.1",
+-    "sphinx_copybutton==0.3.1",
+-    "ipykernel>=5.3, <7.0",
+-    "Jinja2<3.1.0",
+-    "myst-parser~=0.17.2",
+-]
+ 
+ [tool.setuptools.dynamic]
+ dependencies = {file = "requirements.txt"}
+@@ -37,13 +26,3 @@ namespaces = false
+ package_name = "{{ cookiecutter.python_package }}"
+ project_name = "{{ cookiecutter.project_name }}"
+ kedro_init_version = "{{ cookiecutter.kedro_version }}"
+-
+-[tool.pytest.ini_options]
+-addopts = """
+---cov-report term-missing \
+---cov src/{{ cookiecutter.python_package }} -ra"""
+-
+-[tool.coverage.report]
+-fail_under = 0
+-show_missing = true
+-exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
+diff --git a/kedro/templates/project/{{ cookiecutter.repo_name }}/requirements.txt b/kedro/templates/project/{{ cookiecutter.repo_name }}/requirements.txt
+index 02ae471..e1bf294 100644
+--- a/kedro/templates/project/{{ cookiecutter.repo_name }}/requirements.txt	
++++ b/kedro/templates/project/{{ cookiecutter.repo_name }}/requirements.txt	
+@@ -1,4 +1,3 @@
+-black~=22.0
+ ipython>=7.31.1, <8.0; python_version < '3.8'
+ ipython~=8.10; python_version >= '3.8'
+ jupyter~=1.0
+@@ -6,8 +5,5 @@ jupyterlab_server>=2.11.1, <2.16.0
+ jupyterlab~=3.0, <3.6.0
+ kedro~={{ cookiecutter.kedro_version }}
+ kedro-telemetry~=0.2.0
+-pytest-cov~=3.0
+-pytest-mock>=1.7.1, <2.0
+-pytest~=7.2
+ # Pin problematic traitlets release -  https://github.com/jupyter/notebook/issues/7048
+ traitlets<5.10.0

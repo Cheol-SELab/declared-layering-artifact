@@ -1,0 +1,37 @@
+diff --git a/kopf/_cogs/clients/api.py b/kopf/_cogs/clients/api.py
+index faa8a6f..c2f33d7 100644
+--- a/kopf/_cogs/clients/api.py
++++ b/kopf/_cogs/clients/api.py
+@@ -212,7 +212,7 @@ async def stream(
+         stopper: aiotasks.Future | None = None,
+         logger: typedefs.Logger,
+ ) -> AsyncIterator[Any]:
+-    response = await request(
++    request_coro = request(
+         method='get',
+         url=url,
+         payload=payload,
+@@ -221,6 +221,23 @@ async def stream(
+         settings=settings,
+         logger=logger,
+     )
++
++    # The stopper can fire while waiting for the response headers (the handshake), not only
++    # while streaming the content. Race the request against the stopper in that case.
++    if stopper is None:
++        response = await request_coro
++    else:
++        request_task = asyncio.ensure_future(request_coro)
++        try:
++            await asyncio.wait({request_task, stopper}, return_when=asyncio.FIRST_COMPLETED)
++        finally:
++            if not request_task.done():
++                request_task.cancel()
++        if request_task.cancelled() or not request_task.done():
++            await asyncio.gather(request_task, return_exceptions=True)
++            return
++        response = request_task.result()
++
+     response_close_callback = lambda _: response.close()  # to remove the positional arg.
+     if stopper is not None:
+         stopper.add_done_callback(response_close_callback)

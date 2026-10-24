@@ -1,0 +1,732 @@
+diff --git a/RELEASE.md b/RELEASE.md
+index 091f6a0..420d24a 100644
+--- a/RELEASE.md
++++ b/RELEASE.md
+@@ -3,6 +3,7 @@
+ ## Major features and improvements
+ 
+ ## Bug fixes and other changes
++* Merged the project template's `pyproject.toml` files into a single root-level `pyproject.toml` (src-layout package) and moved `requirements.txt` to the project root. `kedro package` remains backwards compatible with projects that have `src/pyproject.toml`.
+ 
+ ## Breaking changes to the API
+ * Drop Python 3.7 support.
+diff --git a/docs/source/deployment/airflow_astronomer.md b/docs/source/deployment/airflow_astronomer.md
+index b214081..d99897c 100644
+--- a/docs/source/deployment/airflow_astronomer.md
++++ b/docs/source/deployment/airflow_astronomer.md
+@@ -84,7 +84,7 @@ To follow this tutorial, ensure you have the following:
+     pip install kedro-airflow~=0.4
+     ```
+ 
+-5. Run `pip install -r src/requirements.txt` to install all dependencies.
++5. Run `pip install -r requirements.txt` to install all dependencies.
+ 
+ ### Deployment process
+ 
+diff --git a/docs/source/deployment/aws_step_functions.md b/docs/source/deployment/aws_step_functions.md
+index 7a08ba3..b932ad2 100644
+--- a/docs/source/deployment/aws_step_functions.md
++++ b/docs/source/deployment/aws_step_functions.md
+@@ -55,7 +55,7 @@ The rest of the tutorial will explain each step in the deployment process above
+ 
+ * Create a `conf/aws` directory in your Kedro project
+ * Put a `catalog.yml` file in this directory with the following content
+-* Ensure that you have `s3fs>=0.3.0,<0.5` defined in your `src/requirements.txt` so the data can be read from S3.
++* Ensure that you have `s3fs>=0.3.0,<0.5` defined in your `requirements.txt` so the data can be read from S3.
+ 
+ <details>
+ <summary><b>Click to expand</b></summary>
+diff --git a/docs/source/deployment/databricks/databricks_ide_development_workflow.md b/docs/source/deployment/databricks/databricks_ide_development_workflow.md
+index 0f32ee5..46f7b6c 100644
+--- a/docs/source/deployment/databricks/databricks_ide_development_workflow.md
++++ b/docs/source/deployment/databricks/databricks_ide_development_workflow.md
+@@ -184,7 +184,7 @@ Open your newly-created notebook and create **four new cells** inside it. You wi
+ 1. Before you import and run your Python code, you'll need to install your project's dependencies on the cluster attached to your notebook. Your project has a `requirements.txt` file for this purpose. Add the following code to the first new cell to install the dependencies:
+ 
+ ```ipython
+-%pip install -r "/Workspace/Repos/<databricks_username>/iris-databricks/src/requirements.txt"
++%pip install -r "/Workspace/Repos/<databricks_username>/iris-databricks/requirements.txt"
+ ```
+ 
+ 2. To run your project in your notebook, you must load the Kedro IPython extension. Add the following code to the second new cell to load the IPython extension:
+diff --git a/docs/source/deployment/databricks/databricks_notebooks_development_workflow.md b/docs/source/deployment/databricks/databricks_notebooks_development_workflow.md
+index b3136d9..5d023b5 100644
+--- a/docs/source/deployment/databricks/databricks_notebooks_development_workflow.md
++++ b/docs/source/deployment/databricks/databricks_notebooks_development_workflow.md
+@@ -213,7 +213,7 @@ Create **four new cells** inside your notebook. You will fill these cells with c
+ 1. Before you import and run your Python code, you'll need to install your project's dependencies on the cluster attached to your notebook. Your project has a `requirements.txt` file for this purpose. Add the following code to the first new cell to install the dependencies:
+ 
+ ```ipython
+-%pip install -r "/Workspace/Repos/<databricks_username>/iris-databricks/src/requirements.txt"
++%pip install -r "/Workspace/Repos/<databricks_username>/iris-databricks/requirements.txt"
+ ```
+ 
+ 2. To run your project in your notebook, you must load the Kedro IPython extension. Add the following code to the second new cell to load the IPython extension:
+diff --git a/docs/source/deployment/distributed.md b/docs/source/deployment/distributed.md
+index 2b005af..af49ae5 100644
+--- a/docs/source/deployment/distributed.md
++++ b/docs/source/deployment/distributed.md
+@@ -14,7 +14,7 @@ For better dependency management, we encourage you to containerise the entire pi
+ Firstly make sure your [project requirements are up-to-date](../kedro_project_setup/dependencies.md) by running:
+ 
+ ```bash
+-pip-compile --output-file=<project_root>/src/requirements.txt --input-file=<project_root>/src/requirements.txt
++pip-compile --output-file=<project_root>/requirements.txt --input-file=<project_root>/requirements.txt
+ ```
+ 
+ We then recommend the [`Kedro-Docker`](https://github.com/kedro-org/kedro-plugins/tree/main/kedro-docker) plugin to streamline the process of building the image. [Instructions for using this are in the plugin's README.md](https://github.com/kedro-org/kedro-plugins/blob/main/README.md).
+diff --git a/docs/source/deployment/single_machine.md b/docs/source/deployment/single_machine.md
+index 0964a6a..b70ddfc 100644
+--- a/docs/source/deployment/single_machine.md
++++ b/docs/source/deployment/single_machine.md
+@@ -114,7 +114,7 @@ conda install -c conda-forge kedro
+ Install the project’s dependencies, by running the following in the project's root directory:
+ 
+ ```console
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ After having installed your project on the remote server you can run the Kedro project as follows from the root of the project:
+diff --git a/docs/source/development/commands_reference.md b/docs/source/development/commands_reference.md
+index 4dffb24..2481aab 100644
+--- a/docs/source/development/commands_reference.md
++++ b/docs/source/development/commands_reference.md
+@@ -273,10 +273,10 @@ def run(
+ 
+ #### Install all package dependencies
+ 
+-The following runs [`pip`](https://github.com/pypa/pip) to install all package dependencies specified in `src/requirements.txt`:
++The following runs [`pip`](https://github.com/pypa/pip) to install all package dependencies specified in `requirements.txt`:
+ 
+ ```bash
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ For further information, see the [documentation on installing project-specific dependencies](../kedro_project_setup/dependencies.md#install-project-specific-dependencies).
+diff --git a/docs/source/development/linting.md b/docs/source/development/linting.md
+index c4d2631..8beec39 100644
+--- a/docs/source/development/linting.md
++++ b/docs/source/development/linting.md
+@@ -20,7 +20,7 @@ type. [You can read more in the `isort` documentation](https://pycqa.github.io/i
+ 
+ 
+ ### Install the tools
+-Install `black` and `ruff` by adding the following lines to your project's `src/requirements.txt`
++Install `black` and `ruff` by adding the following lines to your project's `requirements.txt`
+ file:
+ ```text
+ black # Used for formatting code
+@@ -30,7 +30,7 @@ ruff # Used for linting, formatting and sorting module imports
+ To install all the project-specific dependencies, including the linting tools, navigate to the root directory of the
+ project and run:
+ ```bash
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ Alternatively, you can individually install the linting tools using the following shell commands:
+ ```bash
+@@ -72,7 +72,7 @@ These hooks are run before committing your code to your repositories to automati
+ making code reviews easier and less time-consuming.
+ 
+ ### Install `pre-commit`
+-You can install `pre-commit` along with other dependencies by including it in the `src/requirements.txt` file of your
++You can install `pre-commit` along with other dependencies by including it in the `requirements.txt` file of your
+ Kedro project by adding the following line:
+ ```text
+ pre-commit
+diff --git a/docs/source/experiment_tracking/index.md b/docs/source/experiment_tracking/index.md
+index 85c943e..15aeeef 100644
+--- a/docs/source/experiment_tracking/index.md
++++ b/docs/source/experiment_tracking/index.md
+@@ -72,7 +72,7 @@ cd spaceflights
+ Install the project's dependencies:
+ 
+ ```bash
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ ## Set up the session store
+@@ -268,7 +268,7 @@ In this section, we illustrate how to compare Matplotlib plots across experiment
+ 
+ ### Update the dependencies
+ 
+-Update the `src/requirements.txt` file in your Kedro project by adding the following dataset to enable Matplotlib for your project:
++Update the `requirements.txt` file in your Kedro project by adding the following dataset to enable Matplotlib for your project:
+ 
+ ```text
+ kedro-datasets[matplotlib.MatplotlibWriter]~=1.1
+@@ -278,7 +278,7 @@ seaborn~=0.12.1
+ And install the requirements with:
+ 
+ ```bash
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ ### Add a plotting node
+diff --git a/docs/source/get_started/new_project.md b/docs/source/get_started/new_project.md
+index 1048c49..6bdc3cb 100644
+--- a/docs/source/get_started/new_project.md
++++ b/docs/source/get_started/new_project.md
+@@ -11,7 +11,7 @@ There are a few ways to create a new project once you have [set up Kedro](instal
+ 
+ Once you've created a project:
+ 
+-* You need to **navigate to its project folder** and **install its dependencies**: `pip install -r src/requirements.txt`
++* You need to **navigate to its project folder** and **install its dependencies**: `pip install -r requirements.txt`
+ * **To run the project**: `kedro run`
+ * **To visualise the project**: `kedro viz`
+ 
+@@ -79,7 +79,7 @@ kedro new --starter=pandas-iris
+ However you create a Kedro project, once `kedro new` has completed, the next step is to navigate to the project folder (`cd <project-name>`) and install dependencies with `pip` as follows:
+ 
+ ```bash
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ Now run the project:
+diff --git a/docs/source/kedro_project_setup/dependencies.md b/docs/source/kedro_project_setup/dependencies.md
+index 6827bf1..aefce98 100644
+--- a/docs/source/kedro_project_setup/dependencies.md
++++ b/docs/source/kedro_project_setup/dependencies.md
+@@ -5,30 +5,30 @@ Both `pip install kedro` and `conda install -c conda-forge kedro` install the co
+ When you create a project, you then introduce additional dependencies for the tasks it performs.
+ 
+ ## Project-specific dependencies
+-You can specify a project's exact dependencies in the `src/requirements.txt` file to make it easier for you and others to run your project in the future,
++You can specify a project's exact dependencies in the `requirements.txt` file to make it easier for you and others to run your project in the future,
+ and to avoid version conflicts downstream. This can be achieved with the help of [`pip-tools`](https://pypi.org/project/pip-tools/).
+ To install `pip-tools` in your virtual environment, run the following command:
+ ```bash
+ pip install pip-tools
+ ```
+ 
+-To add or remove dependencies to a project, edit the `src/requirements.txt` file, then run the following:
++To add or remove dependencies to a project, edit the `requirements.txt` file, then run the following:
+ 
+ ```bash
+-pip-compile <project_root>/src/requirements.txt --output-file <project_root>/src/requirements.lock
++pip-compile <project_root>/requirements.txt --output-file <project_root>/requirements.lock
+ ```
+ 
+ This will [pip compile](https://github.com/jazzband/pip-tools#example-usage-for-pip-compile) the requirements listed in
+-the `src/requirements.txt` file into a `src/requirements.lock` that specifies a list of pinned project dependencies
++the `requirements.txt` file into a `requirements.lock` that specifies a list of pinned project dependencies
+ (those with a strict version). You can also use this command with additional CLI arguments such as `--generate-hashes`
+ to use `pip`'s Hash Checking Mode or `--upgrade-package` to update specific packages to the latest or specific versions.
+ [Check out the `pip-tools` documentation](https://pypi.org/project/pip-tools/) for more information.
+ 
+ ```{note}
+-The `src/requirements.txt` file contains "source" requirements, while `src/requirements.lock` contains the compiled version of those and requires no manual updates.
++The `requirements.txt` file contains "source" requirements, while `requirements.lock` contains the compiled version of those and requires no manual updates.
+ ```
+ 
+-To further update the project requirements, modify the `src/requirements.txt` file (not `src/requirements.lock`) and re-run the `pip-compile` command above.
++To further update the project requirements, modify the `requirements.txt` file (not `requirements.lock`) and re-run the `pip-compile` command above.
+ 
+ 
+ ## Install project-specific dependencies
+@@ -36,7 +36,7 @@ To further update the project requirements, modify the `src/requirements.txt` fi
+ To install the project-specific dependencies, navigate to the root directory of the project and run:
+ 
+ ```bash
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ ## Workflow dependencies
+diff --git a/docs/source/tutorial/spaceflights_tutorial_faqs.md b/docs/source/tutorial/spaceflights_tutorial_faqs.md
+index 0645c40..0f16020 100644
+--- a/docs/source/tutorial/spaceflights_tutorial_faqs.md
++++ b/docs/source/tutorial/spaceflights_tutorial_faqs.md
+@@ -46,7 +46,7 @@ documentation on how to install relevant dependencies for kedro_datasets.pandas.
+ https://kedro.readthedocs.io/en/stable/kedro_project_setup/dependencies.html
+ ```
+ 
+-The Kedro Data Catalog is missing [dependencies needed to parse the data](../kedro_project_setup/dependencies.md#install-dependencies-related-to-the-data-catalog). Check that you have [all the project dependencies to `requirements.txt`](./tutorial_template.md#install-project-dependencies) and then call `pip install -r src/requirements.txt` to install them.
++The Kedro Data Catalog is missing [dependencies needed to parse the data](../kedro_project_setup/dependencies.md#install-dependencies-related-to-the-data-catalog). Check that you have [all the project dependencies to `requirements.txt`](./tutorial_template.md#install-project-dependencies) and then call `pip install -r requirements.txt` to install them.
+ 
+ ### Pipeline run
+ 
+diff --git a/docs/source/tutorial/tutorial_template.md b/docs/source/tutorial/tutorial_template.md
+index bb9cbf6..2abe3f0 100644
+--- a/docs/source/tutorial/tutorial_template.md
++++ b/docs/source/tutorial/tutorial_template.md
+@@ -1,6 +1,6 @@
+ # Set up the spaceflights project
+ 
+-This section shows how to create a new project (with `kedro new` using the [Kedro spaceflights starter](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights)) and install project dependencies (with `pip install -r src/requirements.txt`).
++This section shows how to create a new project (with `kedro new` using the [Kedro spaceflights starter](https://github.com/kedro-org/kedro-starters/tree/main/spaceflights)) and install project dependencies (with `pip install -r requirements.txt`).
+ 
+ ## Create a new project
+ 
+@@ -28,7 +28,7 @@ cd spaceflights
+ 
+ Kedro projects have a `requirements.txt` file to specify their dependencies and enable sharable projects by ensuring consistency across Python packages and versions.
+ 
+-The spaceflights project dependencies are stored in `src/requirements.txt`(you may find that the versions differ slightly depending on the version of Kedro):
++The spaceflights project dependencies are stored in `requirements.txt`(you may find that the versions differ slightly depending on the version of Kedro):
+ 
+ ```text
+ # code quality packages
+@@ -60,7 +60,7 @@ scikit-learn~=1.0
+ To install all the project-specific dependencies, run the following from the project root directory:
+ 
+ ```bash
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ ## Optional: logging and configuration
+diff --git a/docs/source/visualisation/kedro-viz_visualisation.md b/docs/source/visualisation/kedro-viz_visualisation.md
+index d546681..7329f13 100644
+--- a/docs/source/visualisation/kedro-viz_visualisation.md
++++ b/docs/source/visualisation/kedro-viz_visualisation.md
+@@ -18,7 +18,7 @@ When prompted for a project name, you can enter anything, but we will assume `Sp
+ When your project is ready, navigate to the root directory of the project and install the dependencies for the project, which include Kedro-Viz:
+ 
+ ```bash
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ The next step is optional, but useful to check that all is working. Run the full set of pipelines for the tutorial project:
+diff --git a/docs/source/visualisation/share_kedro_viz.md b/docs/source/visualisation/share_kedro_viz.md
+index 85a1a5b..2205eea 100644
+--- a/docs/source/visualisation/share_kedro_viz.md
++++ b/docs/source/visualisation/share_kedro_viz.md
+@@ -32,7 +32,7 @@ kedro>=0.18.2
+ Install the dependencies from the project root directory by typing the following in your terminal:
+ 
+ ```bash
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ ## Configure your AWS S3 bucket and set credentials
+diff --git a/docs/source/visualisation/visualise_charts_with_plotly.md b/docs/source/visualisation/visualise_charts_with_plotly.md
+index 5b14d2c..7e9b48a 100644
+--- a/docs/source/visualisation/visualise_charts_with_plotly.md
++++ b/docs/source/visualisation/visualise_charts_with_plotly.md
+@@ -38,7 +38,7 @@ kedro-datasets[plotly.PlotlyDataSet, plotly.JSONDataSet]~=1.1
+ Navigate to the root directory of the project in your terminal and install the dependencies for the tutorial project:
+ 
+ ```bash
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ ### Configure the Data Catalog
+@@ -177,7 +177,7 @@ You can view Matplotlib charts in Kedro-Viz when you use the [Kedro MatplotLibWr
+ 
+ ### Update the dependencies
+ 
+-You must update the `src/requirements.txt` file in the Kedro project by adding the following dataset to enable Matplotlib for the project:
++You must update the `requirements.txt` file in the Kedro project by adding the following dataset to enable Matplotlib for the project:
+ 
+ ```bash
+ kedro-datasets[matplotlib.MatplotlibWriter]~=1.1
+diff --git a/features/environment.py b/features/environment.py
+index 4e801fe..4c71b4e 100644
+--- a/features/environment.py
++++ b/features/environment.py
+@@ -114,7 +114,7 @@ def _setup_minimal_env(context):
+ def _install_project_requirements(context):
+     install_reqs = (
+         Path(
+-            "kedro/templates/project/{{ cookiecutter.repo_name }}/src/requirements.txt"
++            "kedro/templates/project/{{ cookiecutter.repo_name }}/requirements.txt"
+         )
+         .read_text(encoding="utf-8")
+         .splitlines()
+diff --git a/features/steps/cli_steps.py b/features/steps/cli_steps.py
+index a4b2096..87b796b 100644
+--- a/features/steps/cli_steps.py
++++ b/features/steps/cli_steps.py
+@@ -163,7 +163,7 @@ def create_config_file(context):
+ @given("I have installed the project dependencies")
+ def pip_install_dependencies(context):
+     """Install project dependencies using pip."""
+-    reqs_path = "src/requirements.txt"
++    reqs_path = "requirements.txt"
+     res = run(
+         [context.pip, "install", "-r", reqs_path],
+         env=context.env,
+@@ -409,7 +409,7 @@ def update_pyproject_toml(context: behave.runner.Context, new_source_dir):
+ @given("I have updated kedro requirements")
+ def update_kedro_req(context: behave.runner.Context):
+     """Remove kedro as a standalone requirement."""
+-    reqs_path = context.root_project_dir / "src" / "requirements.txt"
++    reqs_path = context.root_project_dir / "requirements.txt"
+ 
+     if reqs_path.is_file():
+         old_reqs = reqs_path.read_text().splitlines()
+@@ -427,7 +427,7 @@ def update_kedro_req(context: behave.runner.Context):
+ 
+ @when("I add {dependency} to the requirements")
+ def add_req(context: behave.runner.Context, dependency: str):
+-    reqs_path = context.root_project_dir / "src" / "requirements.txt"
++    reqs_path = context.root_project_dir / "requirements.txt"
+     if reqs_path.is_file():
+         reqs_path.write_text(reqs_path.read_text() + "\n" + str(dependency) + "\n")
+ 
+@@ -605,14 +605,14 @@ def check_docs_generated(context: behave.runner.Context):
+ @then("requirements should be generated")
+ def check_reqs_generated(context: behave.runner.Context):
+     """Check that new project requirements are generated."""
+-    reqs_path = context.root_project_dir / "src" / "requirements.lock"
++    reqs_path = context.root_project_dir / "requirements.lock"
+     assert reqs_path.is_file()
+     assert "This file is autogenerated by pip-compile" in reqs_path.read_text()
+ 
+ 
+ @then("{dependency} should be in the requirements")
+ def check_dependency_in_reqs(context: behave.runner.Context, dependency: str):
+-    reqs_path = context.root_project_dir / "src" / "requirements.txt"
++    reqs_path = context.root_project_dir / "requirements.txt"
+     assert dependency in reqs_path.read_text()
+ 
+ 
+diff --git a/features/steps/test_starter/{{ cookiecutter.repo_name }}/README.md b/features/steps/test_starter/{{ cookiecutter.repo_name }}/README.md
+index 72d74e4..8186277 100644
+--- a/features/steps/test_starter/{{ cookiecutter.repo_name }}/README.md	
++++ b/features/steps/test_starter/{{ cookiecutter.repo_name }}/README.md	
+@@ -17,12 +17,12 @@ In order to get the best out of the template:
+ 
+ ## How to install dependencies
+ 
+-Declare any dependencies in `src/requirements.txt` for `pip` installation.
++Declare any dependencies in `requirements.txt` for `pip` installation.
+ 
+ To install them, run:
+ 
+ ```
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ ## How to run Kedro
+@@ -46,7 +46,7 @@ To configure the coverage threshold, look at the `.coveragerc` file.
+ 
+ ## Project dependencies
+ 
+-To see and update the dependency requirements for your project use `src/requirements.txt`. You can install the project requirements with `pip install -r src/requirements.txt`.
++To see and update the dependency requirements for your project use `requirements.txt`. You can install the project requirements with `pip install -r requirements.txt`.
+ 
+ [Further information about project dependencies](https://docs.kedro.org/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
+ 
+diff --git a/features/steps/test_starter/{{ cookiecutter.repo_name }}/pyproject.toml b/features/steps/test_starter/{{ cookiecutter.repo_name }}/pyproject.toml
+index 9208373..b24056a 100644
+--- a/features/steps/test_starter/{{ cookiecutter.repo_name }}/pyproject.toml	
++++ b/features/steps/test_starter/{{ cookiecutter.repo_name }}/pyproject.toml	
+@@ -1,3 +1,28 @@
++[build-system]
++requires = ["setuptools"]
++build-backend = "setuptools.build_meta"
++
++[project]
++name = "{{ cookiecutter.python_package }}"
++version = "0.1"
++dynamic = ["dependencies"]
++
++[project.scripts]
++{{ cookiecutter.repo_name }} = "{{ cookiecutter.python_package }}.__main__:main"
++
++[project.optional-dependencies]
++docs = [
++    "docutils<0.18.0",
++    "sphinx~=3.4.3",
++    "sphinx_rtd_theme==0.5.1",
++    "nbsphinx==0.8.1",
++    "sphinx-autodoc-typehints==1.11.1",
++    "sphinx_copybutton==0.3.1",
++    "ipykernel>=5.3, <7.0",
++    "Jinja2<3.1.0",
++    "myst-parser~=0.17.2",
++]
++
+ [tool.kedro]
+ project_name = "{{ cookiecutter.project_name }}"
+ project_version = "{{ cookiecutter.kedro_version }}"
+@@ -12,3 +37,11 @@ addopts = """
+ fail_under = 0
+ show_missing = true
+ exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
++
++[tool.setuptools.dynamic]
++dependencies = {file = "requirements.txt"}
++
++[tool.setuptools.packages.find]
++where = ["src"]
++namespaces = false
++exclude = ["tests"]
+diff --git a/features/steps/test_starter/{{ cookiecutter.repo_name }}/src/requirements.txt b/features/steps/test_starter/{{ cookiecutter.repo_name }}/requirements.txt
+similarity index 100%
+rename from features/steps/test_starter/{{ cookiecutter.repo_name }}/src/requirements.txt
+rename to features/steps/test_starter/{{ cookiecutter.repo_name }}/requirements.txt
+diff --git a/features/steps/test_starter/{{ cookiecutter.repo_name }}/src/pyproject.toml b/features/steps/test_starter/{{ cookiecutter.repo_name }}/src/pyproject.toml
+deleted file mode 100644
+index 73b6242..0000000
+--- a/features/steps/test_starter/{{ cookiecutter.repo_name }}/src/pyproject.toml	
++++ /dev/null
+@@ -1,30 +0,0 @@
+-[build-system]
+-requires = ["setuptools"]
+-build-backend = "setuptools.build_meta"
+-
+-[project]
+-name = "{{ cookiecutter.python_package }}"
+-version = "0.1"
+-dynamic = ["dependencies"]
+-
+-[tool.setuptools.packages.find]
+-exclude = ["tests"]
+-
+-[project.scripts]
+-{{ cookiecutter.repo_name }} = "{{ cookiecutter.python_package }}.__main__:main"
+-
+-[project.optional-dependencies]
+-docs = [
+-    "docutils<0.18.0",
+-    "sphinx~=3.4.3",
+-    "sphinx_rtd_theme==0.5.1",
+-    "nbsphinx==0.8.1",
+-    "sphinx-autodoc-typehints==1.11.1",
+-    "sphinx_copybutton==0.3.1",
+-    "ipykernel>=5.3, <7.0",
+-    "Jinja2<3.1.0",
+-    "myst-parser~=0.17.2",
+-]
+-
+-[tool.setuptools.dynamic]
+-dependencies = {file = "requirements.txt"}
+diff --git a/kedro/framework/cli/micropkg.py b/kedro/framework/cli/micropkg.py
+index d063659..9fabcba 100644
+--- a/kedro/framework/cli/micropkg.py
++++ b/kedro/framework/cli/micropkg.py
+@@ -243,7 +243,7 @@ def _pull_package(  # noqa: too-many-arguments
+         package_reqs = _get_all_library_reqs(library_meta)
+ 
+         if package_reqs:
+-            requirements_txt = metadata.source_dir / "requirements.txt"
++            requirements_txt = metadata.project_path / "requirements.txt"
+             _append_package_reqs(requirements_txt, package_reqs, package_name)
+ 
+         _clean_pycache(temp_dir_path)
+@@ -962,8 +962,8 @@ def _append_package_reqs(
+             file.write(sep.join(sorted_reqs))
+ 
+     click.secho(
+-        "Use 'pip-compile src/requirements.txt --output-file src/requirements.lock' to compile "
+-        "and 'pip install -r src/requirements.lock' to install the updated list of requirements."
++        "Use 'pip-compile requirements.txt --output-file requirements.lock' to compile "
++        "and 'pip install -r requirements.lock' to install the updated list of requirements."
+     )
+ 
+ 
+diff --git a/kedro/framework/cli/project.py b/kedro/framework/cli/project.py
+index e9286e7..b6ef6ea 100644
+--- a/kedro/framework/cli/project.py
++++ b/kedro/framework/cli/project.py
+@@ -5,6 +5,7 @@ import sys
+ from pathlib import Path
+ 
+ import click
++import toml
+ 
+ from kedro.framework.cli.utils import (
+     _check_module_importable,
+@@ -26,7 +27,7 @@ from kedro.framework.startup import ProjectMetadata
+ from kedro.utils import load_obj
+ 
+ NO_DEPENDENCY_MESSAGE = """{module} is not installed. Please make sure {module} is in
+-{src}/requirements.txt and run 'pip install -r src/requirements.txt'."""
++requirements.txt and run 'pip install -r requirements.txt'."""
+ LINT_CHECK_ONLY_HELP = """Check the files for style guide violations, unsorted /
+ unformatted imports, and unblackened Python code without modifying the files."""
+ OPEN_ARG_HELP = """Open the documentation in your default browser after building."""
+@@ -84,7 +85,18 @@ def ipython(metadata: ProjectMetadata, env, args, **kwargs):  # noqa: unused-arg
+ @click.pass_obj  # this will pass the metadata as first argument
+ def package(metadata: ProjectMetadata):
+     """Package the project as a Python wheel."""
+-    source_path = metadata.source_dir
++    # Projects created with the merged template declare [project] in the root
++    # pyproject.toml; older projects keep a separate src/pyproject.toml.
++    pyproject_path = metadata.project_path / "pyproject.toml"
++    if pyproject_path.is_file() and "project" in toml.loads(
++        pyproject_path.read_text(encoding="utf-8")
++    ):
++        source_path = metadata.project_path
++        destination_dir = "dist"
++    else:
++        source_path = metadata.source_dir
++        destination_dir = "../dist"
++
+     call(
+         [
+             sys.executable,
+@@ -92,7 +104,7 @@ def package(metadata: ProjectMetadata):
+             "build",
+             "--wheel",
+             "--outdir",
+-            "../dist",
++            destination_dir,
+         ],
+         cwd=str(source_path),
+     )
+diff --git a/kedro/framework/cli/starters.py b/kedro/framework/cli/starters.py
+index 25e68f3..a3a2a80 100644
+--- a/kedro/framework/cli/starters.py
++++ b/kedro/framework/cli/starters.py
+@@ -371,7 +371,7 @@ def _create_project(template_path: str, cookiecutter_args: dict[str, Any]):
+     )
+     click.secho(
+         "\nA best-practice setup includes initialising git and creating "
+-        "a virtual environment before running 'pip install -r src/requirements.txt' to install "
++        "a virtual environment before running 'pip install -r requirements.txt' to install "
+         "project-specific dependencies. Refer to the Kedro documentation: "
+         "https://kedro.readthedocs.io/"
+     )
+diff --git a/kedro/framework/cli/utils.py b/kedro/framework/cli/utils.py
+index 3240c3c..cc56be5 100644
+--- a/kedro/framework/cli/utils.py
++++ b/kedro/framework/cli/utils.py
+@@ -354,7 +354,7 @@ def _check_module_importable(module_name: str) -> None:
+     except ImportError as exc:
+         raise KedroCliError(
+             f"Module '{module_name}' not found. Make sure to install required project "
+-            f"dependencies by running the 'pip install -r src/requirements.txt' command first."
++            f"dependencies by running the 'pip install -r requirements.txt' command first."
+         ) from exc
+ 
+ 
+diff --git a/kedro/templates/project/{{ cookiecutter.repo_name }}/README.md b/kedro/templates/project/{{ cookiecutter.repo_name }}/README.md
+index 19d9afc..9abe04f 100644
+--- a/kedro/templates/project/{{ cookiecutter.repo_name }}/README.md	
++++ b/kedro/templates/project/{{ cookiecutter.repo_name }}/README.md	
+@@ -17,12 +17,12 @@ In order to get the best out of the template:
+ 
+ ## How to install dependencies
+ 
+-Declare any dependencies in `src/requirements.txt` for `pip` installation and `src/environment.yml` for `conda` installation.
++Declare any dependencies in `requirements.txt` for `pip` installation.
+ 
+ To install them, run:
+ 
+ ```
+-pip install -r src/requirements.txt
++pip install -r requirements.txt
+ ```
+ 
+ ## How to run your Kedro pipeline
+@@ -46,7 +46,7 @@ To configure the coverage threshold, look at the `.coveragerc` file.
+ 
+ ## Project dependencies
+ 
+-To see and update the dependency requirements for your project use `src/requirements.txt`. You can install the project requirements with `pip install -r src/requirements.txt`.
++To see and update the dependency requirements for your project use `requirements.txt`. You can install the project requirements with `pip install -r requirements.txt`.
+ 
+ [Further information about project dependencies](https://docs.kedro.org/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
+ 
+@@ -54,7 +54,7 @@ To see and update the dependency requirements for your project use `src/requirem
+ 
+ > Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `context`, `catalog`, and `startup_error`.
+ >
+-> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r src/requirements.txt` you will not need to take any extra steps before you use them.
++> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r requirements.txt` you will not need to take any extra steps before you use them.
+ 
+ ### Jupyter
+ To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
+diff --git a/kedro/templates/project/{{ cookiecutter.repo_name }}/pyproject.toml b/kedro/templates/project/{{ cookiecutter.repo_name }}/pyproject.toml
+index 48be962..cea849e 100644
+--- a/kedro/templates/project/{{ cookiecutter.repo_name }}/pyproject.toml	
++++ b/kedro/templates/project/{{ cookiecutter.repo_name }}/pyproject.toml	
+@@ -1,3 +1,30 @@
++[build-system]
++requires = ["setuptools"]
++build-backend = "setuptools.build_meta"
++
++[project]
++name = "{{ cookiecutter.python_package }}"
++version = "0.1"
++dynamic = ["dependencies"]
++
++[project.scripts]
++{{ cookiecutter.repo_name }} = "{{ cookiecutter.python_package }}.__main__:main"
++
++[project.optional-dependencies]
++docs = [
++    "docutils<0.18.0",
++    "sphinx~=3.4.3",
++    "sphinx_rtd_theme==0.5.1",
++    "nbsphinx==0.8.1",
++    "sphinx-autodoc-typehints==1.11.1",
++    "sphinx_copybutton==0.3.1",
++    "ipykernel>=5.3, <7.0",
++    "Jinja2<3.1.0",
++    "myst-parser~=0.17.2",
++]
++
++[project.entry-points."kedro.hooks"]
++
+ [tool.kedro]
+ package_name = "{{ cookiecutter.python_package }}"
+ project_name = "{{ cookiecutter.project_name }}"
+@@ -12,3 +39,11 @@ addopts = """
+ fail_under = 0
+ show_missing = true
+ exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
++
++[tool.setuptools.dynamic]
++dependencies = {file = "requirements.txt"}
++
++[tool.setuptools.packages.find]
++where = ["src"]
++namespaces = false
++exclude = ["tests"]
+diff --git a/kedro/templates/project/{{ cookiecutter.repo_name }}/src/requirements.txt b/kedro/templates/project/{{ cookiecutter.repo_name }}/requirements.txt
+similarity index 100%
+rename from kedro/templates/project/{{ cookiecutter.repo_name }}/src/requirements.txt
+rename to kedro/templates/project/{{ cookiecutter.repo_name }}/requirements.txt
+diff --git a/kedro/templates/project/{{ cookiecutter.repo_name }}/src/pyproject.toml b/kedro/templates/project/{{ cookiecutter.repo_name }}/src/pyproject.toml
+deleted file mode 100644
+index 5157ec7..0000000
+--- a/kedro/templates/project/{{ cookiecutter.repo_name }}/src/pyproject.toml	
++++ /dev/null
+@@ -1,32 +0,0 @@
+-[build-system]
+-requires = ["setuptools"]
+-build-backend = "setuptools.build_meta"
+-
+-[project]
+-name = "{{ cookiecutter.python_package }}"
+-version = "0.1"
+-dynamic = ["dependencies"]
+-
+-[tool.setuptools.packages.find]
+-exclude = ["tests"]
+-
+-[project.scripts]
+-{{ cookiecutter.repo_name }} = "{{ cookiecutter.python_package }}.__main__:main"
+-
+-[project.optional-dependencies]
+-docs = [
+-    "docutils<0.18.0",
+-    "sphinx~=3.4.3",
+-    "sphinx_rtd_theme==0.5.1",
+-    "nbsphinx==0.8.1",
+-    "sphinx-autodoc-typehints==1.11.1",
+-    "sphinx_copybutton==0.3.1",
+-    "ipykernel>=5.3, <7.0",
+-    "Jinja2<3.1.0",
+-    "myst-parser~=0.17.2",
+-]
+-
+-[project.entry-points."kedro.hooks"]
+-
+-[tool.setuptools.dynamic]
+-dependencies = {file = "requirements.txt"}

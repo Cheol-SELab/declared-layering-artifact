@@ -1,0 +1,24 @@
+snapshot   commits units  S1    S2   S2n  S3  up  decl-change next Q
+2025-10-01     358    24   2  0.09  0.88   2  10  YES 2025-11-26
+2026-01-01     296    25   3  0.09  0.82   3  10  YES 2026-03-02,2026-03-25
+2026-04-01  no declaration
+2026-07-01  no declaration
+2026-10-01    2031     4   0  0.35  0.71   0 100  -
+
+== details ==
+
+2025-10-01 (dd71625)  top changed: [('nodes', 330), ('graph_engine', 36), ('entities', 32)]
+   hidden: entities ~ nodes  sup=23 conf=0.74
+   hidden: graph_engine ~ nodes  sup=30 conf=0.83
+   uncovered: ['entities', 'layers']
+
+2026-01-01 (9b6b2f3)  top changed: [('nodes', 264), ('graph_engine', 26), ('entities', 20)]
+   hidden: entities ~ graph_engine  sup=7 conf=0.54
+   hidden: entities ~ nodes  sup=14 conf=0.7
+   hidden: graph_engine ~ nodes  sup=21 conf=0.81
+   uncovered: ['command_channels', 'entities', 'layers']
+
+2026-10-01 (1a918ea)  top changed: [('controllers', 984), ('services', 907), ('core', 886)]
+
+== prediction summary (flag = S1>=2 or S2>=0.6 or S3>=1 with change count>0) ==
+TP=2 FP=0 FN=0 TN=1  precision=1.00 recall=1.00  base rate=0.67

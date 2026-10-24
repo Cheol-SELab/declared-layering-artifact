@@ -1,0 +1,5 @@
+{"kedro.io.partitioned_dataset": "kedro.partitioned.partitioned_dataset",
+ "kedro.io.PartitionedDataset": "kedro.partitioned.PartitionedDataset",
+ "kedro.io.PartitionedDataSet": "kedro.partitioned.PartitionedDataSet",
+ "kedro.io.IncrementalDataset": "kedro.partitioned.IncrementalDataset",
+ "kedro.io.IncrementalDataSet": "kedro.partitioned.IncrementalDataSet"}

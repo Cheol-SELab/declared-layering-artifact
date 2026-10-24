@@ -1,0 +1,10 @@
+{
+ "cond": "A",
+ "task": "51c078d",
+ "lint_broken": 0,
+ "n": 6966,
+ "failed": [
+  "tests.handling.indexing.test_blocking_until_indexed::test_unblocking_once_operator_is_ready[cluster-None]",
+  "tests.handling.indexing.test_blocking_until_indexed::test_unblocking_once_operator_is_ready[namespaced-MODIFIED]"
+ ]
+}

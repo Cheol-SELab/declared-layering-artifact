@@ -1,0 +1,46 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "91f7ae0",
+ "rep": "r2",
+ "commit": "91f7ae04984de2c6986c10626fbdf09741b83865",
+ "spec": [
+  "tests/handling/test_delays.py"
+ ],
+ "code_in_pr": [
+  "kopf/_core/actions/execution.py",
+  "kopf/_core/actions/progression.py"
+ ],
+ "spec_sha": {
+  "tests/handling/test_delays.py": "2af2923c05012f90e0d7c383bdfb89d4a2d5f30f50d533b971b1deb09bf144cc"
+ },
+ "message": "Restrict the handler state's \"started\"/\"active\" from being None, which has no meaning\n\nSigned-off-by: Sergey Vasilyev <nolar@nolar.info>",
+ "moves": {},
+ "created": "2026-10-06T00:12:15",
+ "pre_spec": {
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[namespaced-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_progress[cluster-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[namespaced-slow-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-fast-resume]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-create]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-update]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-delete]": "passed",
+  "tests.handling.test_delays::test_delayed_handlers_sleep[cluster-slow-resume]": "passed"
+ }
+}

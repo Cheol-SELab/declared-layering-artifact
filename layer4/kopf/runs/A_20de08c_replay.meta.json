@@ -1,0 +1,30 @@
+{
+ "repo": "kopf",
+ "cond": "A",
+ "task": "20de08c",
+ "rep": "replay",
+ "commit": "20de08c78c8e363d02f1d2622b7052818df8a6da",
+ "spec": [
+  "tests/conftest.py"
+ ],
+ "code_in_pr": [
+  "_importlinter_conditional.py",
+  "kopf/_cogs/aiokits/aioenums.py",
+  "kopf/_cogs/clients/api.py",
+  "kopf/_cogs/structs/bodies.py",
+  "kopf/_cogs/structs/dicts.py",
+  "kopf/_core/engines/peering.py",
+  "kopf/_core/intents/registries.py",
+  "kopf/_kits/runner.py",
+  "kopf/on.py"
+ ],
+ "spec_sha": {
+  "tests/conftest.py": "1d075d25a47e6ab33674161857b4082e75d18079e86839bae36db786e17343d3"
+ },
+ "message": "Rewrite to explicit code blocks in docs (for LLMs readability)\n\nSigned-off-by: Sergey Vasilyev <nolar@nolar.info>",
+ "moves": {},
+ "created": "2026-10-06T01:18:10",
+ "pre_spec": {},
+ "replay_apply_rc": 0,
+ "replay_apply_out": "Applied patch to '_importlinter_conditional.py' cleanly.\nApplied patch to 'kopf/_cogs/aiokits/aioenums.py' cleanly.\nApplied patch to 'kopf/_cogs/clients/api.py' cleanly.\nApplied patch to 'kopf/_cogs/structs/bodies.py' cleanly.\nApplied patch to 'kopf/_cogs/structs/dicts.py' cleanly.\nApplied patch to 'kopf/_core/engines/peering.py' cleanly.\nApplied patch to 'kopf/_core/intents/registries.py' cleanly.\nApplied patch to 'kopf/_kits/runner.py' cleanly.\nApplied patch to 'kopf/on.py' cleanly.\n"
+}
